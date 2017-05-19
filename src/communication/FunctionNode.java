@@ -1,5 +1,6 @@
 package communication;
 
+import agent.FactorGraphAgent;
 import kernel.Constraint;
 
 import java.util.List;
@@ -12,9 +13,10 @@ public class FunctionNode {
     private Constraint constraint;
     private DCOPagent owner;
 
-    public FunctionNode(DCOPagent owner, Constraint constraint) {
+    public FunctionNode(FactorGraphAgent owner, Constraint constraint) {
         this.owner = owner;
         this.constraint = constraint;
+        owner.addFunctionNode(this);
     }
 
     public void addNeighbor(VariableNode varNode) {

@@ -1,5 +1,6 @@
 package kernel;
 
+import agent.FactorGraphAgent;
 import communication.DCOPagent;
 import communication.FunctionNode;
 import communication.VariableNode;
@@ -19,14 +20,18 @@ public class FactorGraph {
     private HashMap<Variable, VariableNode> varToVariableNodeMap;
     private HashMap<Constraint, FunctionNode> conToFunctionNodeMap;
 
-    FactorGraph(DCOPInstance DCOP) {
+    /**
+     * We assumem that the agents calling this function are of class FactorGraphAgent
+     * @param DCOP
+     */
+    public FactorGraph(DCOPInstance DCOP) {
         varToVariableNodeMap = new HashMap<>();
         conToFunctionNodeMap = new HashMap<>();
 
         // Create variable nodes
         for (Variable v : DCOP.getDCOPVariable()) {
             long aId = v.getOwnerAgent().getID();
-            DCOPagent agent = DCOPinfo.agentsRef.get(aId);
+            FactorGraphAgent agent = (FactorGraphAgent)DCOPinfo.agentsRef.get(aId);
             VariableNode vnode = new VariableNode(agent, v);
             varToVariableNodeMap.put(v, vnode);
         }
@@ -34,7 +39,7 @@ public class FactorGraph {
         // Create function nodes
         for (Constraint c : DCOP.getDCOPConstraint()) {
             long aId = getOnwerId(c);
-            DCOPagent agent = DCOPinfo.agentsRef.get(aId);
+            FactorGraphAgent agent = (FactorGraphAgent)DCOPinfo.agentsRef.get(aId);
             FunctionNode fnode = new FunctionNode(agent, c);
             conToFunctionNodeMap.put(c, fnode);
 

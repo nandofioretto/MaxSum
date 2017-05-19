@@ -1,5 +1,6 @@
 package communication;
 
+import agent.FactorGraphAgent;
 import kernel.Variable;
 import java.util.List;
 
@@ -11,9 +12,10 @@ public class VariableNode {
     private DCOPagent owner;
     private Variable variable;
 
-    public VariableNode(DCOPagent owner, Variable variable) {
+    public VariableNode(FactorGraphAgent owner, Variable variable) {
         this.owner = owner;
         this.variable = variable;
+        owner.addVariableNode(this);
     }
 
     public void addNeighbor(FunctionNode fNode) {

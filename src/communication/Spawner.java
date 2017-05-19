@@ -22,10 +22,12 @@
 
 package communication;
 
+import agent.FactorGraphAgent;
 import agent.MaxSum.MaxSumAgent;
 import kernel.AgentState;
 import kernel.DCOPInstance;
 import kernel.DCOPinfo;
+import kernel.FactorGraph;
 
 import java.util.*;
 
@@ -37,8 +39,10 @@ public class Spawner {
 
     private List<AgentState> spawnedAgentStates;
     private HashMap<String, DCOPagent> yellowPages;
+    DCOPInstance dcopInstance = null;
 
     public Spawner(DCOPInstance instance) {
+        dcopInstance = instance;
         spawnedAgentStates = new ArrayList<AgentState>();
         yellowPages = new HashMap<String, DCOPagent>();
 
@@ -63,6 +67,7 @@ public class Spawner {
         // Spawns agents and start the DCOP algorithm
         for (AgentState agtState : spawnedAgentStates) {
             final DCOPagent agt = DCOPagentFactory(algParameters, statsCollector, agtState);
+
             DCOPinfo.agentsRef.put(agt.getId(), agt);
             yellowPages.put(agtState.getName(), agt);
             assert agt != null;
@@ -89,7 +94,7 @@ public class Spawner {
         // Wait some time for discovery phase
         try {Thread.sleep(DCOPinfo.nbAgents * 50);} catch (InterruptedException e) {e.printStackTrace();}
 
-        // TODO: Add Factor graph information here, if we are going to create factor graph agents.
+        constructOrdering();
 
         // Signals start to all agents
         for (AgentState agtState : this.spawnedAgentStates) {
@@ -115,6 +120,18 @@ public class Spawner {
     private DCOPagent DCOPagentFactory(List<Object> algParameters, ComAgent statsCollector, AgentState agtState) {
         // todo: Modify here to add possibly different algorithms.
         return new MaxSumAgent(statsCollector, agtState, algParameters);
+    }
+
+    /**
+     * This function construct an ordering of the DCOP agents.
+     * At the end of this function all agents will know their position in their ordering and their neighbors.
+     */
+    private void constructOrdering() {
+
+        if (DCOPinfo.leaderAgent instanceof FactorGraphAgent)
+        {
+            new FactorGraph(dcopInstance);
+        }
     }
 
 }
