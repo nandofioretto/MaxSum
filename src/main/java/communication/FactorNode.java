@@ -9,12 +9,12 @@ import java.util.List;
 /**
  * Created by nando on 5/17/17.
  */
-public class FunctionNode {
+public class FactorNode {
     private List<VariableNode> neighbors;
     private Constraint constraint;
     private DCOPagent owner;
 
-    public FunctionNode(FactorGraphAgent owner, Constraint constraint) {
+    public FactorNode(FactorGraphAgent owner, Constraint constraint) {
         this.owner = owner;
         this.constraint = constraint;
         neighbors = new ArrayList<>();
@@ -44,7 +44,7 @@ public class FunctionNode {
 
     @Override
     public String toString() {
-        String s = "FunctionNode: " +
+        String s = "FactorNode: " +
                 " owner= " + owner.getName() +
                 " variable= " + constraint.getName() +
                 " neighbors_var= ";
