@@ -2,6 +2,8 @@ package communication;
 
 import agent.FactorGraphAgent;
 import kernel.Variable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +17,7 @@ public class VariableNode {
     public VariableNode(FactorGraphAgent owner, Variable variable) {
         this.owner = owner;
         this.variable = variable;
+        neighbors = new ArrayList<>();
         owner.addVariableNode(this);
     }
 
@@ -33,5 +36,20 @@ public class VariableNode {
 
     public Variable getVariable() {
         return variable;
+    }
+
+    public long getID() {
+        return variable.getID();
+    }
+
+    @Override
+    public String toString() {
+        String s = "VariableNode: " +
+                " owner= " + owner.getName() +
+                " variable= " + variable.getName() +
+                " neighbors_con= ";
+        for (FunctionNode f : neighbors)
+            s += f.getConstraint().getName() + " ";
+        return s;
     }
 }

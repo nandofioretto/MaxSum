@@ -1,10 +1,10 @@
 package kernel;
 
 import agent.FactorGraphAgent;
-import communication.DCOPagent;
 import communication.FunctionNode;
 import communication.VariableNode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,19 +28,24 @@ public class FactorGraph {
         varToVariableNodeMap = new HashMap<>();
         conToFunctionNodeMap = new HashMap<>();
 
+        variableNodes = new ArrayList<>();
+        functionNodes = new ArrayList<>();
+
         // Create variable nodes
-        for (Variable v : DCOP.getDCOPVariable()) {
+        for (Variable v : DCOP.getDCOPVariables()) {
             long aId = v.getOwnerAgent().getID();
             FactorGraphAgent agent = (FactorGraphAgent)DCOPinfo.agentsRef.get(aId);
             VariableNode vnode = new VariableNode(agent, v);
+            variableNodes.add(vnode);
             varToVariableNodeMap.put(v, vnode);
         }
 
         // Create function nodes
-        for (Constraint c : DCOP.getDCOPConstraint()) {
+        for (Constraint c : DCOP.getDCOPConstraints()) {
             long aId = getOnwerId(c);
             FactorGraphAgent agent = (FactorGraphAgent)DCOPinfo.agentsRef.get(aId);
             FunctionNode fnode = new FunctionNode(agent, c);
+            functionNodes.add(fnode);
             conToFunctionNodeMap.put(c, fnode);
 
             // Add function nodes neighbors (i.e., all variable nodes connected to it)
@@ -61,4 +66,15 @@ public class FactorGraph {
         return id;
     }
 
+    @Override
+    public String toString() {
+        String s = "FactorGraph:\n\t";
+        for (VariableNode v : variableNodes) {
+            s += v +"\n\t";
+        }
+        for (FunctionNode f : functionNodes) {
+            s += f +"\n\t";
+        }
+        return s;
+    }
 }

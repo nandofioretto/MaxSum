@@ -25,6 +25,7 @@ package kernel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ffiorett on 7/7/15.
@@ -135,18 +136,17 @@ public class TableConstraint implements Constraint {
         for(Variable s : scope) ret += s.getName() + " ";
         ret += "}";
 
-//        ret += " def value = " + defaultValue + " best/worst=["
-//        + bestValue + ", " + worstValue + "]\n";
-//
-//        for (Map.Entry<Tuple, Integer> entry : relation.entrySet()) {
-//            ret += "";
-//            for(Integer v : entry.getKey().getValues())
-//                ret += " " + v ;
-//            int val = entry.getValue();
-//            ret += ": ";
-//            ret += val == Constants.infinity ? "inf" : val == -Constants.infinity ? "-inf" : val;
-//            ret += " | ";
-//        }
+        ret += " def value = " + defaultValue + " best/worst=["
+        + bestValue + ", " + worstValue + "]\n";
+
+        for (Map.Entry<Tuple, Double> entry : relation.entrySet()) {
+            ret += "";
+            for(Integer v : entry.getKey().getValues())
+                ret += " " + v ;
+            double val = entry.getValue();
+            ret += ": ";
+            ret += val == Constants.infinity ? "inf" : val == -Constants.infinity ? "-inf" : val + "\n";
+        }
         return ret;
     }
 

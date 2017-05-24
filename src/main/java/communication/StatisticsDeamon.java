@@ -91,7 +91,7 @@ public class StatisticsDeamon extends ComAgent {
     }
 
     //////////////
-    // Messages
+    // Message
     //////////////
     public static class AgentStatisticsInfo implements Serializable {
         private static final long serialVersionUID = 3000000000000000001L;

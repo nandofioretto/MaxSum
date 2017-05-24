@@ -21,6 +21,7 @@
  */
 
 import communication.DCOPagent;
+import communication.Spawner;
 import kernel.*;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class dcop_jtools {
         String repairPhase = "TDBR";
         String destroyPhase = "RAND";
         List<Object> algParams = new ArrayList<>();
-        int nbIterations = 500;
+        int nbIterations = 10;
         long timeoutMs = Constants.infinity; // no-timeout
         String file = "../data/2-constraint.dimacs";
 
@@ -60,15 +61,13 @@ public class dcop_jtools {
             }
         }
 
-        algParams.add(destroyPhase);
-        algParams.add(repairPhase);
         algParams.add(nbIterations);
         algParams.add(timeoutMs);
 
         DCOPInstance dcopInstance = DCOPInstanceFactory.importDCOPInstance(file);
 
-//        Spawner spawner = new Spawner(dcopInstance);
-//        spawner.spawn(algParams);
+        Spawner spawner = new Spawner(dcopInstance);
+        spawner.spawn(algParams);
 
         // Summary Output
 //        System.out.println(getSummary(spawner.getSpawnedAgents(), nbIterations));

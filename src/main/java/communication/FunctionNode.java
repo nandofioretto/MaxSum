@@ -3,6 +3,7 @@ package communication;
 import agent.FactorGraphAgent;
 import kernel.Constraint;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public class FunctionNode {
     public FunctionNode(FactorGraphAgent owner, Constraint constraint) {
         this.owner = owner;
         this.constraint = constraint;
+        neighbors = new ArrayList<>();
         owner.addFunctionNode(this);
     }
 
@@ -34,5 +36,20 @@ public class FunctionNode {
 
     public DCOPagent getOwner() {
         return owner;
+    }
+
+    public long getID() {
+        return constraint.getID();
+    }
+
+    @Override
+    public String toString() {
+        String s = "FunctionNode: " +
+                " owner= " + owner.getName() +
+                " variable= " + constraint.getName() +
+                " neighbors_var= ";
+        for (VariableNode v : neighbors)
+            s += v.getVariable().getName() + " ";
+        return s;
     }
 }

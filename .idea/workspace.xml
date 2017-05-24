@@ -2,59 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e39f744f-603d-495d-b1f9-8bc484755592" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/apacheds_all_1_5_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/json_simple_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/2-constraint.dimacs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/3-constraint.dimacs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/3-constraint.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/3-constraint.out" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/binary.dimacs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/binary.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/binary.out" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/apacheds-all-1.5.5.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/commons-io-1.1.jar" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/agent/FactorGraphAgent.java" afterPath="$PROJECT_DIR$/src/main/java/agent/FactorGraphAgent.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/agent/MaxSum/MaxSumAgent.java" afterPath="$PROJECT_DIR$/src/main/java/agent/MaxSum/MaxSumAgent.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/AgentStatistics.java" afterPath="$PROJECT_DIR$/src/main/java/communication/AgentStatistics.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/BasicMessage.java" afterPath="$PROJECT_DIR$/src/main/java/communication/BasicMessage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/ComAgent.java" afterPath="$PROJECT_DIR$/src/main/java/communication/ComAgent.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/DCOPagent.java" afterPath="$PROJECT_DIR$/src/main/java/communication/DCOPagent.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/FunctionNode.java" afterPath="$PROJECT_DIR$/src/main/java/communication/FunctionNode.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/Messages.java" afterPath="$PROJECT_DIR$/src/main/java/communication/Messages.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/PseudoTree.java" afterPath="$PROJECT_DIR$/src/main/java/communication/PseudoTree.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/Spawner.java" afterPath="$PROJECT_DIR$/src/main/java/communication/Spawner.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/StatisticsDeamon.java" afterPath="$PROJECT_DIR$/src/main/java/communication/StatisticsDeamon.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/StopWatch.java" afterPath="$PROJECT_DIR$/src/main/java/communication/StopWatch.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/TrackableObject.java" afterPath="$PROJECT_DIR$/src/main/java/communication/TrackableObject.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/communication/VariableNode.java" afterPath="$PROJECT_DIR$/src/main/java/communication/VariableNode.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/dcop_jtools.java" afterPath="$PROJECT_DIR$/src/main/java/dcop_jtools.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/AgentActions.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/AgentActions.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/AgentState.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/AgentState.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/AgentView.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/AgentView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/BoundDomain.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/BoundDomain.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/Constants.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/Constraint.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/Constraint.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/ConstraintFactory.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/ConstraintFactory.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/DCOPInstance.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/DCOPInstance.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/DCOPInstanceFactory.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/DCOPInstanceFactory.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/DCOPalgorithmState.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/DCOPalgorithmState.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/DCOPinfo.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/DCOPinfo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/DCOPobject.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/DCOPobject.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/Domain.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/Domain.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/FactorGraph.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/FactorGraph.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/IntVariable.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/IntVariable.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/Permutations.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/Permutations.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/TableBinaryConstraint.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/TableBinaryConstraint.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/TableConstraint.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/TableConstraint.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/Tuple.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/Tuple.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/Variable.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/Variable.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/kernel/VariableFactory.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/VariableFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/MaxSum.iml" afterPath="$PROJECT_DIR$/.idea/MaxSum.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TODO.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/kernel/AgentFactory.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/communication/Messages.java" afterPath="$PROJECT_DIR$/src/main/java/communication/Message.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/agent/FactorGraphAgent.class" afterPath="$PROJECT_DIR$/target/classes/agent/FactorGraphAgent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/agent/MaxSum/MaxSumAgent.class" afterPath="$PROJECT_DIR$/target/classes/agent/MaxSum/MaxSumAgent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/communication/ComAgent.class" afterPath="$PROJECT_DIR$/target/classes/communication/ComAgent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/communication/FunctionNode.class" afterPath="$PROJECT_DIR$/target/classes/communication/FunctionNode.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/communication/Messages$RegisterLeader.class" afterPath="$PROJECT_DIR$/target/classes/communication/Messages$RegisterLeader.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/communication/Messages$RegisterNeighbor.class" afterPath="$PROJECT_DIR$/target/classes/communication/Messages$RegisterNeighbor.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/communication/Spawner.class" afterPath="$PROJECT_DIR$/target/classes/communication/Spawner.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/communication/VariableNode.class" afterPath="$PROJECT_DIR$/target/classes/communication/VariableNode.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/kernel/AgentView$Evaluator.class" afterPath="$PROJECT_DIR$/target/classes/kernel/AgentView$Evaluator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/kernel/DCOPInstance.class" afterPath="$PROJECT_DIR$/target/classes/kernel/DCOPInstance.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/kernel/FactorGraph.class" afterPath="$PROJECT_DIR$/target/classes/kernel/FactorGraph.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/kernel/TableConstraint.class" afterPath="$PROJECT_DIR$/target/classes/kernel/TableConstraint.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/kernel/Tuple.class" afterPath="$PROJECT_DIR$/target/classes/kernel/Tuple.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/agent/FactorGraphAgent.java" afterPath="$PROJECT_DIR$/src/main/java/agent/FactorGraphAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/agent/MaxSum/MaxSumAgent.java" afterPath="$PROJECT_DIR$/src/main/java/agent/MaxSum/MaxSumAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/communication/AgentStatistics.java" afterPath="$PROJECT_DIR$/src/main/java/communication/AgentStatistics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/communication/ComAgent.java" afterPath="$PROJECT_DIR$/src/main/java/communication/ComAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/communication/DCOPagent.java" afterPath="$PROJECT_DIR$/src/main/java/communication/DCOPagent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/communication/FunctionNode.java" afterPath="$PROJECT_DIR$/src/main/java/communication/FunctionNode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/communication/Spawner.java" afterPath="$PROJECT_DIR$/src/main/java/communication/Spawner.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/communication/StatisticsDeamon.java" afterPath="$PROJECT_DIR$/src/main/java/communication/StatisticsDeamon.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/communication/VariableNode.java" afterPath="$PROJECT_DIR$/src/main/java/communication/VariableNode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dcop_jtools.java" afterPath="$PROJECT_DIR$/src/main/java/dcop_jtools.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kernel/DCOPInstance.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/DCOPInstance.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kernel/DCOPInstanceFactory.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/DCOPInstanceFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kernel/FactorGraph.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/FactorGraph.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kernel/TableBinaryConstraint.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/TableBinaryConstraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kernel/TableConstraint.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/TableConstraint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/kernel/Tuple.java" afterPath="$PROJECT_DIR$/src/main/java/kernel/Tuple.java" />
     </list>
     <ignored path="MaxSum.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,11 +56,21 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file leaf-file-name="2-constraint.dimacs" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/data/2-constraint.dimacs">
+            <file leaf-file-name="3-constraint.dimacs" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/data/3-constraint.dimacs">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="90">
-                    <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
+                  <state relative-caret-position="105">
+                    <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="binary.dimacs" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/data/binary.dimacs">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="180">
+                    <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
                     <folding />
                   </state>
                 </provider>
@@ -95,37 +86,14 @@
     <favorites_list name="MaxSum" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.40898877">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="DCOPInstanceFactory.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/kernel/DCOPInstanceFactory.java">
+          <file leaf-file-name="Spawner.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/communication/Spawner.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="504">
-                  <caret line="259" column="35" selection-start-line="259" selection-start-column="35" selection-end-line="259" selection-end-column="35" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="method#getXMLNode#0;class#DCOPInstanceFactory#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Constraint.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/kernel/Constraint.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="165">
-                  <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Tuple.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/kernel/Tuple.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+                <state relative-caret-position="641">
+                  <caret line="129" column="36" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -133,32 +101,44 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="TableBinaryConstraint.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/kernel/TableBinaryConstraint.java">
+          <file leaf-file-name="Message.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/communication/Message.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="600">
-                  <caret line="62" column="30" selection-start-line="62" selection-start-column="30" selection-end-line="62" selection-end-column="30" />
+                <state relative-caret-position="285">
+                  <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+                  <folding>
+                    <element signature="e#2284#2285#0" expanded="true" />
+                    <element signature="e#2361#2362#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="FactorGraph.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/kernel/FactorGraph.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="116">
+                  <caret line="45" column="42" selection-start-line="45" selection-start-column="42" selection-end-line="45" selection-end-column="42" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="AgentView.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/kernel/AgentView.java">
+          <file leaf-file-name="MaxSumAgent.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/agent/MaxSum/MaxSumAgent.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="973">
-                  <caret line="188" column="22" selection-start-line="188" selection-start-column="22" selection-end-line="188" selection-end-column="22" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="dcop_jtools.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/dcop_jtools.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="420">
-                  <caret line="74" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-                  <folding />
+                <state relative-caret-position="223">
+                  <caret line="49" column="55" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
+                  <folding>
+                    <element signature="e#2810#2811#0" expanded="true" />
+                    <element signature="e#2854#2855#0" expanded="true" />
+                    <element signature="e#2902#2903#0" expanded="true" />
+                    <element signature="e#2939#2940#0" expanded="true" />
+                    <element signature="e#3382#3383#0" expanded="true" />
+                    <element signature="e#3434#3435#0" expanded="true" />
+                    <element signature="e#3486#3487#0" expanded="true" />
+                    <element signature="e#3531#3532#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -166,17 +146,32 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="DCOPInstanceFactory.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/kernel/DCOPInstanceFactory.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="319">
-                  <caret line="85" column="85" selection-start-line="85" selection-start-column="12" selection-end-line="85" selection-end-column="85" />
+                <state relative-caret-position="733">
+                  <caret line="261" column="51" selection-start-line="261" selection-start-column="51" selection-end-line="261" selection-end-column="51" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#10741#10751#0" expanded="true" />
                     <element signature="method#getXMLNode#0;class#DCOPInstanceFactory#0" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="TODO.md" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/TODO.md">
+              <provider editor-type-id="MarkdownFxPreviewEditor">
+                <state />
+              </provider>
+              <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+                <state split_layout="FIRST">
+                  <first_editor relative-caret-position="180">
+                    <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+                    <folding />
+                  </first_editor>
+                  <second_editor />
                 </state>
               </provider>
             </entry>
@@ -212,15 +207,26 @@
         <option value="$PROJECT_DIR$/src/agent/MaxSum/MaxSumAgent.java" />
         <option value="$PROJECT_DIR$/src/kernel/DCOPInstanceFactory.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/communication/Spawner.java" />
-        <option value="$PROJECT_DIR$/src/main/java/communication/ComAgent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/dcop_jtools.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kernel/AgentView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kernel/Tuple.java" />
         <option value="$PROJECT_DIR$/src/main/java/kernel/Constraint.java" />
         <option value="$PROJECT_DIR$/src/main/java/kernel/TableBinaryConstraint.java" />
         <option value="$PROJECT_DIR$/src/main/java/kernel/TableConstraint.java" />
-        <option value="$PROJECT_DIR$/src/main/java/kernel/AgentView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kernel/AgentFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/dcop_jtools.java" />
+        <option value="$PROJECT_DIR$/src/main/java/communication/ComAgent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kernel/DCOPinfo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/agent/FactorGraphAgent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kernel/DCOPInstance.java" />
         <option value="$PROJECT_DIR$/src/main/java/kernel/DCOPInstanceFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/kernel/Tuple.java" />
+        <option value="$PROJECT_DIR$/src/main/java/communication/Spawner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/kernel/FactorGraph.java" />
+        <option value="$PROJECT_DIR$/TODO.md" />
+        <option value="$PROJECT_DIR$/src/main/java/communication/FunctionNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/communication/VariableNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/communication/Messages.java" />
+        <option value="$PROJECT_DIR$/src/main/java/communication/Message.java" />
+        <option value="$PROJECT_DIR$/src/main/java/agent/MaxSum/MaxSumAgent.java" />
       </list>
     </option>
   </component>
@@ -246,10 +252,10 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1440" />
-    <option name="y" value="-517" />
-    <option name="width" value="2560" />
-    <option name="height" value="1417" />
+    <option name="x" value="47" />
+    <option name="y" value="23" />
+    <option name="width" value="1393" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -320,7 +326,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -338,7 +344,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -455,14 +460,71 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="agent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MaxSum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MaxSum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="agent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MaxSum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MaxSum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MaxSum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="data" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -781,7 +843,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="dcop_jtools" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/data/2-constraint.dimacs" />
+      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/data/3-constraint.dimacs" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -818,34 +880,34 @@
     <option name="totallyTimeSpent" value="1995000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1440" y="-517" width="2560" height="1417" extended-state="6" />
-    <editor active="true" />
+    <frame x="47" y="23" width="1393" height="877" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33132076" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33056605" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2056213" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23773585" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4090566" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3566879" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11675933" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21687639" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32981133" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -868,6 +930,16 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/communication/Spawner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kernel/DCOPInstanceFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -883,7 +955,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1545">
           <caret line="132" column="21" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -891,10 +965,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#7116#7117#0" expanded="true" />
-            <element signature="e#7148#7149#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -902,7 +973,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1845">
           <caret line="132" column="21" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -910,10 +983,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#7116#7117#0" expanded="true" />
-            <element signature="e#7148#7149#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -921,45 +991,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1845">
           <caret line="132" column="21" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/main.iml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/communication/VariableNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/FactorGraph.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/agent/FactorGraphAgent.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/agent/MaxSum/MaxSumAgent.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/Test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="28" column="31" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/communication/ComAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
-          <folding>
-            <element signature="e#7116#7117#0" expanded="true" />
-            <element signature="e#7148#7149#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/3-constraint.dimacs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -967,15 +1009,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/3-constraint.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -983,7 +1016,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -998,34 +1030,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/java/lang/Thread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7006">
-          <caret line="161" column="4" selection-start-line="161" selection-start-column="4" selection-end-line="161" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/communication/DCOPagent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
           <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/binary.dimacs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/communication/FunctionNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1042,15 +1050,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2400">
           <caret line="407" column="23" selection-start-line="407" selection-start-column="23" selection-end-line="407" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dcop_jtools.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="74" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1065,19 +1064,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/communication/Spawner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="56" column="7" selection-start-line="56" selection-start-column="7" selection-end-line="56" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kernel/Domain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1085,7 +1075,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1093,7 +1082,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="43" column="31" selection-start-line="43" selection-start-column="31" selection-end-line="43" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1102,25 +1090,6 @@
         <state relative-caret-position="105">
           <caret line="30" column="47" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/2-constraint.dimacs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/DCOPInstance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-          <folding>
-            <element signature="e#3220#3221#0" expanded="true" />
-            <element signature="e#3291#3292#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1140,37 +1109,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/Tuple.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding>
+            <element signature="e#1267#1268#0" expanded="false" />
+            <element signature="e#1312#1313#0" expanded="false" />
+            <element signature="e#1319#1349#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/3-constraint.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kernel/TableConstraint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="56" column="48" selection-start-line="56" selection-start-column="48" selection-end-line="56" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/AgentView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="973">
-          <caret line="188" column="22" selection-start-line="188" selection-start-column="22" selection-end-line="188" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/DCOPInstanceFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="259" column="35" selection-start-line="259" selection-start-column="35" selection-end-line="259" selection-end-column="35" />
+        <state relative-caret-position="763">
+          <caret line="146" column="24" selection-start-line="146" selection-start-column="24" selection-end-line="146" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getXMLNode#0;class#DCOPInstanceFactory#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/kernel/TableBinaryConstraint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="62" column="30" selection-start-line="62" selection-start-column="30" selection-end-line="62" selection-end-column="30" />
+        <state relative-caret-position="793">
+          <caret line="157" column="9" selection-start-line="157" selection-start-column="9" selection-end-line="157" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/AgentView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="168" column="52" selection-start-line="168" selection-start-column="52" selection-end-line="168" selection-end-column="52" />
           <folding />
         </state>
       </provider>
@@ -1178,17 +1156,213 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/kernel/Constraint.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="703" column="30" selection-start-line="703" selection-start-column="30" selection-end-line="703" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/Tuple.java">
+    <entry file="file://$PROJECT_DIR$/data/2-constraint.dimacs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+        <state relative-caret-position="105">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dcop_jtools.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+          <folding>
+            <element signature="method#getSummary#0;class#dcop_jtools#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/AgentFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="62" column="33" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/communication/AgentStatistics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/communication/BasicMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/communication/ComAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="39" column="16" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="16" />
+          <folding>
+            <element signature="e#5993#5994#0" expanded="false" />
+            <element signature="e#6023#6024#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/DCOPinfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="13" column="30" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/DCOPInstance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="107" column="29" selection-start-line="107" selection-start-column="16" selection-end-line="107" selection-end-column="29" />
+          <folding>
+            <element signature="e#4069#4070#0" expanded="true" />
+            <element signature="e#4118#4119#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/3-constraint.dimacs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TODO.md">
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="180">
+            <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/communication/VariableNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="41" column="32" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
+          <folding>
+            <element signature="e#883#884#0" expanded="true" />
+            <element signature="e#922#923#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/communication/FunctionNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#909#910#0" expanded="true" />
+            <element signature="e#950#951#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/DCOPInstanceFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="733">
+          <caret line="261" column="51" selection-start-line="261" selection-start-column="51" selection-end-line="261" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getXMLNode#0;class#DCOPInstanceFactory#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/agent/FactorGraphAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="29" column="36" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/communication/Spawner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="641">
+          <caret line="129" column="36" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/binary.dimacs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/kernel/FactorGraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="45" column="42" selection-start-line="45" selection-start-column="42" selection-end-line="45" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/communication/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding>
+            <element signature="e#2284#2285#0" expanded="true" />
+            <element signature="e#2361#2362#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/agent/MaxSum/MaxSumAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="49" column="55" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
+          <folding>
+            <element signature="e#2810#2811#0" expanded="true" />
+            <element signature="e#2854#2855#0" expanded="true" />
+            <element signature="e#2902#2903#0" expanded="true" />
+            <element signature="e#2939#2940#0" expanded="true" />
+            <element signature="e#3382#3383#0" expanded="true" />
+            <element signature="e#3434#3435#0" expanded="true" />
+            <element signature="e#3486#3487#0" expanded="true" />
+            <element signature="e#3531#3532#0" expanded="true" />
           </folding>
         </state>
       </provider>

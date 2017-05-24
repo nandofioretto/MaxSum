@@ -55,14 +55,14 @@ public abstract class DCOPagent extends ComAgent {
     protected void onReceive(Object message, ComAgent sender) {
         super.onReceive(message, sender);
 
-        if (message instanceof Messages.StartSignal) {
+        if (message instanceof Message.StartSignal) {
             algorithmState = DCOPalgorithmState.RUNNING;
             // Starts statistics collection
             getAgentStatistics().getStopWatch().start();
 
             onStart();
         }
-        if (message instanceof Messages.EndSignal) {
+        if (message instanceof Message.EndSignal) {
             algorithmState = DCOPalgorithmState.STOP;
             preStop();
         }
@@ -94,7 +94,7 @@ public abstract class DCOPagent extends ComAgent {
     protected void onStop() {
         if (!isAlgorithmState(DCOPalgorithmState.TERMINATED)) {
             for (ComAgent agt : getNeighborsRef()) {
-                agt.tell(new Messages.EndSignal(), this);
+                agt.tell(new Message.EndSignal(), this);
             }
         }
         setAlgorithmState(DCOPalgorithmState.TERMINATED);

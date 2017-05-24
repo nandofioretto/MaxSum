@@ -101,7 +101,7 @@ public class DCOPInstance {
         return variableIDHashMap.get(name);
     }
 
-    public Collection<Variable> getDCOPVariable() {
+    public Collection<Variable> getDCOPVariables() {
         return variableHashMap.values();
     }
 
@@ -122,7 +122,7 @@ public class DCOPInstance {
         return constraintIDHashMap.get(name);
     }
 
-    public Collection<Constraint> getDCOPConstraint() {
+    public Collection<Constraint> getDCOPConstraints() {
         return constraintHashMap.values();
     }
 }

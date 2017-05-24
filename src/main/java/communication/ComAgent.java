@@ -77,14 +77,14 @@ public abstract class ComAgent extends Thread { //implements Runnable {
             long recvSimTime = ((BasicMessage) message).getSimulatedNanoTime();
             agentStatistics.getStopWatch().updateTimeIfFaster(recvSimTime);
             agentStatistics.getStopWatch().resume();            // Resumes Simulated Time (if suspended)
-        } else if (message instanceof Messages.RegisterNeighbor) {
-            Messages.RegisterNeighbor actorNeighbor = (Messages.RegisterNeighbor) message;
+        } else if (message instanceof Message.RegisterNeighbor) {
+            Message.RegisterNeighbor actorNeighbor = (Message.RegisterNeighbor) message;
             if (actorNeighbor.getAgentRef() != getSelf()) {
                 neighborsRef.add(actorNeighbor.getAgentRef());
                 neigbhorRefByID.put(actorNeighbor.getAgentID(), actorNeighbor.getAgentRef());
             }
-        } else if (message instanceof  Messages.RegisterLeader) {
-            Messages.RegisterLeader leaderMsg = (Messages.RegisterLeader) message;
+        } else if (message instanceof  Message.RegisterLeader) {
+            Message.RegisterLeader leaderMsg = (Message.RegisterLeader) message;
             if (leaderMsg.getAgentRef() != getSelf()) {
                 leaderRef = leaderMsg.getAgentRef();
             }
@@ -98,8 +98,10 @@ public abstract class ComAgent extends Thread { //implements Runnable {
      */
     public void tell(Object message, ComAgent sender) {
         try {
-//            String sName = sender == null ? "none" : sender.getName();
-//            System.out.println(sName + " sending " + message.toString() + " to " + getName());
+            
+            String sName = sender == null ? "none" : sender.getName();
+            System.out.println(sName + " sending " + message.toString() + " to " + getName());
+
             mailbox.put(new TrackableObject(message, sender));
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -146,7 +146,7 @@ public class DCOPInstanceFactory {
                 Constraint constraint = ConstraintFactory.getConstraint(name, scope, defaultValue, semantics);
 
                 // Add values
-                double values[] = new double[arity];
+                int values[] = new int[arity];
                 String[] valuesStr = relationNode.getTextContent().split(Pattern.quote("|"));
 
                 for (String s : valuesStr) {
@@ -250,7 +250,7 @@ public class DCOPInstanceFactory {
 
                 Constraint constraint = ConstraintFactory.getConstraint(name, scope, defaultValue, "soft");
                 // Fill in constraint
-                double values[] = new double[arity];
+                int values[] = new int[arity];
                 for (int eid = 0; eid < numEntries; eid++)
                 {
                     tokens = br.readLine().split(" ");
@@ -259,6 +259,7 @@ public class DCOPInstanceFactory {
                     double cost = Double.parseDouble(tokens[arity]);
                     constraint.addValue(new Tuple(values), cost, optType);
                 }
+                instance.addConstraint(constraint);
                 System.out.println(constraint);
             }
             return instance;

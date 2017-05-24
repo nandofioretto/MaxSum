@@ -146,18 +146,16 @@ public class TableBinaryConstraint implements Constraint {
         for(Variable s : scope) ret += s.getName() + " ";
         ret += "}";
 
-//        ret += " def value = " + defaultValue + " best/worst=["
-//        + bestValue + ", " + worstValue + "]\n";
-//
-//        for (Map.Entry<Tuple, Integer> entry : relation.entrySet()) {
-//            ret += "";
-//            for(Integer v : entry.getKey().getValues())
-//                ret += " " + v ;
-//            int val = entry.getValue();
-//            ret += ": ";
-//            ret += val == Constants.infinity ? "inf" : val == -Constants.infinity ? "-inf" : val;
-//            ret += " | ";
-//        }
+        ret += " def value = " + defaultValue + " best/worst=["
+        + bestValue + ", " + worstValue + "]\n";
+
+        for (int x = dom1Min; x < dom1Min+dom1Size; x++) {
+            for (int y = dom2Min; y < dom2Min+dom2Size; y++) {
+                ret +=  x + " " + y + " : ";
+                double val = relation[ ((x - dom1Min) * dom1Size) + (y - dom2Min) ];
+                ret += val == Constants.infinity ? "inf" : val == -Constants.infinity ? "-inf" : val + "\n";
+            }
+        }
         return ret;
     }
 

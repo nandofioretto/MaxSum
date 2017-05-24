@@ -27,7 +27,7 @@ import java.io.Serializable;
 /**
  * Created by ffiorett on 7/17/15.
  */
-public class Messages {
+public class Message {
     public static class RegisterNeighbor implements Serializable {
         private static final long serialVersionUID = 1100000000000000001L;
         private final ComAgent agentRef;
@@ -48,7 +48,7 @@ public class Messages {
 
         @Override
         public String toString() {
-            return "Register Neighbor";
+            return "Register Neighbor (" + agentRef.getName() + ")";
         }
     }
 
@@ -66,7 +66,7 @@ public class Messages {
 
         @Override
         public String toString() {
-            return "Register Leader";
+            return "Register Leader (" + agentRef.getName() + ")";
         }
     }
 

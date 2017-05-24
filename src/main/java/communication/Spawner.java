@@ -23,13 +23,12 @@
 package communication;
 
 import agent.FactorGraphAgent;
-import agent.MaxSum.MaxSumAgent;
-import kernel.AgentState;
-import kernel.DCOPInstance;
-import kernel.DCOPinfo;
-import kernel.FactorGraph;
+import kernel.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by ffiorett on 7/10/15.
@@ -43,15 +42,15 @@ public class Spawner {
 
     public Spawner(DCOPInstance instance) {
         dcopInstance = instance;
-        spawnedAgentStates = new ArrayList<AgentState>();
-        yellowPages = new HashMap<String, DCOPagent>();
+        spawnedAgentStates = new ArrayList<>();
+        yellowPages = new HashMap<>();
 
         for (AgentState agt : instance.getDCOPAgents()) {
             spawnedAgentStates.add(agt);
         }
 
         DCOPinfo.nbAgents = spawnedAgentStates.size();
-        DCOPinfo.nbConstraints = instance.getDCOPConstraint().size();
+        DCOPinfo.nbConstraints = instance.getDCOPConstraints().size();
     }
 
     /**
@@ -66,17 +65,20 @@ public class Spawner {
 
         // Spawns agents and start the DCOP algorithm
         for (AgentState agtState : spawnedAgentStates) {
-            final DCOPagent agt = DCOPagentFactory(algParameters, statsCollector, agtState);
+            DCOPagent agt = AgentFactory.create(statsCollector, agtState, algParameters);
 
             DCOPinfo.agentsRef.put(agt.getId(), agt);
             yellowPages.put(agtState.getName(), agt);
+
             agt.start();
         }
 
 
+
         // Save leader AgentRef
         String leaderName = spawnedAgentStates.get(0).getName();
-        DCOPinfo.leaderAgent = DCOPinfo.agentsRef.get(0);
+        DCOPinfo.leaderAgent = DCOPinfo.agentsRef.get((long)0);
+
         assert (DCOPinfo.leaderAgent.getId() == 0);
 
         // Links Agent Neighbors as ComAgent objects.
@@ -84,11 +86,11 @@ public class Spawner {
             ComAgent actor = yellowPages.get(agtState.getName());
             for (AgentState neighbor : agtState.getNeighbors()) {
                 DCOPagent neighborAgt = yellowPages.get(neighbor.getName());
-                actor.tell(new Messages.RegisterNeighbor(neighborAgt, neighborAgt.getId()), ComAgent.noSender());
+                actor.tell(new Message.RegisterNeighbor(neighborAgt, neighborAgt.getId()), ComAgent.noSender());
             }
             // Link Leader to each agent (used if needed by algorithm)
             DCOPagent agt = yellowPages.get(leaderName);
-            actor.tell(new Messages.RegisterLeader(yellowPages.get(leaderName)), ComAgent.noSender());
+            actor.tell(new Message.RegisterLeader(yellowPages.get(leaderName)), ComAgent.noSender());
         }
 
         // Wait some time for discovery phase
@@ -99,7 +101,7 @@ public class Spawner {
         // Signals start to all agents
         for (AgentState agtState : this.spawnedAgentStates) {
             DCOPagent actor = yellowPages.get(agtState.getName());
-            actor.tell(new Messages.StartSignal(), ComAgent.noSender());
+            actor.tell(new Message.StartSignal(), ComAgent.noSender());
         }
 
         // System awaits termination
@@ -117,20 +119,15 @@ public class Spawner {
         return yellowPages.values();
     }
 
-    private DCOPagent DCOPagentFactory(List<Object> algParameters, ComAgent statsCollector, AgentState agtState) {
-        // todo: Modify here to add possibly different algorithms.
-        return new MaxSumAgent(statsCollector, agtState, algParameters);
-    }
-
     /**
      * This function construct an ordering of the DCOP agents.
      * At the end of this function all agents will know their position in their ordering and their neighbors.
      */
     private void constructOrdering() {
-
         if (DCOPinfo.leaderAgent instanceof FactorGraphAgent)
         {
-            new FactorGraph(dcopInstance);
+            FactorGraph a = new FactorGraph(dcopInstance);
+            System.out.println(a.toString());
         }
     }
 

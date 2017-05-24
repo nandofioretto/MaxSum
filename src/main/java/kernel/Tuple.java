@@ -22,42 +22,40 @@
 
 package kernel;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Created by ffiorett on 7/8/15.
  */
-public class Tuple<T> {
-    //public T[] values;
-    public ArrayList<T> values;
+public class Tuple {
+    public int[] values;
 
     public Tuple(int lenght) {
-        values = new ArrayList<T>()T[lenght];
+        this.values = new int[lenght];
     }
 
-    public Tuple(T[] values) {
-        this.values = new ArrayList<T>(Collections.nCopies(values.length, null));
+    @SuppressWarnings("unchecked")
+    public Tuple(int[] values) {
+        this.values = new int[values.length];
         System.arraycopy(values, 0, this.values, 0, values.length);
     }
 
-    public T[] getValues() {
+    public int[] getValues() {
         return values;
     }
 
-    public T get(int pos) {
+    public int get(int pos) {
         return values[pos];
     }
 
-    public void set(int pos, T val) {
+    public void set(int pos, int val) {
         values[pos] = val;
     }
 
     /**
      * Note: Does not set through hard copy.
      */
-    public void set(T[] values) {
+    public void set(int[] values) {
 //   This is to speed up access operation - assumes correct input.
 //        if(this.values.length != values.length)
 //            throw new IllegalArgumentException("Illegal size of values.");
@@ -65,15 +63,15 @@ public class Tuple<T> {
         this.values = values;
     }
 
-    public void copy(T[] values, int start, int len) {
-        for (int i = start; i < start+len; i++) {
+    public void copy(int[] values, int start, int len) {
+        for (int i = start; i < start + len; i++) {
             this.values[i] = values[i];
         }
     }
 
     public boolean isValid() {
-        for(T v : values) {
-            if ((double)v == Constants.NaN) return false;
+        for (int v : values) {
+            if (v == Constants.NaN) return false;
         }
         return true;
     }
@@ -89,7 +87,7 @@ public class Tuple<T> {
 //        if (!(o instanceof Tuple)) return false;
 
         Tuple tuple = (Tuple) o;
-        for(int i=0; i<values.length; i++)
+        for (int i = 0; i < values.length; i++)
             if (values[i] != tuple.get(i)) return false;
 
         return true;

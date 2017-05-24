@@ -92,6 +92,6 @@ public class AgentStatistics {
     @Override
     public String toString() {
         return  "simulated Time: " + stopWatch.getMilliTime() + " ms " +
-                " sent Messages: " + sentMessages;
+                " sent Message: " + sentMessages;
     }
 }
