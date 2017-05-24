@@ -2,7 +2,7 @@ package agent.MaxSum;
 
 import agent.FactorGraphAgent;
 import communication.ComAgent;
-import communication.FunctionNode;
+import communication.FactorNode;
 import communication.Message;
 import communication.VariableNode;
 import kernel.AgentState;
@@ -21,17 +21,22 @@ public class MaxSumAgent extends FactorGraphAgent {
     private int currCycle = 0;
     private double convergenceDelta = 0.001;
 
-    private HashMap<Long, HashMap<Long, double[] >> vnTofnValues;
-    private HashMap<Long, HashMap<Long, double[] >> fnTovnValues;
+    private List<MaxSumVariableNode> variableNodes;
+    private List<MaxSumFactorNode> factorNodes;
+
+    // key = varID; value = variableNodes index associated to that variable ID
+    private HashMap<Long, Integer> mapVarPos;
 
     public MaxSumAgent(ComAgent statsCollector, AgentState agentState, List<Object> parameters) {
         super(statsCollector, agentState);
 
         // Check argument:
-        assert(parameters.size() == 1);
-        this.nbCycles = (int)parameters.get(0);
+        assert (parameters.size() == 1);
+        this.nbCycles = (int) parameters.get(0);
 
-        vnTofnValues = new HashMap<>();
+        variableNodes = new ArrayList<>();
+        factorNodes = new ArrayList<>();
+        mapVarPos = new HashMap<>();
     }
 
     @Override
@@ -45,35 +50,42 @@ public class MaxSumAgent extends FactorGraphAgent {
         getAgentActions().setVariableValue(0);
         long aId = getAgentView().getAgentID();
 
-        // Initialize NodesToFactor Values
-        // todo: Delegate this to a class (this is a responsivility of the variable node, or MaxSumAgentState)
+        // Initialize MaxSumVariableNodes
         for (VariableNode vnode : getVariableNodes()) {
-            long vnodeId = vnode.getID();
-            int vDomSize = vnode.getVariable().getDomain().size();
-            vnTofnValues.put(vnodeId, new HashMap<>());
-            for (FunctionNode fnode : vnode.getNeighbors()) {
-                long fnodeId = fnode.getID();
-                double vInit[] = new double[vDomSize];
-                Arrays.fill(vInit, 0.0);
-                vnTofnValues.get(vnodeId).put(fnodeId, vInit);
-            }
+            variableNodes.add(new MaxSumVariableNode(vnode));
+
+            int vIdx = findVariableID(vnode.getVariable().getID());
+            mapVarPos.put(vnode.getID(), vIdx);
         }
 
-        // Initialize FactorToVariables Values
-        // todo: Delegate this to a class (this is a responsivility of the variable node, or MaxSumAgentState)
-        for (FunctionNode fnode : getFunctionNodes()) {
-            long fnodeId = fnode.getID();
-            fnTovnValues.put(fnodeId, new HashMap<>());
-            for (VariableNode vnode : fnode.getNeighbors()) {
-                long vnodeId = fnode.getID();
-                int vDomSize = vnode.getVariable().getDomain().size();
-                double vInit[] = new double[vDomSize];
-                Arrays.fill(vInit, 0.0);
-                fnTovnValues.get(fnodeId).put(vnodeId, vInit);
-            }
+        // Initialize MaxSumFactorNodes
+        for (FactorNode fnode : getFactorNodes()) {
+            factorNodes.add(new MaxSumFactorNode(fnode));
         }
+        cycle();
+    }
 
+    synchronized private void cycle() {
+        // Select best value from all the variables controlled by this agent by calling the routines in variable nodes
+        for (MaxSumVariableNode vnode : variableNodes) {
+            int val = vnode.selectBestValue();
+            getAgentActions().setVariableValue(mapVarPos.get(vnode.getID()), val);
+        }
+        // Send Messages from a variable node to neighbor factors nodes
+        // see Line 151 of VariableNode.java Liel
 
+        // Send Messages from a factor node to neighbor variable nodes
+    }
+
+    /// Auxiliary Functions
+    private int findVariableID(long id) {
+        for (int i = 0; i < getAgentView().getNbVariables(); i++) {
+            long vId = getAgentView().getVariableId(i);
+            if (vId == id)
+                return i;
+        }
+        assert(true);
+        return -1;
     }
 
     public static class FunctionToVariableMessage extends Message {
@@ -89,7 +101,7 @@ public class MaxSumAgent extends FactorGraphAgent {
 
         @Override
         public String toString() {
-            String s  = "FunctionToVariableMessage: [";
+            String s = "FunctionToVariableMessage: [";
             for (double d : values)
                 s += d + " ";
             s += "]";
@@ -109,7 +121,7 @@ public class MaxSumAgent extends FactorGraphAgent {
 
             @Override
             public String toString() {
-                String s  = "VariableToFunctionMessage: [";
+                String s = "VariableToFunctionMessage: [";
                 for (double d : values)
                     s += d + " ";
                 s += "]";
@@ -117,5 +129,7 @@ public class MaxSumAgent extends FactorGraphAgent {
             }
 
         }
+    }//-
 
-}//
+}
+//

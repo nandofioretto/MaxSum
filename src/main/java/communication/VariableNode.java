@@ -10,7 +10,7 @@ import java.util.List;
  * Created by nando on 5/17/17.
  */
 public class VariableNode {
-    private List<FunctionNode> neighbors;
+    private List<FactorNode> neighbors;
     private DCOPagent owner;
     private Variable variable;
 
@@ -21,12 +21,12 @@ public class VariableNode {
         owner.addVariableNode(this);
     }
 
-    public void addNeighbor(FunctionNode fNode) {
+    public void addNeighbor(FactorNode fNode) {
         if (!neighbors.contains(fNode))
             neighbors.add(fNode);
     }
 
-    public List<FunctionNode> getNeighbors() {
+    public List<FactorNode> getNeighbors() {
         return neighbors;
     }
 
@@ -48,7 +48,7 @@ public class VariableNode {
                 " owner= " + owner.getName() +
                 " variable= " + variable.getName() +
                 " neighbors_con= ";
-        for (FunctionNode f : neighbors)
+        for (FactorNode f : neighbors)
             s += f.getConstraint().getName() + " ";
         return s;
     }

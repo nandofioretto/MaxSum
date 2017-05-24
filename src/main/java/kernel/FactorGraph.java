@@ -1,7 +1,7 @@
 package kernel;
 
 import agent.FactorGraphAgent;
-import communication.FunctionNode;
+import communication.FactorNode;
 import communication.VariableNode;
 
 import java.util.ArrayList;
@@ -15,10 +15,10 @@ import java.util.List;
 public class FactorGraph {
 
     private List<VariableNode> variableNodes;
-    private List<FunctionNode> functionNodes;
+    private List<FactorNode> factorNodes;
 
     private HashMap<Variable, VariableNode> varToVariableNodeMap;
-    private HashMap<Constraint, FunctionNode> conToFunctionNodeMap;
+    private HashMap<Constraint, FactorNode> conToFunctionNodeMap;
 
     /**
      * We assumem that the agents calling this function are of class FactorGraphAgent
@@ -29,7 +29,7 @@ public class FactorGraph {
         conToFunctionNodeMap = new HashMap<>();
 
         variableNodes = new ArrayList<>();
-        functionNodes = new ArrayList<>();
+        factorNodes = new ArrayList<>();
 
         // Create variable nodes
         for (Variable v : DCOP.getDCOPVariables()) {
@@ -44,8 +44,8 @@ public class FactorGraph {
         for (Constraint c : DCOP.getDCOPConstraints()) {
             long aId = getOnwerId(c);
             FactorGraphAgent agent = (FactorGraphAgent)DCOPinfo.agentsRef.get(aId);
-            FunctionNode fnode = new FunctionNode(agent, c);
-            functionNodes.add(fnode);
+            FactorNode fnode = new FactorNode(agent, c);
+            factorNodes.add(fnode);
             conToFunctionNodeMap.put(c, fnode);
 
             // Add function nodes neighbors (i.e., all variable nodes connected to it)
@@ -72,7 +72,7 @@ public class FactorGraph {
         for (VariableNode v : variableNodes) {
             s += v +"\n\t";
         }
-        for (FunctionNode f : functionNodes) {
+        for (FactorNode f : factorNodes) {
             s += f +"\n\t";
         }
         return s;

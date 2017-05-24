@@ -2,7 +2,7 @@ package agent;
 
 import communication.ComAgent;
 import communication.DCOPagent;
-import communication.FunctionNode;
+import communication.FactorNode;
 import communication.VariableNode;
 import kernel.*;
 
@@ -15,19 +15,19 @@ import java.util.List;
 public abstract class FactorGraphAgent extends DCOPagent {
 
     // The list of function nodes and variable nodes owned by this agent
-    private List<FunctionNode> functionNodes;
+    private List<FactorNode> factorNodes;
     private List<VariableNode> variableNodes;
 
     public FactorGraphAgent(ComAgent statsCollector, AgentState agentState) {
 
         super(statsCollector, agentState);
         variableNodes = new ArrayList<>();
-        functionNodes = new ArrayList<>();
+        factorNodes = new ArrayList<>();
     }
 
-    public void addFunctionNode(FunctionNode node) {
-        if (!functionNodes.contains(node)) {
-            functionNodes.add(node);
+    public void addFunctionNode(FactorNode node) {
+        if (!factorNodes.contains(node)) {
+            factorNodes.add(node);
             System.out.println("Agent " + this.getName() + " registers function node " + node.toString());
 
         }
@@ -40,8 +40,8 @@ public abstract class FactorGraphAgent extends DCOPagent {
         }
     }
 
-    public List<FunctionNode> getFunctionNodes() {
-        return functionNodes;
+    public List<FactorNode> getFactorNodes() {
+        return factorNodes;
     }
 
     public List<VariableNode> getVariableNodes() {

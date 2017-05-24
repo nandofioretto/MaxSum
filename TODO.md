@@ -10,5 +10,8 @@
 [ ] Implement logic for agents to start
 [ ] Implement logic for function nodes 
 [ ] Implement logic for factor nodes
-
+[ ] Add unary constraints, following Liel Example in selectBestValue (functionNode)
+[ ] Check requirement of atomicity when reading from cost Table in var/fact Node. Here the risk is that another agent
+    might modify the value of the table while I am reading it
+[ ] You maight want to experiment with MAXSumASPVD [see VariableNode::selectBestValue()  (LielCode)]
 
