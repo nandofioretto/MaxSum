@@ -5,9 +5,7 @@ import communication.*;
 import kernel.AgentState;
 import kernel.Commons;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by nandofioretto on 5/15/17.
@@ -18,11 +16,12 @@ public class MaxSumAgent extends FactorGraphAgent {
     private int currCycle = 0;
     private double convergenceDelta = 0.001;
 
-    private List<MaxSumVariableNode> variableNodes;
-    private List<MaxSumFactorNode> factorNodes;
+    // key: variableNode ID, value = maxSumNode
+    private Map<Long, MaxSumVariableNode> variableNodes;
+    private Map<Long, MaxSumFactorNode> factorNodes;
 
     // key = varID; value = variableNodes index associated to that variable ID
-    private HashMap<Long, Integer> mapVarPos;
+    private Map<Long, Integer> mapVarPos;
 
     public MaxSumAgent(ComAgent statsCollector, AgentState agentState, List<Object> parameters) {
         super(statsCollector, agentState);
@@ -31,8 +30,8 @@ public class MaxSumAgent extends FactorGraphAgent {
         assert (parameters.size() == 1);
         this.nbCycles = (int) parameters.get(0);
 
-        variableNodes = new ArrayList<>();
-        factorNodes = new ArrayList<>();
+        variableNodes = new TreeMap<>();
+        factorNodes = new TreeMap<>();
         mapVarPos = new HashMap<>();
     }
 
@@ -49,7 +48,7 @@ public class MaxSumAgent extends FactorGraphAgent {
 
         // Initialize MaxSumVariableNodes
         for (VariableNode vnode : getVariableNodes()) {
-            variableNodes.add(new MaxSumVariableNode(vnode));
+            variableNodes.put(vnode.getID(), new MaxSumVariableNode(vnode));
 
             int vIdx = findVariableID(vnode.getVariable().getID());
             mapVarPos.put(vnode.getID(), vIdx);
@@ -57,29 +56,60 @@ public class MaxSumAgent extends FactorGraphAgent {
 
         // Initialize MaxSumFactorNodes
         for (FactorNode fnode : getFactorNodes()) {
-            factorNodes.add(new MaxSumFactorNode(fnode));
+            factorNodes.put(fnode.getID(), new MaxSumFactorNode(fnode));
         }
         cycle();
     }
 
+    @Override
+    protected void onReceive(Object message, ComAgent sender) {
+        super.onReceive(message, sender);
 
-    synchronized private void cycle() {
+        // 2. Implment this logic
+        if (message instanceof VnodeToFnodeMessage) {
+            VnodeToFnodeMessage msg = (VnodeToFnodeMessage)message;
+            long fnodeId = msg.getFactorNodeID();
+            //factorNodes.get(fnodeId)
+        }
+        else if (message instanceof FnodeToVnodeMessage) {
+            FnodeToVnodeMessage msg = (FnodeToVnodeMessage)message;
+            long fNodeId = msg.getFactorNodeID();
+            long vNodeId = msg.getVariableNodeID();
+            variableNodes.get(vNodeId).copyCostTable(msg.getTable(), fNodeId);
+        }
+
+
+        // todo 4. Implment this logic
+//        if (all fNodeToVNodeMessage received and all vNodeTofNodeMessage received) {
+//            cycle()
+//        }
+
+    }
+
+    private void cycle() {
+
         // Select best value from all the variables controlled by this agent by calling the routines in variable nodes
-        for (MaxSumVariableNode vnode : variableNodes) {
+        for (MaxSumVariableNode vnode : variableNodes.values()) {
             int val = vnode.selectBestValue();
             getAgentActions().setVariableValue(mapVarPos.get(vnode.getID()), val);
 
-            // VARIABLE NODE LOGIC
-            // todo: (MOVE THE FOLLOWING TO MAXSUM FACTORNODE)
+            // VARIABLE-NODE LOGIC
             // Send Messages from a factor node to neighbor variable nodes
             for (FactorNode fnode : vnode.node.getNeighbors()) {
                 double[] table = vnode.getCostTableSumExcluding(fnode.getID());
-                // todo: addUnaryConstraints(table);
+                // todo LATER: addUnaryConstraints(table);
                 Commons.rmValue(table, Commons.getMin(table));
                 Commons.addArray(table, vnode.getNoise());
-                fnode.getOwner().tell(new VnodeToFnodeMessage(table), getSelf());
-            }
 
+                // Send message: if factor agents = variable agent - simply copy table
+                //               otherwhise send message
+                if (fnode.getOwner().equals(this)) {
+                    // todo: 5. copy table
+                }
+                else {
+                    fnode.getOwner().tell(new VnodeToFnodeMessage(table, vnode.getID(), fnode.getID()), getSelf());
+                }
+            }
         }
         currCycle++;
     }
@@ -95,58 +125,68 @@ public class MaxSumAgent extends FactorGraphAgent {
         return -1;
     }
 
-    @Override
-    protected void onReceive(Object message, ComAgent sender) {
-        super.onReceive(message, sender);
-
-        if (message instanceof VnodeToFnodeMessage) {
-
-        }
-        else if (message instanceof FnodeToVnodeMessage) {
-
-        }
-    }
-
     // Messages
-    public static class TableMessage extends BasicMessage {
+    public class TableMessage extends BasicMessage {
         protected double[] table;
+        long fNodeId; // sender factor node
+        long vNodeId; // receiver factor node
 
-        public TableMessage(double[] table) {
+        public TableMessage(double[] table, long vNodeId, long fNodeId)) {
             this.table = table.clone();
+            this.vNodeId = vNodeId;
+            this.fNodeId = fNodeId;
+        }
+
+        public long getFactorNodeID() {
+            return fNodeId;
+        }
+
+        public long getVariableNodeID() {
+            return vNodeId;
         }
 
         public double[] getTable() {
             return table;
         }
+
     }
 
-    public static class VnodeToFnodeMessage extends TableMessage {
-        public VnodeToFnodeMessage(double[] table) {
-            super(table);
+    public class VnodeToFnodeMessage extends TableMessage {
+        /**
+         * A Variable to Factor node message
+         * @param table The cost table
+         * @param vNodeId sender (variable) node ID
+         * @param fNodeId receiver (factor) node ID
+         */
+        public VnodeToFnodeMessage(double[] table, long vNodeId, long fNodeId) {
+            super(table, vNodeId, fNodeId);
         }
 
         @Override
         public String toString() {
-            String s = "VnodeToFnodeMessage: [";
-            for (double d : table)
-                s += d + " ";
+            String s = "VnodeToFnodeMessage: vId " + vNodeId + " -> fId " + fNodeId + "[";
+            for (double d : table) s += d + " ";
             return s + "]";
         }
     }
 
-    public static class FnodeToVnodeMessage extends TableMessage {
-        public FnodeToVnodeMessage(double[] table) {
-            super(table);
+    public class FnodeToVnodeMessage extends TableMessage {
+        /**
+         * A Variable to Factor node message
+         * @param table The cost table
+         * @param fNodeId sender (factor) node ID
+         * @param vNodeId receiver (variable) node ID
+         */
+        public FnodeToVnodeMessage(double[] table, long fNodeId, long vNodeId) {
+            super(table, vNodeId, fNodeId);
         }
 
         @Override
         public String toString() {
-            String s = "FnodeToVnodeMessage : [";
-            for (double d : table)
-                s += d + " ";
+            String s = "FnodeToVnodeMessage: fId " + fNodeId + " -> vId " + vNodeId + "[";
+            for (double d : table) s += d + " ";
             return s + "]";
         }
-
     }
 }
 //

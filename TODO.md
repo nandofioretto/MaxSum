@@ -8,6 +8,9 @@
 [x] Test factor graph dependencies (neighbors of variables), (neighbors of functions)
 [x] Test factor graph neighbors dependencies from agent prespective
 [x] Implement logic for agents to start
+[ ] Prior sending a message, check if the node is controlled by the same agent.
+[ ] With the same logic, if this is the case, then do not expect to receive messages from that particular node.
+
 [ ] Implement logic for variables nodes 
 [ ] Implement logic for factor nodes
 [ ] Add unary constraints, following Liel Example in selectBestValue (functionNode)

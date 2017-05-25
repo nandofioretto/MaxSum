@@ -96,7 +96,7 @@ public abstract class ComAgent extends Thread { //implements Runnable {
      * @param message The message to be sent
      * @param sender  The sender of the message
      */
-    public void tell(Object message, ComAgent sender) {
+    synchronized public void tell(Object message, ComAgent sender) {
         try {
             
             String sName = sender == null ? "none" : sender.getName();
@@ -114,7 +114,7 @@ public abstract class ComAgent extends Thread { //implements Runnable {
      * @param message The message to be sent
      * @param sender  The sender of the message
      */
-    public void tell(BasicMessage message, ComAgent sender) {
+    synchronized public void tell(BasicMessage message, ComAgent sender) {
         sender.getAgentStatistics().getStopWatch().suspend();
         if (message.isTrackable())
             message.setSimulatedNanoTime(sender.getAgentStatistics().getStopWatch().getNanoTime());
@@ -131,7 +131,6 @@ public abstract class ComAgent extends Thread { //implements Runnable {
 
     /**
      * Awaits while checking if the message queue is non empty. In which case, it process the message.
-     * TODO: Change for await to some condition?
      */
     public void await() {
         agentStatistics.getStopWatch().suspend();

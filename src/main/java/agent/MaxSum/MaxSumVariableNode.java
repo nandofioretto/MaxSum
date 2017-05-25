@@ -7,6 +7,8 @@ import kernel.Domain;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by nando on 5/24/17.
@@ -20,9 +22,6 @@ public class MaxSumVariableNode {
     // key: functionNode ID; value: vector of size Dom of variable
     private HashMap<Long, double[]> costTable;
 
-    // todo: Keep a copy of received messages at this iteration.
-    // todo: Then transfer messages to cost table (to avoid asynchrnous behaviors)
-
     // A vector of noisy values to allow faster convergence
     public double[] noise;
 
@@ -31,11 +30,13 @@ public class MaxSumVariableNode {
     public MaxSumVariableNode(VariableNode node) {
         this.node = node;
         costTable = new HashMap<>();
+
         for (FactorNode f : node.getNeighbors()) {
             double[] costs = new double[node.getVariable().getDomain().size()];
             Arrays.fill(costs, 0);
             costTable.put(f.getID(), costs);
         }
+
         noise = new  double[node.getVariable().getDomain().size();]
         for (int i = 0; i <noise.length; i++)
             noise[i] = Math.random();
