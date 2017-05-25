@@ -1,14 +1,11 @@
 package agent.MaxSum;
 
 import agent.FactorGraphAgent;
-import communication.ComAgent;
-import communication.FactorNode;
-import communication.Message;
-import communication.VariableNode;
+import communication.*;
 import kernel.AgentState;
+import kernel.Commons;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -65,16 +62,26 @@ public class MaxSumAgent extends FactorGraphAgent {
         cycle();
     }
 
+
     synchronized private void cycle() {
         // Select best value from all the variables controlled by this agent by calling the routines in variable nodes
         for (MaxSumVariableNode vnode : variableNodes) {
             int val = vnode.selectBestValue();
             getAgentActions().setVariableValue(mapVarPos.get(vnode.getID()), val);
-        }
-        // Send Messages from a variable node to neighbor factors nodes
-        // see Line 151 of VariableNode.java Liel
 
-        // Send Messages from a factor node to neighbor variable nodes
+            // VARIABLE NODE LOGIC
+            // todo: (MOVE THE FOLLOWING TO MAXSUM FACTORNODE)
+            // Send Messages from a factor node to neighbor variable nodes
+            for (FactorNode fnode : vnode.node.getNeighbors()) {
+                double[] table = vnode.getCostTableSumExcluding(fnode.getID());
+                // todo: addUnaryConstraints(table);
+                Commons.rmValue(table, Commons.getMin(table));
+                Commons.addArray(table, vnode.getNoise());
+                fnode.getOwner().tell(new VnodeToFnodeMessage(table), getSelf());
+            }
+
+        }
+        currCycle++;
     }
 
     /// Auxiliary Functions
@@ -88,48 +95,58 @@ public class MaxSumAgent extends FactorGraphAgent {
         return -1;
     }
 
-    public static class FunctionToVariableMessage extends Message {
-        private ArrayList<Double> values = new ArrayList<>();
+    @Override
+    protected void onReceive(Object message, ComAgent sender) {
+        super.onReceive(message, sender);
 
-        public FunctionToVariableMessage(ArrayList<Double> values) {
-            this.values = values;
+        if (message instanceof VnodeToFnodeMessage) {
+
+        }
+        else if (message instanceof FnodeToVnodeMessage) {
+
+        }
+    }
+
+    // Messages
+    public static class TableMessage extends BasicMessage {
+        protected double[] table;
+
+        public TableMessage(double[] table) {
+            this.table = table.clone();
         }
 
-        public ArrayList<Double> getValues() {
-            return values;
+        public double[] getTable() {
+            return table;
+        }
+    }
+
+    public static class VnodeToFnodeMessage extends TableMessage {
+        public VnodeToFnodeMessage(double[] table) {
+            super(table);
         }
 
         @Override
         public String toString() {
-            String s = "FunctionToVariableMessage: [";
-            for (double d : values)
+            String s = "VnodeToFnodeMessage: [";
+            for (double d : table)
                 s += d + " ";
-            s += "]";
-            return s;
+            return s + "]";
+        }
+    }
+
+    public static class FnodeToVnodeMessage extends TableMessage {
+        public FnodeToVnodeMessage(double[] table) {
+            super(table);
         }
 
-        public static class VariableToFunctionMessage extends Message {
-            private ArrayList<Double> values = new ArrayList<>();
-
-            public VariableToFunctionMessage(ArrayList<Double> values) {
-                this.values = values;
-            }
-
-            public ArrayList<Double> getValues() {
-                return values;
-            }
-
-            @Override
-            public String toString() {
-                String s = "VariableToFunctionMessage: [";
-                for (double d : values)
-                    s += d + " ";
-                s += "]";
-                return s;
-            }
-
+        @Override
+        public String toString() {
+            String s = "FnodeToVnodeMessage : [";
+            for (double d : table)
+                s += d + " ";
+            return s + "]";
         }
-    }//-
 
+    }
 }
 //
