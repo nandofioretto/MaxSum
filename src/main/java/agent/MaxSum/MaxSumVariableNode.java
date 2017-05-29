@@ -7,8 +7,6 @@ import kernel.Domain;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Created by nando on 5/24/17.
@@ -46,7 +44,6 @@ public class MaxSumVariableNode {
         return node.getID();
     }
 
-    // todo: Add dust to have tie-breaker (see Liel code)
     public int selectBestValue() {
         double[] table = getCostTableSum();
         Domain dom = node.getVariable().getDomain();
@@ -64,6 +61,30 @@ public class MaxSumVariableNode {
 
     public double[] getNoise() {
         return noise;
+    }
+
+    public void sendMessages(int currCycle) {
+        for (FactorNode fnode : node.getNeighbors()) {
+            // todo: don't need to construct a new table all the times if you clone them later.
+            double[] table = getCostTableSumExcluding(fnode.getID());
+            // todo LATER: addUnaryConstraints(table);
+            Commons.rmValue(table, Commons.getMin(table));
+            Commons.addArray(table, getNoise());
+
+            // Send messages to Funcation Nodes
+            if (fnode.getOwner().equals(this)) {
+                costTable.put(fnode.getID(), table.clone());
+            } else {
+                MaxSumAgent.VnodeToFnodeMessage msg =
+                        new MaxSumAgent.VnodeToFnodeMessage(table, getID(), fnode.getID(), currCycle);
+                fnode.getOwner().tell(msg, node.getOwner().getSelf());
+            }
+        }
+    }
+
+    public void copyCostTable(double[] table, long fNodeId) {
+        // todo: don't need to clone the table here
+        costTable.put(fNodeId, table.clone());
     }
 
     /**

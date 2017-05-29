@@ -1,9 +1,11 @@
 package agent.MaxSum;
 
 import agent.FactorGraphAgent;
-import communication.*;
+import communication.BasicMessage;
+import communication.ComAgent;
+import communication.FactorNode;
+import communication.VariableNode;
 import kernel.AgentState;
-import kernel.Commons;
 
 import java.util.*;
 
@@ -13,12 +15,23 @@ import java.util.*;
 public class MaxSumAgent extends FactorGraphAgent {
 
     private int nbCycles = Integer.MAX_VALUE;
-    private int currCycle = 0;
+    private int currCycle = -1;
+    private int cycleModule = 100;
     private double convergenceDelta = 0.001;
 
     // key: variableNode ID, value = maxSumNode
     private Map<Long, MaxSumVariableNode> variableNodes;
     private Map<Long, MaxSumFactorNode> factorNodes;
+
+    // Message counts (MAKE THIS A CLASS Msg Manager)
+    private int[] nbRecvFmsgs;
+    // the total number of variable node neighbors (of all functions which this agent expects to receive messages from)
+    // i.e., with ID > this agent ID
+    int totalNbVneibgbors = 0;
+    private int[] nbRecvVmsgs;
+    // the total number of factor node neighbors (of all functions which this agent expects to receive messages from)
+    // [i.e., with ID > this agent ID]
+    int totalNbFneibgbors = 0;
 
     // key = varID; value = variableNodes index associated to that variable ID
     private Map<Long, Integer> mapVarPos;
@@ -52,12 +65,24 @@ public class MaxSumAgent extends FactorGraphAgent {
 
             int vIdx = findVariableID(vnode.getVariable().getID());
             mapVarPos.put(vnode.getID(), vIdx);
+            // todo: URGENT - check: among these neighbors select only those to whom they should communicate
+            totalNbFneibgbors += vnode.getNeighbors().size();
         }
 
         // Initialize MaxSumFactorNodes
         for (FactorNode fnode : getFactorNodes()) {
             factorNodes.put(fnode.getID(), new MaxSumFactorNode(fnode));
+
+            // todo: URGENT - check: among these neighbors select only those to whom they should communicate
+            totalNbVneibgbors += fnode.getNeighbors().size();
         }
+
+        // Initialize the received message count
+
+        nbRecvFmsgs = new int[cycleModule];
+        Arrays.fill(nbRecvFmsgs, 0);
+        nbRecvVmsgs = new int[cycleModule];
+        Arrays.fill(nbRecvVmsgs, 0);
         cycle();
     }
 
@@ -69,24 +94,26 @@ public class MaxSumAgent extends FactorGraphAgent {
         if (message instanceof VnodeToFnodeMessage) {
             VnodeToFnodeMessage msg = (VnodeToFnodeMessage)message;
             long fnodeId = msg.getFactorNodeID();
-            //factorNodes.get(fnodeId)
+            long vNodeId = msg.getVariableNodeID();
+            factorNodes.get(fnodeId).copyCostTable(msg.getTable(), vNodeId);
+            nbRecvVmsgs[msg.getCycleNo()] ++;
         }
         else if (message instanceof FnodeToVnodeMessage) {
             FnodeToVnodeMessage msg = (FnodeToVnodeMessage)message;
             long fNodeId = msg.getFactorNodeID();
             long vNodeId = msg.getVariableNodeID();
             variableNodes.get(vNodeId).copyCostTable(msg.getTable(), fNodeId);
+            nbRecvFmsgs[msg.getCycleNo()] ++;
         }
 
-
-        // todo 4. Implment this logic
-//        if (all fNodeToVNodeMessage received and all vNodeTofNodeMessage received) {
-//            cycle()
-//        }
-
+        if (nbRecvVmsgs[currCycle] == totalNbVneibgbors && nbRecvFmsgs[currCycle] == totalNbFneibgbors) {
+            cycle();
+        }
     }
 
     private void cycle() {
+        currCycle++;
+        resetNbMessageReceived( (currCycle - 50) % cycleModule);
 
         // Select best value from all the variables controlled by this agent by calling the routines in variable nodes
         for (MaxSumVariableNode vnode : variableNodes.values()) {
@@ -94,24 +121,8 @@ public class MaxSumAgent extends FactorGraphAgent {
             getAgentActions().setVariableValue(mapVarPos.get(vnode.getID()), val);
 
             // VARIABLE-NODE LOGIC
-            // Send Messages from a factor node to neighbor variable nodes
-            for (FactorNode fnode : vnode.node.getNeighbors()) {
-                double[] table = vnode.getCostTableSumExcluding(fnode.getID());
-                // todo LATER: addUnaryConstraints(table);
-                Commons.rmValue(table, Commons.getMin(table));
-                Commons.addArray(table, vnode.getNoise());
-
-                // Send message: if factor agents = variable agent - simply copy table
-                //               otherwhise send message
-                if (fnode.getOwner().equals(this)) {
-                    // todo: 5. copy table
-                }
-                else {
-                    fnode.getOwner().tell(new VnodeToFnodeMessage(table, vnode.getID(), fnode.getID()), getSelf());
-                }
-            }
+            vnode.sendMessages(currCycle);
         }
-        currCycle++;
     }
 
     /// Auxiliary Functions
@@ -125,16 +136,23 @@ public class MaxSumAgent extends FactorGraphAgent {
         return -1;
     }
 
-    // Messages
-    public class TableMessage extends BasicMessage {
-        protected double[] table;
-        long fNodeId; // sender factor node
-        long vNodeId; // receiver factor node
+    private void resetNbMessageReceived(int iter) {
+        nbRecvFmsgs[iter] = 0;
+        nbRecvVmsgs[iter] = 0;
+    }
 
-        public TableMessage(double[] table, long vNodeId, long fNodeId)) {
+    /// Messages ------------------------------- //
+    public static class TableMessage extends BasicMessage {
+        protected double[] table;
+        protected long fNodeId; // sender factor node
+        protected long vNodeId; // receiver factor node
+        protected int cycleNo;
+
+        public TableMessage(double[] table, long vNodeId, long fNodeId, int currCycle) {
             this.table = table.clone();
             this.vNodeId = vNodeId;
             this.fNodeId = fNodeId;
+            this.cycleNo = currCycle;
         }
 
         public long getFactorNodeID() {
@@ -145,26 +163,31 @@ public class MaxSumAgent extends FactorGraphAgent {
             return vNodeId;
         }
 
+        public int getCycleNo() {
+            return cycleNo;
+        }
+
         public double[] getTable() {
             return table;
         }
 
     }
 
-    public class VnodeToFnodeMessage extends TableMessage {
+    public static class VnodeToFnodeMessage extends TableMessage {
         /**
          * A Variable to Factor node message
          * @param table The cost table
          * @param vNodeId sender (variable) node ID
          * @param fNodeId receiver (factor) node ID
+         * @param currCycle the sender cycle number
          */
-        public VnodeToFnodeMessage(double[] table, long vNodeId, long fNodeId) {
-            super(table, vNodeId, fNodeId);
+        public VnodeToFnodeMessage(double[] table, long vNodeId, long fNodeId, int currCycle) {
+            super(table, vNodeId, fNodeId, currCycle);
         }
 
         @Override
         public String toString() {
-            String s = "VnodeToFnodeMessage: vId " + vNodeId + " -> fId " + fNodeId + "[";
+            String s = "["+ cycleNo +"]VnodeToFnodeMessage: vId " + vNodeId + " -> fId " + fNodeId + "[";
             for (double d : table) s += d + " ";
             return s + "]";
         }
@@ -176,14 +199,15 @@ public class MaxSumAgent extends FactorGraphAgent {
          * @param table The cost table
          * @param fNodeId sender (factor) node ID
          * @param vNodeId receiver (variable) node ID
+         * @param currCycle the sender cycle number
          */
-        public FnodeToVnodeMessage(double[] table, long fNodeId, long vNodeId) {
-            super(table, vNodeId, fNodeId);
+        public FnodeToVnodeMessage(double[] table, long fNodeId, long vNodeId, int currCycle) {
+            super(table, vNodeId, fNodeId, currCycle);
         }
 
         @Override
         public String toString() {
-            String s = "FnodeToVnodeMessage: fId " + fNodeId + " -> vId " + vNodeId + "[";
+            String s = "["+ cycleNo +"]FnodeToVnodeMessage: fId " + fNodeId + " -> vId " + vNodeId + "[";
             for (double d : table) s += d + " ";
             return s + "]";
         }

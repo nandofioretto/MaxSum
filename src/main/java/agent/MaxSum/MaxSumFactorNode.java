@@ -20,6 +20,7 @@ public class MaxSumFactorNode {
     public MaxSumFactorNode (FactorNode node) {
         this.node = node;
         costTable = new HashMap<>();
+
         for (VariableNode v : node.getNeighbors()) {
             double[] costs = new double[v.getVariable().getDomain().size()];
             Arrays.fill(costs, 0);
@@ -27,5 +28,11 @@ public class MaxSumFactorNode {
         }
     }
 
-    
+
+    public void copyCostTable(double[] table, long fNodeId) {
+        // todo: don't need to clone the table here
+        costTable.put(fNodeId, table.clone());
+    }
+
+
 }
