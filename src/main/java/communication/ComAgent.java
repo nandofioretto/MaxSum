@@ -96,7 +96,7 @@ public abstract class ComAgent extends Thread { //implements Runnable {
      * @param message The message to be sent
      * @param sender  The sender of the message
      */
-    synchronized public void tell(Object message, ComAgent sender) {
+    public void tell(Object message, ComAgent sender) {
         try {
             
             String sName = sender == null ? "none" : sender.getName();
@@ -114,7 +114,7 @@ public abstract class ComAgent extends Thread { //implements Runnable {
      * @param message The message to be sent
      * @param sender  The sender of the message
      */
-    synchronized public void tell(BasicMessage message, ComAgent sender) {
+    public void tell(BasicMessage message, ComAgent sender) {
         sender.getAgentStatistics().getStopWatch().suspend();
         if (message.isTrackable())
             message.setSimulatedNanoTime(sender.getAgentStatistics().getStopWatch().getNanoTime());

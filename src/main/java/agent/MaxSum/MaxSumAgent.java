@@ -65,15 +65,12 @@ public class MaxSumAgent extends FactorGraphAgent {
 
             int vIdx = findVariableID(vnode.getVariable().getID());
             mapVarPos.put(vnode.getID(), vIdx);
-            // todo: URGENT - check: among these neighbors select only those to whom they should communicate
-            totalNbFneibgbors += vnode.getNeighbors().size();
+            totalNbFneibgbors += vnode.getHigherPriorityNeighbors().size();
         }
 
         // Initialize MaxSumFactorNodes
         for (FactorNode fnode : getFactorNodes()) {
             factorNodes.put(fnode.getID(), new MaxSumFactorNode(fnode));
-
-            // todo: URGENT - check: among these neighbors select only those to whom they should communicate
             totalNbVneibgbors += fnode.getNeighbors().size();
         }
 

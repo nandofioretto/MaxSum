@@ -11,6 +11,11 @@ import java.util.List;
  */
 public class VariableNode {
     private List<FactorNode> neighbors;
+
+    // Factor Nodes whose constraint is shared with the variable of this variable node, and whose other variables are
+    // of higher ID of this variable
+    private List<FactorNode> higherPriorityNeighbors;
+
     private DCOPagent owner;
     private Variable variable;
 
@@ -18,16 +23,25 @@ public class VariableNode {
         this.owner = owner;
         this.variable = variable;
         neighbors = new ArrayList<>();
+        higherPriorityNeighbors = new ArrayList<>();
         owner.addVariableNode(this);
     }
 
     public void addNeighbor(FactorNode fNode) {
         if (!neighbors.contains(fNode))
             neighbors.add(fNode);
+
+        if (!higherPriorityNeighbors.contains(fNode) &&
+                fNode.getOwner().getId() > owner.getId())
+            higherPriorityNeighbors.add(fNode);
     }
 
     public List<FactorNode> getNeighbors() {
         return neighbors;
+    }
+
+    public List<FactorNode> getHigherPriorityNeighbors() {
+        return higherPriorityNeighbors;
     }
 
     public DCOPagent getOwner() {
