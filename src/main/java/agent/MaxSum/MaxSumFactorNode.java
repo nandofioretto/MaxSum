@@ -15,6 +15,8 @@ public class MaxSumFactorNode {
 
     // Cost received by each variable participating to this factor.
     // key: variable ID; value: vector of size Dom of variable
+
+    // todo: We assume now that all constraints are binary
     private HashMap<Long, double[]> costTable;
 
     public MaxSumFactorNode (FactorNode node) {

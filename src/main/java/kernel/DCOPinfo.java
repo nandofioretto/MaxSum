@@ -1,5 +1,6 @@
 package kernel;
 
+import communication.CycleTickerDeamon;
 import communication.DCOPagent;
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ public class DCOPinfo {
 
     public static DCOPagent leaderAgent;
     public static HashMap<Long, DCOPagent> agentsRef = new HashMap<>();
+    public static CycleTickerDeamon cycleTickerDeamon;
 
     public static boolean isSAT;
 }

@@ -88,4 +88,13 @@ public class Message {
         }
 
     }
+
+    public static class StartNewCycle implements Serializable {
+        private static final long serialVersionUID = 1100000000000000004L;
+
+        @Override
+        public String toString() {
+            return "Start new cycle";
+        }
+    }
 }
