@@ -62,6 +62,7 @@ public class Spawner {
         // Spawn the Statistics collector Deamon
         final ComAgent statsCollector = new StatisticsDeamon(spawnedAgentStates.size());
         statsCollector.start();
+        DCOPinfo.cycleTickerDeamon = new CycleTickerDeamon(spawnedAgentStates);
 
         // Spawns agents and start the DCOP algorithm
         for (AgentState agtState : spawnedAgentStates) {
@@ -72,8 +73,6 @@ public class Spawner {
 
             agt.start();
         }
-
-
 
         // Save leader AgentRef
         String leaderName = spawnedAgentStates.get(0).getName();

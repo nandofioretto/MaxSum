@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by nando on 5/19/17.
  */
-public abstract class FactorGraphAgent extends DCOPagent {
+public abstract class FactorGraphAgent extends SynchronousAgent {
 
     // The list of function nodes and variable nodes owned by this agent
     private List<FactorNode> factorNodes;

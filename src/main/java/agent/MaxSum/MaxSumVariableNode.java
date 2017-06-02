@@ -35,7 +35,7 @@ public class MaxSumVariableNode {
             costTable.put(f.getID(), costs);
         }
 
-        noise = new  double[node.getVariable().getDomain().size();]
+        noise = new  double[node.getVariable().getDomain().size();
         for (int i = 0; i <noise.length; i++)
             noise[i] = Math.random();
     }
