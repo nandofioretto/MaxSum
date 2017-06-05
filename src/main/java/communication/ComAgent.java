@@ -100,7 +100,7 @@ public abstract class ComAgent extends Thread { //implements Runnable {
         try {
             
             String sName = sender == null ? "none" : sender.getName();
-            System.out.println(sName + " sending " + message.toString() + " to " + getName());
+            //System.out.println(sName + " sending " + message.toString() + " to " + getName());
 
             mailbox.put(new TrackableObject(message, sender));
         } catch (InterruptedException e) {

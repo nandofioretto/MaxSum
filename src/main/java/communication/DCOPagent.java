@@ -39,6 +39,7 @@ public abstract class DCOPagent extends ComAgent {
 
     public DCOPagent(ComAgent statsCollector, AgentState agentState) {
         super(agentState.getName(), agentState.getID());
+
         agentActions = new AgentActions(agentState);
         agentView = new AgentView(agentState);
 
@@ -60,6 +61,7 @@ public abstract class DCOPagent extends ComAgent {
             // Starts statistics collection
             getAgentStatistics().getStopWatch().start();
 
+            System.out.println(getName() + " Sending onStart");
             onStart();
         }
         if (message instanceof Message.EndSignal) {
@@ -86,7 +88,7 @@ public abstract class DCOPagent extends ComAgent {
     /**
      * Actions to to prior starting the DCOP algorithm.
      */
-    protected void onStart() {}
+    protected abstract void onStart();
 
     /**
      * Actions to to prior terminating the DCOP algorithm.

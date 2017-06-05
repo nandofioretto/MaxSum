@@ -77,7 +77,6 @@ public class Spawner {
         // Save leader AgentRef
         String leaderName = spawnedAgentStates.get(0).getName();
         DCOPinfo.leaderAgent = DCOPinfo.agentsRef.get((long)0);
-
         assert (DCOPinfo.leaderAgent.getId() == 0);
 
         // Links Agent Neighbors as ComAgent objects.
@@ -126,7 +125,6 @@ public class Spawner {
         if (DCOPinfo.leaderAgent instanceof FactorGraphAgent)
         {
             FactorGraph a = new FactorGraph(dcopInstance);
-            System.out.println(a.toString());
         }
     }
 

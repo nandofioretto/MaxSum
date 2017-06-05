@@ -63,7 +63,7 @@ public class BoundDomain implements Domain {
         } catch (Exception exc) {
             System.err.println("Trying to access invalid element " + exc.toString());
         }
-        return ((max - min) + pos);
+        return ((max - min - 1) + pos);
     }
 
     @Override

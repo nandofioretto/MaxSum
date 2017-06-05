@@ -5,8 +5,6 @@ import communication.CycleTickerDeamon;
 import communication.DCOPagent;
 import communication.Message;
 import kernel.AgentState;
-import kernel.DCOPInstance;
-import kernel.DCOPalgorithmState;
 import kernel.DCOPinfo;
 
 /**
@@ -24,16 +22,38 @@ public abstract class SynchronousAgent extends DCOPagent {
     }
 
     @Override
+    protected void onStart() {
+        runCycle();
+    }
+
+    @Override
     protected void onReceive(Object message, ComAgent sender) {
         super.onReceive(message, sender);
 
         if (message instanceof Message.StartNewCycle) {
             currentCycle++;
+            runCycle();
         }
     }
 
+
+    protected void runCycle() {
+        onCycleStart();
+        cycle();
+    }
+
+    protected abstract void cycle();
+
+    protected abstract void onCycleEnd();
+
+    protected abstract void onCycleStart();
+
     protected void terminateCycle() {
+        onCycleEnd();
         cycleTickerDeamon.terminateAgentCycle(getSelf());
     }
 
+    public int getCurrentCycle() {
+        return currentCycle;
+    }
 }

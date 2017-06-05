@@ -28,6 +28,7 @@ import java.io.Serializable;
  * Created by ffiorett on 7/17/15.
  */
 public class Message {
+
     public static class RegisterNeighbor implements Serializable {
         private static final long serialVersionUID = 1100000000000000001L;
         private final ComAgent agentRef;
@@ -53,7 +54,7 @@ public class Message {
     }
 
     public static class RegisterLeader implements Serializable {
-        private static final long serialVersionUID = 1100000000000000001L;
+        private static final long serialVersionUID = 1100000000000000002L;
         private final ComAgent agentRef;
 
         public RegisterLeader(ComAgent ref) {
@@ -71,7 +72,7 @@ public class Message {
     }
 
     public static class StartSignal implements Serializable {
-        private static final long serialVersionUID = 1100000000000000002L;
+        private static final long serialVersionUID = 1100000000000000003L;
 
         @Override
         public String toString() {
@@ -80,7 +81,7 @@ public class Message {
     }
 
     public static class EndSignal implements Serializable {
-        private static final long serialVersionUID = 1100000000000000003L;
+        private static final long serialVersionUID = 1100000000000000004L;
 
         @Override
         public String toString() {
@@ -90,7 +91,7 @@ public class Message {
     }
 
     public static class StartNewCycle implements Serializable {
-        private static final long serialVersionUID = 1100000000000000004L;
+        private static final long serialVersionUID = 1100000000000000005L;
 
         @Override
         public String toString() {

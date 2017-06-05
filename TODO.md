@@ -20,7 +20,7 @@
              T = copy of constraint table involving var n
              if this agent controls n: (do nothing)
              else: T = T + msg_recv_from_n   <<< contains the values of the other vars for when its var is assigned 
-             T_proj = getBestValues(T);          [projects out the variable (n) where we are sending this message]
+             T_proj = getBestValues(T);          [projects the variable (n) where we are sending this message]
    		     subtractMinimumValue(T_proj);
 		     sendMessage(n, T_proj);
 

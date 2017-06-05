@@ -56,6 +56,31 @@ public class VariableNode {
         return variable.getID();
     }
 
+    public int getNbNotOwnedNeighbors() {
+        int tot = 0;
+        for (FactorNode n : neighbors) {
+            if (!n.getOwner().equals(owner))
+                tot ++;
+        }
+        return tot;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VariableNode that = (VariableNode) o;
+
+        return variable != null ? variable.getID() == that.getVariable().getID() : that.variable == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return variable != null ? variable.hashCode() : 0;
+    }
+
     @Override
     public String toString() {
         String s = "VariableNode: " +

@@ -1,10 +1,9 @@
 package agent;
 
 import communication.ComAgent;
-import communication.DCOPagent;
 import communication.FactorNode;
 import communication.VariableNode;
-import kernel.*;
+import kernel.AgentState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +18,20 @@ public abstract class FactorGraphAgent extends SynchronousAgent {
     private List<VariableNode> variableNodes;
 
     public FactorGraphAgent(ComAgent statsCollector, AgentState agentState) {
-
         super(statsCollector, agentState);
         variableNodes = new ArrayList<>();
         factorNodes = new ArrayList<>();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     public void addFunctionNode(FactorNode node) {
         if (!factorNodes.contains(node)) {
             factorNodes.add(node);
-            System.out.println("Agent " + this.getName() + " registers function node " + node.toString());
+            // System.out.println("Agent " + this.getName() + " registers function node " + node.toString());
 
         }
     }
@@ -36,9 +39,10 @@ public abstract class FactorGraphAgent extends SynchronousAgent {
     public void addVariableNode(VariableNode node) {
         if (!variableNodes.contains(node)) {
             variableNodes.add(node);
-            System.out.println("Agent " + this.getName() + " registers variable node " + node.toString());
+            // System.out.println("Agent " + this.getName() + " registers variable node " + node.toString());
         }
     }
+
 
     public List<FactorNode> getFactorNodes() {
         return factorNodes;

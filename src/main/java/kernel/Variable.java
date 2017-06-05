@@ -48,4 +48,5 @@ public interface Variable extends DCOPobject {
     public void registerParticipatingConstraint(Constraint constraint);
 
     public ArrayList<Constraint> getParticipatingConstraints();
+
 }

@@ -12,7 +12,6 @@ public class CycleTickerDeamon /*extends ComAgent*/ {
 
     int currentCycle;
     int nbAgents;
-    //List<Boolean> in_queue_list = Collections.synchronizedList(in_queue);
     BitSet agentsTerminatedCurrentCycle;
 
     public CycleTickerDeamon(List<AgentState> spawnedAgentStates) {
@@ -22,6 +21,8 @@ public class CycleTickerDeamon /*extends ComAgent*/ {
     }
 
     public synchronized void terminateAgentCycle(ComAgent agent) {
+        //System.out.println(agent.getName() + " Terminating current cycle");
+
         agentsTerminatedCurrentCycle.set((int)agent.getId());
 
         if (agentsTerminatedCurrentCycle.cardinality() == nbAgents)

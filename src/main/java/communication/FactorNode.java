@@ -42,6 +42,30 @@ public class FactorNode {
         return constraint.getID();
     }
 
+    public int getNbNotOwnedNeighbors() {
+        int tot = 0;
+        for (VariableNode n : neighbors) {
+            if (!n.getOwner().equals(owner))
+                tot ++;
+        }
+        return tot;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FactorNode that = (FactorNode) o;
+
+        return constraint != null ? constraint.equals(that.constraint) : that.constraint == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return constraint != null ? constraint.hashCode() : 0;
+    }
+
     @Override
     public String toString() {
         String s = "FactorNode: " +

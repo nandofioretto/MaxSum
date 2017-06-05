@@ -122,7 +122,6 @@ public class TableConstraint implements Constraint {
         TableConstraint that = (TableConstraint) o;
 
         return ID == that.ID;
-
     }
 
     @Override

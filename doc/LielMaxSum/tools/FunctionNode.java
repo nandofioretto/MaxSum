@@ -24,7 +24,7 @@ public class FunctionNode extends MaxSumNode {
 
 	private void sendMessage(NodeId to, double dampingFactor) {
 		long[][] cTable = getConstraintTable(to);
-		MaxSumMessage msg = getOtherIdMsg(to);  // gets the msg recv. from the var node to whom to send this message 
+		MaxSumMessage msg = getOtherIdMsg(to); 
 		if (msg != null) {
 			addValues(cTable, msg);
 		}
