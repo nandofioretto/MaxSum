@@ -57,18 +57,18 @@ public class MaxSumFactorNode {
 
             // Project on the (first variable) dest. of message
             double[] table = project(cTable);
-            Commons.rmValue(table, Commons.getMin(table));
+            //Commons.rmValue(table, Commons.getMin(table));
 
             // Send messages to Funcation Nodes
-            if (vnode.getOwner().equals(node.getOwner())) {
-                // Note: 'table' is not cloned here prior being sent, as freshly created earlier
-                copyCostTable(table, vnode.getID());
-            } else {
+//            if (vnode.getOwner().equals(node.getOwner())) {
+//                // Note: 'table' is not cloned here prior being sent, as freshly created earlier
+//                copyCostTable(table, vnode.getID());
+//            } else {
                 // Note: 'table' is not cloned here prior being sent, as freshly created earlier
                 MaxSumAgent.FnodeToVnodeMessage msg =
                         new MaxSumAgent.FnodeToVnodeMessage(table, getID(), vnode.getID(), currCycle);
                 vnode.getOwner().tell(msg, node.getOwner().getSelf());
-            }
+//            }
         }
     }
 

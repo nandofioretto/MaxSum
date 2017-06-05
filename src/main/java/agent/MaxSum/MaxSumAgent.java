@@ -59,16 +59,16 @@ public class MaxSumAgent extends FactorGraphAgent {
             variableNodes.put(vnode.getID(), new MaxSumVariableNode(vnode));
             int vIdx = findVariableID(vnode.getVariable().getID());
             mapVarPos.put(vnode.getID(), vIdx);
-            totalNbFneibgbors += vnode.getNbNotOwnedNeighbors(); //getHigherPriorityNeighbors().size();
+            totalNbFneibgbors += vnode.getNeighbors().size(); //vnode.getNbNotOwnedNeighbors();
         }
-        System.out.println(getName() + " num Fneighbors: " + totalNbFneibgbors);
+        System.out.println(getName() + " num VariableNode's neighbors: " + totalNbFneibgbors);
 
         // Initialize MaxSumFactorNodes
         for (FactorNode fnode : getFactorNodes()) {
             factorNodes.put(fnode.getID(), new MaxSumFactorNode(fnode));
-            totalNbVneibgbors += fnode.getNbNotOwnedNeighbors();//getNeighbors().size();
+            totalNbVneibgbors += fnode.getNeighbors().size(); //fnode.getNbNotOwnedNeighbors();
         }
-        System.out.println(getName() + " num Vneighbors: " + totalNbVneibgbors);
+        System.out.println(getName() + " num FactorNode's neighbors: " + totalNbVneibgbors);
 
         // start cycling
         super.onStart();
@@ -147,7 +147,6 @@ public class MaxSumAgent extends FactorGraphAgent {
         factorNodes.values().forEach(MaxSumFactorNode::saveReceivedCostTables);
 
         System.out.println("Agent " + getName() + " Terminating cycle  " + getCurrentCycle());
-
     }
 
     /// Auxiliary Functions
