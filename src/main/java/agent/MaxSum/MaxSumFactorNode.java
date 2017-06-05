@@ -1,11 +1,13 @@
 package agent.MaxSum;
 
+import communication.DCOPagent;
 import communication.FactorNode;
 import communication.VariableNode;
 import kernel.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,36 +46,45 @@ public class MaxSumFactorNode {
         return node.getID();
     }
 
+    public DCOPagent getOwner() {
+        return node.getOwner();
+    }
+
+    public List<VariableNode> getNeighbors() {
+        return node.getNeighbors();
+    }
+
+    @Deprecated
     public void sendMessages(int currCycle) {
-
         for (VariableNode vnode : node.getNeighbors()) {
-
-            // GET TABLE CONSTRAINT (BINARY).
-            double[][] cTable = getConstraintTable(vnode);
-
-            // Add values received from other agents (variable nodes)
             // Note: this need to be extedned if we handle multiple constraints [todo]
-            sumCostTablesExcluding(cTable, vnode);
-
+            double[][] cTable = getConstraintTable(vnode.getVariable());
+            // Add values received from other agents (variable nodes)
+            sumCostTablesExcluding(cTable, vnode.getID());
             // Project on the (first variable) dest. of message
             double[] table = project(cTable);
             //Commons.rmValue(table, Commons.getMin(table));
 
             // Send messages to Funcation Nodes
-//            if (vnode.getOwner().equals(node.getOwner())) {
-//                // Note: 'table' is not cloned here prior being sent, as freshly created earlier
-//                copyCostTable(table, vnode.getID());
-//            } else {
-                // Note: 'table' is not cloned here prior being sent, as freshly created earlier
-                MaxSumAgent.FnodeToVnodeMessage msg =
-                        new MaxSumAgent.FnodeToVnodeMessage(table, getID(), vnode.getID(), currCycle);
-                vnode.getOwner().tell(msg, node.getOwner().getSelf());
-//            }
+            MaxSumAgent.FnodeToVnodeMessage msg =
+                    new MaxSumAgent.FnodeToVnodeMessage(table, getID(), vnode.getID(), currCycle);
+            vnode.getOwner().tell(msg, node.getOwner().getSelf());
         }
     }
 
+    public double[] getTable(VariableNode vNode) {
+        // todo: To handle nary constraints, we need to modify this function
+        double[][] cTable = getConstraintTable(vNode.getVariable());
+        // Add values received from other agents (variable nodes)
+        sumCostTablesExcluding(cTable, vNode.getID());
+        // Project on the (first variable) dest. of message
+        double[] table = project(cTable);
+        //Commons.rmValue(table, Commons.getMin(table));
+        return table;
+    }
+
+
     public void copyCostTable(double[] table, long fNodeId) {
-        // todo: don't need to clone the table here
         recvCostTables.put(fNodeId, table);
     }
 
@@ -89,9 +100,9 @@ public class MaxSumFactorNode {
     // GET TABLE CONSTRAINT (BINARY).
     // I am going to order the constraint Table so that the variable vIdx ( to send  )
     // is going to be positioned as FIRST element of the table scope
-    private double[][] getConstraintTable(VariableNode vnode) {
+    private double[][] getConstraintTable(Variable variable) {
         TableBinaryConstraint c = (TableBinaryConstraint)node.getConstraint();
-        int v_idx = Commons.getIdx(c.getScope(), vnode.getVariable());
+        int v_idx = Commons.getIdx(c.getScope(), variable);
         assert (v_idx >= 0);
         int map_dom_1 = v_idx;      // I wont this to be = to v_dix
         int map_dom_2 = v_idx == 1 ? 0 : 1; // I wont this to be != from v_dix
@@ -112,10 +123,10 @@ public class MaxSumFactorNode {
 
     // Add values received from other agents (variable nodes)
     // Note: this need to be extedned if we handle multiple constraints [todo]
-    private void sumCostTablesExcluding(double[][] cTable, VariableNode vnode)
+    private void sumCostTablesExcluding(double[][] cTable, long vnodeID)
     {
         for (VariableNode v : node.getNeighbors()) {
-            if (v.equals(vnode))
+            if (v.getID() == vnodeID)
                 continue;
 
             Domain vDom = v.getVariable().getDomain();

@@ -1,12 +1,15 @@
 package agent.MaxSum;
 
+import communication.DCOPagent;
 import communication.FactorNode;
 import communication.VariableNode;
 import kernel.Commons;
 import kernel.Domain;
+import kernel.Variable;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,6 +52,18 @@ public class MaxSumVariableNode {
         return node.getID();
     }
 
+    public DCOPagent getOwner() {
+        return node.getOwner();
+    }
+
+    public List<FactorNode> getNeighbors() {
+        return node.getNeighbors();
+    }
+
+    public Variable getVariable() {
+        return node.getVariable();
+    }
+
     public int selectBestValue() {
         double[] table = getCostTableSum();
         Domain dom = node.getVariable().getDomain();
@@ -60,8 +75,8 @@ public class MaxSumVariableNode {
         return noise;
     }
 
+    @Deprecated
     public void sendMessages(int currCycle) {
-
         for (FactorNode fnode : node.getNeighbors()) {
             double[] table = getCostTableSumExcluding(fnode.getID());
             // addUnaryConstraints(table);  // todo later
@@ -69,20 +84,23 @@ public class MaxSumVariableNode {
             Commons.rmValue(table, Commons.getAverage(table));
             //Commons.addArray(table, getNoise());
 
-            // Send messages to Funcation Nodes
-//            if (fnode.getOwner().equals(node.getOwner())) {
-//                copyCostTable(table, fnode);
-//            } else {
-                // Note: 'table' is not cloned here prior being sent, as freshly created earlier
-                MaxSumAgent.VnodeToFnodeMessage msg =
+            MaxSumAgent.VnodeToFnodeMessage msg =
                         new MaxSumAgent.VnodeToFnodeMessage(table, getID(), fnode.getID(), currCycle);
-                fnode.getOwner().tell(msg, node.getOwner().getSelf());
-//            }
+            fnode.getOwner().tell(msg, node.getOwner().getSelf());
         }
     }
 
-    public void copyCostTable(double[] table, FactorNode fNode) {
-        // fNode.recvCostTables.put(node.getID(), table);
+    public double[] getTable(FactorNode fNode) {
+        double[] table = getCostTableSumExcluding(fNode.getID());
+        // addUnaryConstraints(table);  // todo later
+        //Commons.rmValue(table, Commons.getMin(table));
+        Commons.rmValue(table, Commons.getAverage(table));
+        //Commons.addArray(table, getNoise());
+        return table;
+    }
+
+    public void copyCostTable(double[] table, long fNodeId) {
+        recvCostTables.put(fNodeId, table);
     }
 
     public void saveReceivedCostTables() {
