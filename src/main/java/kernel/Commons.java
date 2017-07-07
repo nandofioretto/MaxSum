@@ -90,4 +90,15 @@ public class Commons {
         return -1;
     }
 
+    public static String toString(double[][] matrix) {
+        String ret = "";
+        for (int i = 0; i < matrix.length; i++) {
+            ret += "[ ";
+            for (int j = 0; j < matrix[i].length; j++) {
+                ret += matrix[i][j] + " ";
+            }
+            ret += "]\n";
+        }
+        return ret;
+    }
 }

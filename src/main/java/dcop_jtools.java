@@ -37,7 +37,7 @@ public class    dcop_jtools {
         String repairPhase = "TDBR";
         String destroyPhase = "RAND";
         List<Object> algParams = new ArrayList<>();
-        int nbIterations = 10;
+        int nbIterations = 5;
         long timeoutMs = Constants.infinity; // no-timeout
         String file = "../data/2-constraint.dimacs";
 

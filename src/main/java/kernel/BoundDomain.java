@@ -58,7 +58,7 @@ public class BoundDomain implements Domain {
     @Override
     public int getElement(int pos) {
         try {
-            if (pos < min || pos > max)
+            if (pos < 0 || pos > size())
                 throw new RuntimeException();
         } catch (Exception exc) {
             System.err.println("Trying to access invalid element " + exc.toString());
