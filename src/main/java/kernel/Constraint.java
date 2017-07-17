@@ -45,6 +45,10 @@ public interface Constraint extends DCOPobject {
 
     String toString();
 
+    boolean isBinary();
+
+    boolean isUnary();
+
     static boolean isUnsat(double value) {return (value >= Constants.infinity || value <= -Constants.infinity);}
 
     static boolean isSat(double value) {return !isUnsat(value);}

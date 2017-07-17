@@ -57,6 +57,10 @@ public class AgentView {
         return agentState.getVariable(pos).getID();
     }
 
+    public long getVariableId() {
+        return agentState.getVariable().getID();
+    }
+
     public int getNbVariables() {
         return agentState.getVariables().size();
     }
@@ -83,6 +87,14 @@ public class AgentView {
 
     public int getDomainSize() {
         return getDomainSize(0);
+    }
+
+    public int getDomainElement(int vIdx, int dIdx) {
+        return agentState.getVariable(vIdx).getDomain().getElement(dIdx);
+    }
+
+    public int getDomainElement(int dIdx) {
+        return agentState.getVariable().getDomain().getElement(dIdx);
     }
 
     /**

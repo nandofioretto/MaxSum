@@ -42,7 +42,7 @@ public class TableBinaryConstraint implements Constraint {
     private int dom1Min, dom1Size;
     private int dom2Min, dom2Size;
 
-    public TableBinaryConstraint(String name, long ID, ArrayList<Variable> scope, int defaultValue) {
+    public TableBinaryConstraint(String name, long ID, ArrayList<Variable> scope, double defaultValue) {
         assert(scope.size() == 2);
         dom1Min = scope.get(0).getDomain().getMin();
         dom1Size = scope.get(0).getDomain().size();
@@ -72,6 +72,16 @@ public class TableBinaryConstraint implements Constraint {
                 if (worstValue < value || worstValue == Constants.NaN) worstValue = value;
             }
         }
+    }
+
+    @Override
+    public boolean isBinary() {
+        return true;
+    }
+
+    @Override
+    public boolean isUnary() {
+        return false;
     }
 
     @Override

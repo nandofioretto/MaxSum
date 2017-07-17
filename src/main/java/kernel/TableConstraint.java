@@ -65,6 +65,16 @@ public class TableConstraint implements Constraint {
     }
 
     @Override
+    public boolean isBinary() {
+        return scope.size() == 2;
+    }
+
+    @Override
+    public boolean isUnary() {
+        return scope.size() == 1;
+    }
+
+    @Override
     public String getName() {
         return this.name;
     }
