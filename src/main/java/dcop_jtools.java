@@ -36,6 +36,7 @@ public class    dcop_jtools {
     public static void main(String argv[]) {
         String repairPhase = "TDBR";
         String destroyPhase = "RAND";
+        String agentType = "CCG";
         List<Object> algParams = new ArrayList<>();
         int nbIterations = 5;
         long timeoutMs = Constants.infinity; // no-timeout
@@ -47,6 +48,9 @@ public class    dcop_jtools {
         }
         file = argv[0];
         for (int i = 1; i < argv.length; i++) {
+            if (argv[i].equals("-a") || argv[i].equals("--agent")) {
+                agentType = argv[i+1];
+            }
             if (argv[i].equals("-i") || argv[i].equals("--iterations")) {
                 nbIterations = Integer.parseInt(argv[i+1]);
             }
@@ -60,7 +64,7 @@ public class    dcop_jtools {
                 timeoutMs = Long.parseLong(argv[i+1]);
             }
         }
-
+        algParams.add(agentType);
         algParams.add(nbIterations);
         algParams.add(timeoutMs);
 
@@ -76,6 +80,7 @@ public class    dcop_jtools {
     public static String getUsage() {
         return "dcop_jtool FILE.xml [options]\n" +
                 "  where options is one of the following:\n" +
+                "  --alg (-a) [MINSUM|CCG]. The Agent type\n" +
                 "  --repair (-r) [GDBR, TDBR(default)]. The DLNS repair phase.\n" +
                 "  --destroy (-d) [RAND(default), MEETINGS]. The DLNS destroy phase.\n" +
                 "  --iterations (-i) (default=500). The number of iterations of DLNS.\n" +

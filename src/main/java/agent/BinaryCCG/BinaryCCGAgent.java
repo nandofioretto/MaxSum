@@ -185,5 +185,13 @@ public class BinaryCCGAgent extends SynchronousAgent {
         public long getVarId() {
             return varId;
         }
+
+        @Override
+        public String toString() {
+            return "CCGTableMessage{" +
+                    "table=" + Arrays.toString(table) +
+                    ", varId=" + varId +
+                    '}';
+        }
     }
 }

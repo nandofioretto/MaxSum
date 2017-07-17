@@ -1,5 +1,6 @@
 package kernel;
 
+import agent.BinaryCCG.BinaryCCGAgent;
 import agent.MaxSum.MaxSumAgent;
 import communication.ComAgent;
 import communication.DCOPagent;
@@ -12,8 +13,13 @@ import java.util.List;
 public class AgentFactory {
 
     public static DCOPagent create(ComAgent statsCollector, AgentState agtState, List<Object> algParameters) {
-        // todo: Modify here to add possibly different algorithms.
-        return new MaxSumAgent(statsCollector, agtState, algParameters);
+        String agt = (String)algParameters.get(0);
+        if (agt.toUpperCase().equals("CCG"))
+            return new BinaryCCGAgent(statsCollector, agtState, algParameters.subList(1, algParameters.size()));
+        else if (agt.toUpperCase().equals("MINSUM"))
+            return new MaxSumAgent(statsCollector, agtState, algParameters.subList(1, algParameters.size()));
+        else
+            return null;
     }
 
 }
