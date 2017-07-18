@@ -34,6 +34,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -47,6 +49,8 @@ public class DCOPInstanceFactory {
     private static final int DZINC_TYPE = 1;
     private static final int USC_TYPE = 2;
     private static final int WCSP_TYPE = 3;
+    private static final int DIMACS_TYPE = 4;
+    private static final int CCG_TYPE = 5;
 
     public static DCOPInstance importDCOPInstance(String filename) {
         return importDCOPInstance(filename, -1);
@@ -60,8 +64,11 @@ public class DCOPInstanceFactory {
             return createUSCInstance(filename);
         } else if (ext.equalsIgnoreCase("dzn") || type == DZINC_TYPE) {
             return createDZINCInstance(filename);
-        } else if (ext.equalsIgnoreCase("dimacs") || ext.equalsIgnoreCase("wcsp") || type == WCSP_TYPE) {
+        } else if (ext.equalsIgnoreCase("dimacs") || type == DIMACS_TYPE ||
+                ext.equalsIgnoreCase("wcsp") || type == WCSP_TYPE) {
             return createWCSPInstance(filename);
+        } else if (ext.equalsIgnoreCase("ccg") || type == CCG_TYPE) {
+            return createCCGInstance(filename);
         }
         return null;
     }
@@ -268,9 +275,9 @@ public class DCOPInstanceFactory {
             e.printStackTrace();
         }
 
-
         return null;
     }
+
     /**
      * Get the XMLNode of the given categroy matching the given name.
      * @param doc The XML document.
@@ -287,6 +294,126 @@ public class DCOPInstanceFactory {
                 return node;
             }
         }
+        return null;
+    }
+
+
+    /**
+     * Line 1:
+     *   p edges <N> <E>
+     * where
+     *   p and edges are keywords
+     *   <N> is the number of variables (integer)
+     *   <E> is the total number of edges (integer)
+     * Variables:
+     *   Have all binary domains. A unary constraint is associated to a variable and described as:
+     *   v <v_id> <cost>
+     *   where
+     *     'v' is a keyword
+     *     <v_id> is the ID of the variable
+     *     <cost> is the cost associated to the choice: v = 1. When v = 0 , the cost = 0
+     * Edges:
+     *   Each edge is described as:
+     *   e <v1_id> <v2_id>
+     *   where:
+     *     'e' is a keyword
+     *     <v1_id>, <v2_id> are the ID of the two nodes in the edge
+     *     The constraint is : e(x1, x2) = INF if d1=d2=0; 0, otherwise.
+     *  --- vertex types begin ---
+     *  For each variable of the problem lists:
+     *  <vid> <type>
+     *      where
+     *      <vid> is the variable ID
+     *      <type> \in {0, -,1, -2} denoting, respectively, a problem variable, and two auxiliary variables.
+     *  --- vertex types end ---
+     * @param filename
+     * @return
+     */
+    private static DCOPInstance createCCGInstance(String filename) {
+        DCOPInstance instance = new DCOPInstance();
+        int optType = Constants.OPT_MINIMIZE;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+
+            int cIdx = 0; // number of constraints
+
+            // First line (problem preamble)
+            String[] tokens = br.readLine().split(" ");
+            assert (tokens.length == 4);
+            int n = Integer.parseInt(tokens[2]);
+            int e = Integer.parseInt(tokens[3]);
+            System.out.println("read: " + n + " variables and " + e + " edges.");
+
+            // Parse Variables
+            for (int i = 0; i < n; i++) {
+                tokens = br.readLine().split(" ");
+                assert (tokens[0].equalsIgnoreCase("v"));
+                int id = Integer.parseInt(tokens[1]);
+                double cost = Double.parseDouble(tokens[2]);
+
+                String varName = "v_" + Integer.toString(id);
+                // todo: Associate mutliple (auxliary) variables to one agent.
+                String agtName = "agt_" + Integer.toString(id);
+
+                // Create and store Agent in DCOP instance
+                AgentState agt = new AgentState(agtName, id);
+                instance.addAgent(agt);
+
+
+                // Create Variable and it in the DCOP instance
+                Variable variable = VariableFactory.getVariable(varName, 0, 1, "INT-BOUND", agt);
+                instance.addVariable(variable);
+                System.out.println(variable.toString());
+
+                // Create Constraint
+                ArrayList<Variable> scope = new ArrayList<Variable>();
+                scope.add(variable);
+                String cname = "con_" + cIdx++;
+                Constraint constraint = ConstraintFactory.getConstraint(cname, scope, 0, "soft");
+                constraint.addValue(new Tuple(new int[]{0}), 0, optType);
+                constraint.addValue(new Tuple(new int[]{1}), cost, optType);
+                instance.addConstraint(constraint);
+                System.out.println(constraint);
+            }
+
+
+            // Create Constraints
+            for (int i = 0; i < e; i++) {
+                tokens = br.readLine().split(" ");
+                assert (tokens[0].equalsIgnoreCase("e"));
+                int id1 = Integer.parseInt(tokens[1]);
+                int id2 = Integer.parseInt(tokens[2]);
+                Variable v1 = instance.getVariable(id1);
+                Variable v2 = instance.getVariable(id2);
+                ArrayList<Variable> scope = new ArrayList<Variable>();
+                scope.add(v1);
+                scope.add(v2);
+                String cname = "con_" + cIdx++;
+                Constraint constraint = ConstraintFactory.getConstraint(cname, scope, 0, "soft");
+                constraint.addValue(new Tuple(new int[]{0,0}), Constants.infinity, optType);
+                constraint.addValue(new Tuple(new int[]{0,1}), 0, optType);
+                constraint.addValue(new Tuple(new int[]{1,0}), 0, optType);
+                constraint.addValue(new Tuple(new int[]{1,1}), 0, optType);
+                instance.addConstraint(constraint);
+                System.out.println(constraint);
+            }
+
+            // Process variable type
+            String line = br.readLine();
+            assert (line.contains("vertex types begin"));
+            for (int i = 0; i < n; i++) {
+                tokens = br.readLine().split(" ");
+                assert (tokens.length == 2);
+                int id   = Integer.parseInt(tokens[0]);
+                int type = Integer.parseInt(tokens[1]);
+                instance.getVariable(id).setType(type);
+            }
+            return instance;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

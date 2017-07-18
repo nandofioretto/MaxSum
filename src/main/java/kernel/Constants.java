@@ -31,5 +31,6 @@ public class Constants {
     public static final int OPT_MAXIMIZE = 1;
     public static final int OPT_MINIMIZE = 2;
     public static boolean isInf(int value) {return (value == infinity || value == -infinity);}
+    public static boolean isInf(double value) {return (value == infinity || value == -infinity);}
     public static int worstValue() { return -infinity; }
 }

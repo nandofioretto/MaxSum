@@ -33,6 +33,7 @@ public class IntVariable implements Variable {
     long ID;
     private Domain domain;
     private int value;
+    private int type;
 
     AgentState ownerAgentState;
     ArrayList<Constraint> participatingConstraints;
@@ -44,8 +45,20 @@ public class IntVariable implements Variable {
         this.domain = new BoundDomain(min, max);
         this.value = domain.getMin();
         this.rand = new Random();
+        this.type = Variable.DEF_TYPE;
 
         participatingConstraints = new ArrayList<Constraint>();
+    }
+
+    @Override
+    public int getType() {
+        return type;
+    }
+
+    @Override
+    public void setType(int type) {
+        assert(type == Variable.DEF_TYPE || type == Variable.AUX1_TYPE || type == Variable.AUX2_TYPE);
+        this.type = type;
     }
 
     @Override
@@ -132,10 +145,9 @@ public class IntVariable implements Variable {
     @Override
     public String toString() {
         return "IntVariable{" +
+                name + " " + ID + " ' type=" + type + "' " +
                 "domain=" + domain +
                 ", value=" + value +
-                ", name='" + name + '\'' +
-                ", ID=" + ID +
                 ", Owner=" + ownerAgentState.getName() +
                 '}';
     }

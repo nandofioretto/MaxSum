@@ -51,7 +51,7 @@ public class BinaryCCGAgent extends SynchronousAgent {
 
         Tuple tuple = new Tuple(new int[]{1});
         for (Constraint c: agentState.getConstraints())
-            if (c.isUnary() && c.getScope() == agentState.getVariable())
+            if (c.isUnary() && c.getScope().get(0) == agentState.getVariable())
                 this.weight = c.getValue(tuple);
 
         // Initialize messages
@@ -77,6 +77,30 @@ public class BinaryCCGAgent extends SynchronousAgent {
 
         // start cycling
         super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        double w0 = 0, w1 = 0;
+        boolean converged = true;
+        for (ComAgent n : getNeighborsRef()) {
+            w0 += recvCostTables.get(n.getId())[0];
+            w1 += recvCostTables.get(n.getId())[1];
+        }
+        w1 += weight;
+        if (Constants.isInf(w0) || Constants.isInf(w1)) {
+            converged = false;
+        }
+        if (getAgentView().getVariableType() == Variable.DEF_TYPE) {
+            getAgentActions().setVariableValue(w0 > w1 ? 1 : 0);
+        }
+        else
+            getAgentActions().setVariableValue(-1);
+
+        System.out.println("Agent " + getName() + " on Stop -- select value: " +
+                getAgentView().getVariableValue() );
+
+        super.onStop();
     }
 
     @Override

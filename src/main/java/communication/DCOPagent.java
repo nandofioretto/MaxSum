@@ -77,6 +77,7 @@ public abstract class DCOPagent extends ComAgent {
         long nanoTime = getAgentStatistics().getStopWatch().getNanoTime();
         long sentMessages = getAgentStatistics().getSentMessages();
         long NCCCs = 0;
+
         long milliTime = (long)(nanoTime * 1.0e-6);
 //        System.out.println(getName() + " REPORT: sim time: " + milliTime + " ms. "
 //        + " nb. msgs: " + sentMessages);

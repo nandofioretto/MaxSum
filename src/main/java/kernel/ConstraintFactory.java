@@ -33,7 +33,9 @@ public class ConstraintFactory {
     public static Constraint getConstraint(String name, ArrayList<Variable> scope, Integer defaultValue, String semantics) {
         Constraint constraint = null;
         if (semantics.equalsIgnoreCase("soft")) {
-            if (scope.size() == 2)
+            if (scope.size() == 1)
+                constraint = new TableUnaryConstraint(name, constraintIDcount++, scope.get(0), defaultValue);
+            else if (scope.size() == 2)
                 constraint = new TableBinaryConstraint(name, constraintIDcount++, scope, defaultValue);
             else
                 constraint = new TableConstraint(name, constraintIDcount++, scope, defaultValue);

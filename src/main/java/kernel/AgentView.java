@@ -53,6 +53,10 @@ public class AgentView {
         return getVariableValue(0);
     }
 
+    public int getVariableType(int pos) { return agentState.getVariable(pos).getType(); }
+
+    public int getVariableType() { return agentState.getVariable().getType(); }
+
     public long getVariableId(int pos) {
         return agentState.getVariable(pos).getID();
     }

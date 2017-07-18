@@ -108,4 +108,17 @@ public class TableUnaryConstraint implements Constraint {
     public double getDefaultValue() {
         return defaultValue;
     }
+
+    @Override
+    public String toString() {
+        String ret = "TableConstraint " + name + " scope = " + scope.getName() + "\n";
+        double val0 = relation[0];
+        double val1 = relation[1];
+        ret += "0: ";
+        ret += val0 == Constants.infinity ? "inf\n" : val0 == -Constants.infinity ? "-inf\n" : val0 + "\n";
+        ret += "1: ";
+        ret += val1 == Constants.infinity ? "inf\n" : val1 == -Constants.infinity ? "-inf\n" : val1 + "\n";
+        return ret;
+    }
+
 }

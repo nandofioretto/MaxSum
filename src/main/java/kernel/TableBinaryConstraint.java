@@ -163,7 +163,7 @@ public class TableBinaryConstraint implements Constraint {
             for (int y = dom2Min; y < dom2Min+dom2Size; y++) {
                 ret +=  x + " " + y + " : ";
                 double val = relation[ ((x - dom1Min) * dom1Size) + (y - dom2Min) ];
-                ret += val == Constants.infinity ? "inf" : val == -Constants.infinity ? "-inf" : val + "\n";
+                ret += val == Constants.infinity ? "inf\n" : val == -Constants.infinity ? "-inf\n" : val + "\n";
             }
         }
         return ret;

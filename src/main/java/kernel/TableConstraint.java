@@ -154,7 +154,7 @@ public class TableConstraint implements Constraint {
                 ret += " " + v ;
             double val = entry.getValue();
             ret += ": ";
-            ret += val == Constants.infinity ? "inf" : val == -Constants.infinity ? "-inf" : val + "\n";
+            ret += val == Constants.infinity ? "inf\n" : val == -Constants.infinity ? "-inf\n" : val + "\n";
         }
         return ret;
     }

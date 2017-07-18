@@ -28,6 +28,9 @@ import java.util.ArrayList;
  * Created by ffiorett on 7/7/15.
  */
 public interface Variable extends DCOPobject {
+    final static int DEF_TYPE  = 0;
+    final static int AUX1_TYPE = -1;
+    final static int AUX2_TYPE = -2;
 
     public int getValue();
 
@@ -38,6 +41,10 @@ public interface Variable extends DCOPobject {
     public Domain getDomain();
 
     public void setDomain(Domain domain);
+
+    public int getType();
+
+    public void setType(int type);
 
     public String toString();
 
