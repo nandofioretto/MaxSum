@@ -70,7 +70,6 @@ public class BinaryCCGAgent extends SynchronousAgent {
         }
     }
 
-
     @Override
     protected void onStart() {
         getAgentActions().setVariableValue(0);
@@ -112,10 +111,11 @@ public class BinaryCCGAgent extends SynchronousAgent {
             recvCostTables.put(msg.getVarId(), msg.getTable());
             nbRecvMsgs++;
 
-            System.out.println(getName() + " received " + message.toString()
-                    + "  # msg recv: " + nbRecvMsgs + " / " + nbVarsNeighbor);
+            System.out.println(getName() + "(" + getCurrentCycle() + ")  # msg recv: " + message.toString()
+                    + nbRecvMsgs + " / " + nbVarsNeighbor);
 
             if (nbRecvMsgs == nbVarsNeighbor) {
+                //setAgtState(STOPPED);
                 terminateCycle();
             }
         }
@@ -127,9 +127,9 @@ public class BinaryCCGAgent extends SynchronousAgent {
         // todo check if onwner of received messages is same as this agent
         for (ComAgent k : getNeighborsRef()) {
             double[] table = getCostTableSumExcluding(k.getId());
-            //Commons.rmValue(table, Commons.getAverage(table));
-            Commons.rmValue(table, Commons.getMin(table));
-            //Commons.addArray(table, noise);
+            Commons.rmValue(table, Commons.getAverage(table));
+            //Commons.rmValue(table, Commons.getMin(table));
+            Commons.addArray(table, noise);
 
             CCGTableMessage msg = new CCGTableMessage(table, getAgentView().getVariableId());
             k.tell(msg, getSelf());
@@ -141,8 +141,8 @@ public class BinaryCCGAgent extends SynchronousAgent {
         int val = selectBestValue();
         getAgentActions().setVariableValue(val);
 
-        System.out.println("Agent " + getName() + " Starting cycle: " + getCurrentCycle() +
-                " select value: " + getAgentView().getVariableValue() );
+//        System.out.println("Agent " + getName() + " Starting cycle: " + getCurrentCycle() +
+//                " select value: " + getAgentView().getVariableValue() );
     }
 
     @Override
@@ -156,7 +156,7 @@ public class BinaryCCGAgent extends SynchronousAgent {
             costTables.put(key, value.clone());
         }
 
-        System.out.println("Agent " + getName() + " Terminating cycle  " + getCurrentCycle());
+//        System.out.println("Agent " + getName() + " Terminating cycle  " + getCurrentCycle());
     }
 
     @Override
@@ -170,8 +170,9 @@ public class BinaryCCGAgent extends SynchronousAgent {
     private double[] getCostTableSumExcluding(long excludedId) {
         double[] sum = new double[]{weight, 0};
         double[] s = getCostTableSum(excludedId);
-        sum[0] = s[0] + weight;
-        sum[1] = Math.min(s[0], s[1] + weight);
+        s[1] += weight;
+        sum[0] = s[1];
+        sum[1] = Math.min(s[0], s[1]);
         return sum;
     }
 
@@ -180,6 +181,7 @@ public class BinaryCCGAgent extends SynchronousAgent {
         for (ComAgent k : getNeighborsRef()) {
             if (k.getId() == excludedId)
                 continue;
+            //sum[0] += costTables.get(k.getId())[1];
             Commons.addArray(sum, costTables.get(k.getId()));
         }
         return sum;

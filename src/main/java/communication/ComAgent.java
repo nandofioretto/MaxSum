@@ -43,6 +43,11 @@ public abstract class ComAgent extends Thread { //implements Runnable {
     private ComAgent leaderRef = null;
     private AgentStatistics agentStatistics;
     private BlockingQueue<TrackableObject> mailbox;
+    protected static int RUNNING = 0;
+    protected static int STOPPED = 1;
+    protected static int TERMINATED = 2;
+    private int state;
+
     //String name;
 
     public ComAgent(String name, long agentID) {
@@ -53,13 +58,15 @@ public abstract class ComAgent extends Thread { //implements Runnable {
         this.agentStatistics = new AgentStatistics();
         this.mailbox = new ArrayBlockingQueue<TrackableObject>(1000);
         agentStatistics.getStopWatch().start();
+        this.state = RUNNING;
     }
 
     @Override
     public void run() {
         preStart();
         while (!terminationCondition()) {
-            await();
+            if (state == RUNNING)
+                await();
         }
         preStop();
     }
@@ -159,6 +166,14 @@ public abstract class ComAgent extends Thread { //implements Runnable {
     @Override
     public long getId() {
         return agentID;
+    }
+
+    public int getAgtState() {
+        return this.state;
+    }
+
+    public void setAgtState(int state) {
+        this.state = state;
     }
 
     public static ComAgent noSender() {

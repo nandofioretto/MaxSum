@@ -22,7 +22,7 @@ public class CycleTickerDeamon /*extends ComAgent*/ {
 
     public synchronized void terminateAgentCycle(ComAgent agent) {
         //System.out.println(agent.getName() + " Terminating current cycle");
-
+        agent.setAgtState(ComAgent.STOPPED);
         agentsTerminatedCurrentCycle.set((int)agent.getId());
 
         if (agentsTerminatedCurrentCycle.cardinality() == nbAgents)
@@ -31,8 +31,10 @@ public class CycleTickerDeamon /*extends ComAgent*/ {
             agentsTerminatedCurrentCycle.clear();
 
             // start new cycle by sending each message
-            for (DCOPagent agt : DCOPinfo.agentsRef.values())
+            for (DCOPagent agt : DCOPinfo.agentsRef.values()) {
+                agt.setAgtState(ComAgent.RUNNING);
                 agt.tell(new Message.StartNewCycle(), ComAgent.noSender());
+            }
         }
     }
 
