@@ -22,11 +22,14 @@
 
 package kernel;
 
-
 import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -35,8 +38,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import static java.lang.System.exit;
 
 /**
  * Created by ffiorett on 7/7/15
@@ -51,6 +57,7 @@ public class DCOPInstanceFactory {
     private static final int WCSP_TYPE = 3;
     private static final int DIMACS_TYPE = 4;
     private static final int CCG_TYPE = 5;
+    private static final int JSON_TYPE = 6;
 
     public static DCOPInstance importDCOPInstance(String filename) {
         return importDCOPInstance(filename, -1);
@@ -69,6 +76,8 @@ public class DCOPInstanceFactory {
             return createWCSPInstance(filename);
         } else if (ext.equalsIgnoreCase("ccg") || type == CCG_TYPE) {
             return createCCGInstance(filename);
+        } else if (ext.equalsIgnoreCase("json") || type == JSON_TYPE) {
+            return createJSONInstance(filename);
         }
         return null;
     }
@@ -416,6 +425,101 @@ public class DCOPInstanceFactory {
 
         return null;
     }
+
+    private static DCOPInstance createJSONInstance(String filename) {
+        DCOPInstance instance = new DCOPInstance();
+        int optType = Constants.OPT_MINIMIZE;
+
+        JSONParser parser = new JSONParser();
+        try {
+
+            Object obj = parser.parse(new FileReader(filename));
+            JSONObject jsonObject = (JSONObject) obj;
+
+            JSONObject agents = (JSONObject) jsonObject.get("agents");
+            JSONObject variables = (JSONObject) jsonObject.get("variables");
+            JSONObject constraints = (JSONObject) jsonObject.get("constraints");
+
+            // Parse Agents
+            for(Iterator it = agents.keySet().iterator(); it.hasNext();) {
+                String name = (String) it.next();
+                JSONObject agt = (JSONObject) agents.get(name);
+                long id = (Long) agt.get("id");
+
+                // Create and store Agent in DCOP instance
+                AgentState agent = new AgentState(name, id);
+                instance.addAgent(agent);
+                System.out.println(agent.toString());
+            }
+
+            // Parse Variables
+            for(Iterator it = variables.keySet().iterator(); it.hasNext();) {
+                String name = (String) it.next();
+                JSONObject var = (JSONObject) variables.get(name);
+                long id = (Long) var.get("id");
+                long type = (Long) var.get("type");
+                String agt_name = (String) var.get("agent");
+
+                JSONArray domain = (JSONArray) var.get("domain");
+                long min = (Long)domain.get(0);
+                long max = (Long)domain.get(domain.size()-1);
+                assert (domain.size() == 2);
+
+                // Create Variable and it in the DCOP instance
+                Variable variable = VariableFactory.getVariable(name, (int)min, (int)max, "INT-BOUND",
+                                                                instance.getAgent(agt_name));
+                instance.addVariable(variable);
+                System.out.println(variable.toString());
+            }
+
+            // Parase Constraints
+            for(Iterator it = constraints.keySet().iterator(); it.hasNext();) {
+                String name = (String) it.next();
+                JSONObject con = (JSONObject) constraints.get(name);
+                JSONArray jscope = (JSONArray) con.get("scope");
+                ArrayList<Variable> scope = new ArrayList<Variable>();
+
+                Iterator<String> iterator = jscope.iterator();
+                while (iterator.hasNext()) {
+                    scope.add(instance.getVariable(iterator.next()));
+                }
+
+                Constraint constraint = ConstraintFactory.getConstraint(name, scope, 0, "soft");
+
+                JSONArray jvals = (JSONArray) con.get("vals");
+                assert (scope.size() < 2);
+
+                if (scope.size() == 1) {
+                    Double val = 0.0;
+                    val = ((Double) jvals.get(0));// < -999.0 ? Constants.infinity : (Double) jvals.get(0);
+                    constraint.addValue(new Tuple(new int[]{0, 0}), val, optType);
+                    val = ((Double) jvals.get(1)) < -999.0 ? Constants.infinity : (Double) jvals.get(1);
+                    constraint.addValue(new Tuple(new int[]{0, 1}), val, optType);
+                }
+                else if (scope.size() == 2) {
+                    Double val = 0.0;
+                    val = ((Double) jvals.get(0)) < -999.0 ? Constants.infinity : (Double) jvals.get(0);
+                    constraint.addValue(new Tuple(new int[]{0, 0}), val, optType);
+                    val = ((Double) jvals.get(1)) < -999.0 ? Constants.infinity : (Double) jvals.get(1);
+                    constraint.addValue(new Tuple(new int[]{0, 1}), val, optType);
+                    val = ((Double) jvals.get(2)) < -999.0 ? Constants.infinity : (Double) jvals.get(2);
+                    constraint.addValue(new Tuple(new int[]{1, 0}), val, optType);
+                    val = ((Double) jvals.get(3)) < -999.0 ? Constants.infinity : (Double) jvals.get(3);
+                    constraint.addValue(new Tuple(new int[]{1, 1}), val, optType);
+                }
+
+                instance.addConstraint(constraint);
+                System.out.println(constraint.toString());
+            }
+            return instance;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 
     private static DCOPInstance createUSCInstance(String filename) {
         return null;

@@ -22,7 +22,6 @@ public class BinaryCCGAgent extends SynchronousAgent {
 
     // Cost received by each neighbor by projecting out y if this variable is x [prev cycle]
     // key: variable ID; value: vector of size Dom of this variable
-    // todo: Check here -> variable IDs as Keys or Agnet IDs?
     private HashMap<Long, double[]> costTables;
 
     // Cost received by each neighbor  at current cycle
@@ -90,7 +89,7 @@ public class BinaryCCGAgent extends SynchronousAgent {
         if (Constants.isInf(w0) || Constants.isInf(w1)) {
             converged = false;
         }
-        if (getAgentView().getVariableType() == Variable.DEF_TYPE) {
+        if (getAgentView().getVariableType() == Variable.DECISION_VAR) {
             getAgentActions().setVariableValue(w0 > w1 ? 1 : 0);
         }
         else

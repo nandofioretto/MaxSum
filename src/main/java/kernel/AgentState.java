@@ -22,6 +22,8 @@
 
 package kernel;
 
+import communication.ComAgent;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -35,6 +37,7 @@ public class AgentState {
     private ArrayList<Variable> variables;
     private ArrayList<Constraint> constraints;
     private ArrayList<AgentState> neighbors;
+    private ComAgent agt = null;
 
     private String name;
     private long ID;
@@ -46,6 +49,14 @@ public class AgentState {
         variables = new ArrayList<Variable>();
         constraints = new ArrayList<Constraint>();
         neighbors = new ArrayList<AgentState>();
+    }
+
+    public ComAgent getComAgent() {
+        return agt;
+    }
+
+    public void setComAgent(ComAgent agt) {
+        this.agt = agt;
     }
 
     public Variable getVariable() {
@@ -126,5 +137,20 @@ public class AgentState {
         public int compare(AgentState o1, AgentState o2) {
             return o1.getID() < o2.getID() ? -1 : 1;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AgentState that = (AgentState) o;
+
+        return ID == that.ID;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (ID ^ (ID >>> 32));
     }
 }

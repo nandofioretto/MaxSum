@@ -45,7 +45,7 @@ public class IntVariable implements Variable {
         this.domain = new BoundDomain(min, max);
         this.value = domain.getMin();
         this.rand = new Random();
-        this.type = Variable.DEF_TYPE;
+        this.type = Variable.DECISION_VAR;
 
         participatingConstraints = new ArrayList<Constraint>();
     }
@@ -57,7 +57,7 @@ public class IntVariable implements Variable {
 
     @Override
     public void setType(int type) {
-        assert(type == Variable.DEF_TYPE || type == Variable.AUX1_TYPE || type == Variable.AUX2_TYPE);
+        assert(type == Variable.DECISION_VAR || type == Variable.AUX1_VAR || type == Variable.AUX2_VAR);
         this.type = type;
     }
 

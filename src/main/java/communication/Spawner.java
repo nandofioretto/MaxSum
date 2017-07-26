@@ -84,6 +84,7 @@ public class Spawner {
             ComAgent actor = yellowPages.get(agtState.getName());
             for (AgentState neighbor : agtState.getNeighbors()) {
                 DCOPagent neighborAgt = yellowPages.get(neighbor.getName());
+                neighbor.setComAgent(neighborAgt);
                 actor.tell(new Message.RegisterNeighbor(neighborAgt, neighborAgt.getId()), ComAgent.noSender());
             }
             // Link Leader to each agent (used if needed by algorithm)
