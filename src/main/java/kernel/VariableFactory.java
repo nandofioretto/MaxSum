@@ -28,12 +28,10 @@ package kernel;
 public class VariableFactory {
     private static long variableIDcount = 0;
 
-    // TODO: Change this creation min/max here.
-    public static Variable getVariable(String varName, int min, int max, String varType,
-                                       AgentState agtOwner) {
+    public static Variable getVariable(String varName, int min, int max, String varType, int vtype, AgentState agtOwner) {
         Variable variable = null;
         if (varType.equalsIgnoreCase("INT-BOUND")) {
-           variable = new IntVariable(varName, variableIDcount++, min, max);
+            variable = new IntVariable(varName, variableIDcount++, min, max, vtype);
         }
 
         // Register the variable in its Agent owner
@@ -42,6 +40,11 @@ public class VariableFactory {
         }
 
         return variable;
+    }
+
+    // TODO: Change this creation min/max here.
+    public static Variable getVariable(String varName, int min, int max, String varType, AgentState agtOwner) {
+        return getVariable(varName, min, max, varType, Variable.DECISION_VAR, agtOwner);
     }
 
 }

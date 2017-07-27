@@ -50,6 +50,16 @@ public class IntVariable implements Variable {
         participatingConstraints = new ArrayList<Constraint>();
     }
 
+    public IntVariable(String name, long ID, int min, int max, int type) {
+        this.name = name;
+        this.ID = ID;
+        this.domain = new BoundDomain(min, max);
+        this.value = domain.getMin();
+        this.rand = new Random();
+        setType(type);
+        participatingConstraints = new ArrayList<Constraint>();
+    }
+
     @Override
     public int getType() {
         return type;

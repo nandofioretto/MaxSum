@@ -37,6 +37,8 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
     // A vector of noisy values to allow faster convergence
     public double[] noise;
 
+    AgentState agentState;
+
     public BinaryCCGAgentMVA(ComAgent statsCollector, AgentState agentState, List<Object> parameters) {
         super(statsCollector, agentState);
         // Check argument:
@@ -61,6 +63,15 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
             agtVarIdxMap.put(v.getID(), i);
             i++;
         }
+        this.noise = new  double[2];
+        for (i = 0; i <noise.length; i++) {
+            this.noise[i] = Math.random();
+        }
+        this.agentState = agentState;
+    }
+
+    @Override
+    protected void onStart() {
 
         // Initialize Neighbors
         this.varNeighbors = new HashMap<>();
@@ -77,7 +88,7 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
                     vars_inserted.add(u.getID());
 
                     ComAgent n_agt = u.getOwnerAgent().equals(agentState) ? null : u.getOwnerAgent().getComAgent();
-                    this.varNeighbors.get(v).add(new Pair<>(u.getID(), n_agt));
+                    this.varNeighbors.get(v.getID()).add(new Pair<>(u.getID(), n_agt));
                     nbVarsNeighbor ++;
                 }
             }
@@ -105,14 +116,6 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
             }
         }
 
-        this.noise = new  double[2];
-        for (i = 0; i <noise.length; i++) {
-            this.noise[i] = Math.random();
-        }
-    }
-
-    @Override
-    protected void onStart() {
         for (int i = 0; i < getAgentView().getNbVariables(); i++) {
             getAgentActions().setVariableValue(i, 0);
         }
@@ -126,15 +129,17 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
         for (Long vId : varNeighbors.keySet()) {
             for (Pair<Long, ComAgent> p : varNeighbors.get(vId)) {
                 Long uId = p.getFirst();
-                Boolean same_agent = p.getSecond() != null;
+                Boolean same_agent = (p.getSecond() == null);
                 // todo: make this faster by not constructing the table if sender = recev agent
                 double[] table = getCostTableSumExcluding(vId, uId);
-                Commons.rmValue(table, Commons.getAverage(table));
-                //Commons.rmValue(table, Commons.getMin(table));
-                Commons.addArray(table, noise);
+                //Commons.rmValue(table, Commons.getAverage(table));
+                Commons.rmValue(table, Commons.getMin(table));
+                //Commons.addArray(table, noise);
 
                 if (same_agent) {
                     recvCostTables.get(vId).put(uId, table/*.clone()*/);
+                    //System.out.println("** var_" + vId + "(" + getCurrentCycle() + ") recv msg: " + Arrays.toString(recvCostTables.get(vId).get(uId)) + " from var_" + uId);
+                    //System.out.println(getName() + " [v_" + vId +"](" + getCurrentCycle() + ")  # msg recv from same agent [v_" + uId + "]" + (nbRecvMsgs+1) + " / " + nbVarsNeighbor);
                     incrRecvMsgs();
                 } else {
                     CCGTableMessage msg = new CCGTableMessage(table, vId, uId);
@@ -159,12 +164,16 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
             if (Constants.isInf(w0) || Constants.isInf(w1)) {
                 converged = false;
             }
-            if (getAgentView().getVariableType() == Variable.DECISION_VAR) {
+            if (getAgentView().getVariableType(agtVarIdxMap.get(vId)) == Variable.DECISION_VAR) {
                 getAgentActions().setVariableValue(agtVarIdxMap.get(vId), w0 > w1 ? 1 : 0);
-            } else
-                getAgentActions().setVariableValue(agtVarIdxMap.get(vId), -1);
+                System.out.println("Agent " + getName() + " var: v_" + vId + " on Stop -- select value: "
+                        + getAgentView().getVariableValue(agtVarIdxMap.get(vId)));
 
-            System.out.println("Agent " + getName() + " on Stop -- select value: " + getAgentView().getVariableValue());
+            } else {
+                getAgentActions().setVariableValue(agtVarIdxMap.get(vId), -1);
+//                System.out.println("[Agent " + getName() + " var: v_" + vId + " on Stop -- select value: "
+//                        + getAgentView().getVariableValue(agtVarIdxMap.get(vId)) + "]") ;
+            }
         }
         super.onStop();
     }
@@ -177,8 +186,8 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
             long vId = msg.getRecverVarId();
             long uId = msg.getSenderVarId();
             recvCostTables.get(vId).put(uId, msg.getTable());
-            System.out.println(getName() + "(" + getCurrentCycle() + ")  # msg recv: " + message.toString()
-                    + nbRecvMsgs+1 + " / " + nbVarsNeighbor);
+            // System.out.println("var_" + vId + "(" + getCurrentCycle() + ") recv msg: " + Arrays.toString(recvCostTables.get(vId).get(uId)) + " from var_" + uId);
+            //System.out.println(getName() + "[v_" + vId + "]"+"(" + getCurrentCycle() + ")  # msg recv: " + "[v_"+ uId + "]" + message.toString() + (nbRecvMsgs+1) + " / " + nbVarsNeighbor);
             incrRecvMsgs();
         }
     }

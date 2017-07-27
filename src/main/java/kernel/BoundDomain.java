@@ -92,6 +92,21 @@ public class BoundDomain implements Domain {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BoundDomain)) return false;
+
+        BoundDomain that = (BoundDomain) o;
+
+        return ID == that.ID;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (ID ^ (ID >>> 32));
+    }
+
+    @Override
     public String toString() {
         return "[" + min + "," + max + "]";
     }

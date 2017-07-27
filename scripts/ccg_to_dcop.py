@@ -175,10 +175,12 @@ def make_dcop(wcsp):
             C = wcsp['variables'][v]['cons']
             for c in C:
                 scope = wcsp['constraints'][c]['scope']
+                
                 min_id = scope[0]
-                for v in scope:
-                    if v < min_id:
-                        min_id = v
+                for u in scope:
+                    if wcsp['variables'][u]['type'] >= 0 and u < min_id:
+                        min_id = u
+
                 wcsp['variables'][v]['agent'] = wcsp['variables'][min_id]['agent']
 
     wcsp['agents'] = {}
@@ -239,4 +241,5 @@ if __name__ == '__main__':
         exit(1)
     else:
         dcop = make_dcop(wcsp)
+        print('saving dcop: agents=', len(dcop['agents']), ' variables=', len(dcop['variables']), ' constraints=', len(dcop['constraints']))
         save_json_file(outfile, dcop)

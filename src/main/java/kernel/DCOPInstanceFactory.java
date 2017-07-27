@@ -466,7 +466,7 @@ public class DCOPInstanceFactory {
                 assert (domain.size() == 2);
 
                 // Create Variable and it in the DCOP instance
-                Variable variable = VariableFactory.getVariable(name, (int)min, (int)max, "INT-BOUND",
+                Variable variable = VariableFactory.getVariable(name, (int)min, (int)max, "INT-BOUND", (int)type,
                                                                 instance.getAgent(agt_name));
                 instance.addVariable(variable);
                 System.out.println(variable.toString());
@@ -492,9 +492,9 @@ public class DCOPInstanceFactory {
                 if (scope.size() == 1) {
                     Double val = 0.0;
                     val = ((Double) jvals.get(0));// < -999.0 ? Constants.infinity : (Double) jvals.get(0);
-                    constraint.addValue(new Tuple(new int[]{0, 0}), val, optType);
+                    constraint.addValue(new Tuple(new int[]{0}), val, optType);
                     val = ((Double) jvals.get(1)) < -999.0 ? Constants.infinity : (Double) jvals.get(1);
-                    constraint.addValue(new Tuple(new int[]{0, 1}), val, optType);
+                    constraint.addValue(new Tuple(new int[]{1}), val, optType);
                 }
                 else if (scope.size() == 2) {
                     Double val = 0.0;

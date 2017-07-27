@@ -37,7 +37,7 @@ public class AgentState {
     private ArrayList<Variable> variables;
     private ArrayList<Constraint> constraints;
     private ArrayList<AgentState> neighbors;
-    private ComAgent agt = null;
+    private ComAgent agt;
 
     private String name;
     private long ID;
@@ -45,6 +45,7 @@ public class AgentState {
     public AgentState(String name, long ID) {
         this.name = name;
         this.ID = ID;
+        this.agt = null;
 
         variables = new ArrayList<Variable>();
         constraints = new ArrayList<Constraint>();
@@ -89,10 +90,11 @@ public class AgentState {
     }
 
     public void registerConstraint(Constraint constraint) {
-        constraints.add(constraint);
-
-        for (Variable scope : constraint.getScope()) {
-            registerNeighbor(scope.getOwnerAgent());
+        if (!constraints.contains(constraint)) {
+            constraints.add(constraint);
+            for (Variable scope : constraint.getScope()) {
+                registerNeighbor(scope.getOwnerAgent());
+            }
         }
     }
 

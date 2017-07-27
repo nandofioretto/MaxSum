@@ -64,10 +64,16 @@ public class Spawner {
         statsCollector.start();
         DCOPinfo.cycleTickerDeamon = new CycleTickerDeamon(spawnedAgentStates);
 
+
         // Spawns agents and start the DCOP algorithm
         for (AgentState agtState : spawnedAgentStates) {
-            DCOPagent agt = AgentFactory.create(statsCollector, agtState, algParameters);
 
+//            for (AgentState neighbor : agtState.getNeighbors()) {
+//                DCOPagent neighborAgt = yellowPages.get(neighbor.getName());
+//                neighbor.setComAgent(neighborAgt);
+//            }
+
+            DCOPagent agt = AgentFactory.create(statsCollector, agtState, algParameters);
             DCOPinfo.agentsRef.put(agt.getId(), agt);
             yellowPages.put(agtState.getName(), agt);
 
@@ -82,9 +88,9 @@ public class Spawner {
         // Links Agent Neighbors as ComAgent objects.
         for (AgentState agtState : this.spawnedAgentStates) {
             ComAgent actor = yellowPages.get(agtState.getName());
+            agtState.setComAgent(actor);
             for (AgentState neighbor : agtState.getNeighbors()) {
                 DCOPagent neighborAgt = yellowPages.get(neighbor.getName());
-                neighbor.setComAgent(neighborAgt);
                 actor.tell(new Message.RegisterNeighbor(neighborAgt, neighborAgt.getId()), ComAgent.noSender());
             }
             // Link Leader to each agent (used if needed by algorithm)

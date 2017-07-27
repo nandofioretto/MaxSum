@@ -110,6 +110,21 @@ public class TableUnaryConstraint implements Constraint {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TableUnaryConstraint)) return false;
+
+        TableUnaryConstraint that = (TableUnaryConstraint) o;
+
+        return ID == that.ID;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (ID ^ (ID >>> 32));
+    }
+
+    @Override
     public String toString() {
         String ret = "TableConstraint " + name + " scope = " + scope.getName() + "\n";
         double val0 = relation[0];
