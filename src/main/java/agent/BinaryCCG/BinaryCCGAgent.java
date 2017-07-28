@@ -95,8 +95,8 @@ public class BinaryCCGAgent extends SynchronousAgent {
         else
             getAgentActions().setVariableValue(-1);
 
-        System.out.println("Agent " + getName() + " on Stop -- select value: " +
-                getAgentView().getVariableValue() );
+//        System.out.println("Agent " + getName() + " on Stop -- select value: " +
+//                getAgentView().getVariableValue() );
 
         super.onStop();
     }
@@ -110,8 +110,8 @@ public class BinaryCCGAgent extends SynchronousAgent {
             recvCostTables.put(msg.getVarId(), msg.getTable());
             nbRecvMsgs++;
 
-            System.out.println(getName() + "(" + getCurrentCycle() + ")  # msg recv: " + message.toString()
-                    + nbRecvMsgs + " / " + nbVarsNeighbor);
+//            System.out.println(getName() + "(" + getCurrentCycle() + ")  # msg recv: " + message.toString()
+//                    + nbRecvMsgs + " / " + nbVarsNeighbor);
 
             if (nbRecvMsgs == nbVarsNeighbor) {
                 //setAgtState(STOPPED);
@@ -126,9 +126,11 @@ public class BinaryCCGAgent extends SynchronousAgent {
         // todo check if onwner of received messages is same as this agent
         for (ComAgent k : getNeighborsRef()) {
             double[] table = getCostTableSumExcluding(k.getId());
-            Commons.rmValue(table, Commons.getAverage(table));
-            //Commons.rmValue(table, Commons.getMin(table));
-            Commons.addArray(table, noise);
+            //Commons.rmValue(table, Commons.getAverage(table));
+            Commons.rmValue(table, Commons.getMin(table));
+            //Commons.addArray(table, noise);
+
+            System.out.println("(" + getCurrentCycle() + ") var_" + getId() + " -> v_: " + k.getId() + ": " + Arrays.toString(table));
 
             CCGTableMessage msg = new CCGTableMessage(table, getAgentView().getVariableId());
             k.tell(msg, getSelf());
@@ -189,8 +191,7 @@ public class BinaryCCGAgent extends SynchronousAgent {
     private int selectBestValue() {
         double[] table = getCostTableSum(-1);
         table[1] += weight;
-        int val_idx = Commons.getArgMin(table);
-        return getAgentView().getDomainElement(val_idx);
+        return Commons.getArgMin(table);
     }
 
     /// Messages ----------------------- //

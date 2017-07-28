@@ -245,7 +245,7 @@ public class DCOPInstanceFactory {
                 int max = Integer.parseInt(tokens[i]) - 1;
                 Variable variable = VariableFactory.getVariable(varName, min, max, "INT-BOUND", agt);
                 instance.addVariable(variable);
-                System.out.println(variable.toString());
+                //System.out.println(variable.toString());
             }
 
             // Create Constraints
@@ -276,7 +276,7 @@ public class DCOPInstanceFactory {
                     constraint.addValue(new Tuple(values), cost, optType);
                 }
                 instance.addConstraint(constraint);
-                System.out.println(constraint);
+                //System.out.println(constraint);
             }
             return instance;
 
@@ -372,7 +372,7 @@ public class DCOPInstanceFactory {
                 // Create Variable and it in the DCOP instance
                 Variable variable = VariableFactory.getVariable(varName, 0, 1, "INT-BOUND", agt);
                 instance.addVariable(variable);
-                System.out.println(variable.toString());
+                //System.out.println(variable.toString());
 
                 // Create Constraint
                 ArrayList<Variable> scope = new ArrayList<Variable>();
@@ -382,7 +382,7 @@ public class DCOPInstanceFactory {
                 constraint.addValue(new Tuple(new int[]{0}), 0, optType);
                 constraint.addValue(new Tuple(new int[]{1}), cost, optType);
                 instance.addConstraint(constraint);
-                System.out.println(constraint);
+                //System.out.println(constraint);
             }
 
 
@@ -404,7 +404,7 @@ public class DCOPInstanceFactory {
                 constraint.addValue(new Tuple(new int[]{1,0}), 0, optType);
                 constraint.addValue(new Tuple(new int[]{1,1}), 0, optType);
                 instance.addConstraint(constraint);
-                System.out.println(constraint);
+                //System.out.println(constraint);
             }
 
             // Process variable type
@@ -449,7 +449,7 @@ public class DCOPInstanceFactory {
                 // Create and store Agent in DCOP instance
                 AgentState agent = new AgentState(name, id);
                 instance.addAgent(agent);
-                System.out.println(agent.toString());
+                //System.out.println(agent.toString());
             }
 
             // Parse Variables
@@ -466,10 +466,10 @@ public class DCOPInstanceFactory {
                 assert (domain.size() == 2);
 
                 // Create Variable and it in the DCOP instance
-                Variable variable = VariableFactory.getVariable(name, (int)min, (int)max, "INT-BOUND", (int)type,
+                Variable variable = VariableFactory.getVariable(name, id, (int)min, (int)max, "INT-BOUND", (int)type,
                                                                 instance.getAgent(agt_name));
                 instance.addVariable(variable);
-                System.out.println(variable.toString());
+                //System.out.println(variable.toString());
             }
 
             // Parase Constraints
@@ -509,7 +509,7 @@ public class DCOPInstanceFactory {
                 }
 
                 instance.addConstraint(constraint);
-                System.out.println(constraint.toString());
+                //System.out.println(constraint.toString());
             }
             return instance;
 
