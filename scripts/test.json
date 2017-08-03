@@ -1,0 +1,117 @@
+{
+  "agents": {
+    "id": 1,
+    "a1": {
+      "vars": [
+        "v1"
+      ]
+    },
+    "a2": {
+      "vars": [
+        "v2"
+      ]
+    },
+    "a0": {
+      "vars": [
+        "v0"
+      ]
+    },
+    "a3": {
+      "vars": [
+        "v3"
+      ]
+    }
+  },
+  "constraints": {
+    "c1": {
+      "scope": [
+        "v0",
+        "v1",
+        "v3"
+      ],
+      "vals": [
+        9,
+        8,
+        0,
+        6,
+        2,
+        10,
+        6,
+        7
+      ]
+    },
+    "c0": {
+      "scope": [
+        "v0",
+        "v1",
+        "v2"
+      ],
+      "vals": [
+        5,
+        8,
+        9,
+        3,
+        8,
+        2,
+        3,
+        3
+      ]
+    }
+  },
+  "variables": {
+    "v0": {
+      "value": null,
+      "type": 1,
+      "id": 0,
+      "domain": [
+        0,
+        1
+      ],
+      "agent": "a0",
+      "cons": [
+        "c0",
+        "c1"
+      ]
+    },
+    "v1": {
+      "value": null,
+      "type": 1,
+      "id": 1,
+      "domain": [
+        0,
+        1
+      ],
+      "agent": "a1",
+      "cons": [
+        "c0",
+        "c1"
+      ]
+    },
+    "v3": {
+      "value": null,
+      "type": 1,
+      "id": 3,
+      "domain": [
+        0,
+        1
+      ],
+      "agent": "a3",
+      "cons": [
+        "c1"
+      ]
+    },
+    "v2": {
+      "value": null,
+      "type": 1,
+      "id": 2,
+      "domain": [
+        0,
+        1
+      ],
+      "agent": "a2",
+      "cons": [
+        "c0"
+      ]
+    }
+  }
+}

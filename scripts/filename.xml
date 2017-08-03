@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<instance>
+	<presentation format="XCSP 2.1_FRODO" maxConstraintArity="2" maximize="false" name="test">
+		<agents nbAgents="1">
+			<agent name="a1"/>
+		</agents>
+		<variables nbVariables="2">
+			<variable agent="a1" domain="d1" name="v2"/>
+			<variable agent="a1" domain="d1" name="v1"/>
+		</variables>
+		<domains nbDomains="1">
+			<domain name="d1" nbValues="2">0..1</domain>
+		</domains>
+		<relations nbRelations="1">
+			<relation arity="2" defaultCost="0" name="c1_r" nbTuples="4" semantics="soft">1:0 0 |2:0 1 |5:1 0 |3:1 1</relation>
+		</relations>
+		<constraints nbConstraints="1">
+			<constraint arity="2" name="c1" reference="c1_r" scope="v1 v2"/>
+		</constraints>
+	</presentation>
+</instance>
