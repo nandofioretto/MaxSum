@@ -35,6 +35,7 @@ public class AgentStatistics {
     private List<Integer> sentMessagesIter;
     private List<Long> nanoTimeIter;
     private List<Integer[]> solutionBoundsIter;
+    private List<Double> solutionCostIter;
 
     public AgentStatistics() {
         this.stopWatch = new StopWatch();
@@ -42,6 +43,7 @@ public class AgentStatistics {
         sentMessagesIter = new ArrayList<>();
         nanoTimeIter = new ArrayList<>();
         solutionBoundsIter = new ArrayList<>();
+        solutionCostIter = new ArrayList<>();
     }
 
     public StopWatch getStopWatch() {

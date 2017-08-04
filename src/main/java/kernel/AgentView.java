@@ -31,9 +31,11 @@ import java.util.List;
  */
 public class AgentView {
     protected final AgentState agentState;
+    protected Evaluator evaluator;
 
     public AgentView(AgentState agentState) {
         this.agentState = agentState;
+        this.evaluator = new Evaluator();
     }
 
     public String getAgentName() {
@@ -123,79 +125,52 @@ public class AgentView {
         return res;
     }
 
+    public Evaluator getEvaluator() {
+        return evaluator;
+    }
 
     /**
      * Class used to evaluate constraints of a set of variables.
      * @note: only binary constraints.
      */
     public class Evaluator {
-        protected int[] varIDToValIdx;
-        protected List<Integer> constraintScope;
         protected List<Constraint> constraints;
-        protected int nConstraints;
-        protected Tuple pair = new Tuple(2);
 
         public Evaluator() {
-            varIDToValIdx = new int[DCOPinfo.nbAgents];
+            // assign only constraints involving variables in a gent with ID with no lower priority agent w.r.t. this one.
             constraints   = new ArrayList<>();
-            constraintScope = new ArrayList<>();
-        }
-
-        /**
-         * Extracts the list of constraints of this agent which contain, in their scope,
-         * the agents in the agtsID given in input.
-         * @param agtsID The list of agents to be involved in the constraint evaluation.
-         */
-        public void initialize(List<Long> agtsID) {
-            constraints.clear();
-            constraintScope.clear();
-            nConstraints = 0;
-
-            List<Variable> variables = new ArrayList<>();
-
-            // This agent
-            Variable vSelf = agentState.getVariable();
-            if (agtsID.contains(agentState.getID())) variables.add(vSelf);
-            int idxSelf = agtsID.indexOf(agentState.getID()); // index of this agent in agtsID * and Tuple:values
-            varIDToValIdx[(int)vSelf.getID()] = idxSelf;
-
-            // Neighbors
-            for (AgentState agtState : agentState.getNeighbors()) {
-                Variable v = agtState.getVariable();
-                if (agtsID.contains(agtState.getID())) {
-                    variables.add(v);
-                }
-                int agtIdx = agtsID.indexOf(agtState.getID()); // index of this agent in agtsID * and Tuple:values
-                varIDToValIdx[(int)v.getID()] = agtIdx;
-            }
-
-            // Save constraint which invovles all the variables controlled by some agent in agtsID
             for (Constraint c : agentState.getConstraints()) {
-                if (c.getScope().contains(vSelf) && variables.containsAll(c.getScope())) {
-                    constraintScope.add((int) c.getScope(0).getID());
-                    constraintScope.add((int) c.getScope(1).getID());
-                    constraints.add(c);
-                    nConstraints++;
+                boolean insert = true;
+                for (Variable v : c.getScope()) {
+                    if (v.getOwnerAgent().getID() < getAgentID()) {
+                        insert = false;
+                        continue;
+                    }
                 }
+                if (insert && !constraints.contains(c))
+                    constraints.add(c);
             }
         }
 
-
-        public int evaluate(Tuple values) {
-
-            if (!values.isValid()) return Constants.worstValue();
-
-            int aggregateValue = 0;
-
-            for (int c = 0; c < nConstraints; c++) {
-                pair.set(0, values.get(varIDToValIdx[ constraintScope.get(c*2 + 0) ] ));
-                pair.set(1, values.get(varIDToValIdx[ constraintScope.get(c*2 + 1) ] ));
-                double value = constraints.get(c).getValue(pair);
-                if (Constraint.isUnsat(value))
-                    return Constants.worstValue();
-                aggregateValue += value;
+        public double evaluate() {
+            double cost = 0;
+            for (Constraint c : constraints) {
+                int arity = c.getArity();
+                Tuple t = new Tuple(arity);
+                int i = 0;
+                for (Variable v : c.getScope()) {
+                    t.set(i, v.getValue());
+                    i++;
+                }
+                double val = c.getValue(t);
+                if (Constants.isInf(val)) {
+                    cost = Constants.infinity;
+                    break;
+                } else {
+                    cost += val;
+                }
             }
-            return aggregateValue;
+            return cost;
         }
 
         /**
@@ -206,21 +181,21 @@ public class AgentView {
          */
         public ArrayList<Long> getNogoods(Tuple values) {
             ArrayList<Long> nogoods = new ArrayList<>();
-
-            for (int c = 0; c < nConstraints; c++) {
-                pair.set(0, values.get(varIDToValIdx[ constraintScope.get(c*2 + 0) ] ));
-                pair.set(1, values.get(varIDToValIdx[ constraintScope.get(c*2 + 1) ] ));
-                double value = constraints.get(c).getValue(pair);
-                if (Constraint.isUnsat(value)) {
-                    long id0 = constraints.get(c).getScope(0).getOwnerAgent().getID();
-                    long id1 = constraints.get(c).getScope(1).getOwnerAgent().getID();
-
-                    if (getAgentID() == id0)
-                        nogoods.add(id1);
-                    else
-                        nogoods.add(id0);
-                }
-            }
+//
+//            for (int c = 0; c < nConstraints; c++) {
+//                pair.set(0, values.get(varIDToValIdx[ constraintScope.get(c*2 + 0) ] ));
+//                pair.set(1, values.get(varIDToValIdx[ constraintScope.get(c*2 + 1) ] ));
+//                double value = constraints.get(c).getValue(pair);
+//                if (Constraint.isUnsat(value)) {
+//                    long id0 = constraints.get(c).getScope(0).getOwnerAgent().getID();
+//                    long id1 = constraints.get(c).getScope(1).getOwnerAgent().getID();
+//
+//                    if (getAgentID() == id0)
+//                        nogoods.add(id1);
+//                    else
+//                        nogoods.add(id0);
+//                }
+//            }
             return nogoods;
         }
     }

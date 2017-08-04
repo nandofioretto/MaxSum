@@ -173,6 +173,11 @@ public abstract class ComAgent extends Thread { //implements Runnable {
     }
 
     public void setAgtState(int state) {
+        if (this.state == RUNNING && state == STOPPED) {
+            agentStatistics.getStopWatch().suspend();
+        } else if (this.state == STOPPED && state == RUNNING) {
+            agentStatistics.getStopWatch().resume();
+        }
         this.state = state;
     }
 

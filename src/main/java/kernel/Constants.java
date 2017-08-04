@@ -33,4 +33,5 @@ public class Constants {
     public static boolean isInf(int value) {return (value == infinity || value == -infinity);}
     public static boolean isInf(double value) {return (value == infinity || value == -infinity);}
     public static int worstValue() { return -infinity; }
+    public static String printValue(double value) {return (value == infinity) ? "Inf" : String.valueOf(value); }
 }

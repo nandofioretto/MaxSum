@@ -95,6 +95,11 @@ public class TableConstraint implements Constraint {
     }
 
     @Override
+    public int getArity() {
+        return scope.size();
+    }
+
+    @Override
     public double getValue(Tuple key) {
         return relation.containsKey(key) ? relation.get(key) : defaultValue;
     }

@@ -105,6 +105,11 @@ public class TableBinaryConstraint implements Constraint {
     }
 
     @Override
+    public int getArity() {
+        return 2;
+    }
+
+    @Override
     public double getValue(Tuple key) {
         return relation[ ((key.get(0) - dom1Min) * dom2Size) + (key.get(1) - dom2Min) ];
     }

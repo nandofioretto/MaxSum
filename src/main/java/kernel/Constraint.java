@@ -49,6 +49,8 @@ public interface Constraint extends DCOPobject {
 
     boolean isUnary();
 
+    int getArity();
+
     static boolean isUnsat(double value) {return (value >= Constants.infinity || value <= -Constants.infinity);}
 
     static boolean isSat(double value) {return !isUnsat(value);}

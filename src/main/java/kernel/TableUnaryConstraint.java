@@ -105,6 +105,11 @@ public class TableUnaryConstraint implements Constraint {
     }
 
     @Override
+    public int getArity() {
+        return 1;
+    }
+
+    @Override
     public double getDefaultValue() {
         return defaultValue;
     }
