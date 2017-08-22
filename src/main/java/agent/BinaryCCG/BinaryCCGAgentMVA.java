@@ -134,11 +134,12 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
                 Boolean same_agent = (p.getSecond() == null);
                 // todo: make this faster by not constructing the table if sender = recev agent
                 double[] table = getCostTableSumExcluding(vId, uId);
-                //Commons.rmValue(table, Commons.getAverage(table));
-                Commons.rmValue(table, Commons.getMin(table));
-                //Commons.addArray(table, noise);
-
-                //System.out.println("(" + getCurrentCycle() + ") v_" + vId + " -> v_" +uId + " : " + Arrays.toString(table));
+                //Commons.rmValue(table, Commons.getMin(table));
+                Commons.rmValue(table, Commons.getAverage(table));
+                for (int i = 0; i <noise.length; i++) {
+                    this.noise[i] = Math.random();
+                }
+                Commons.addArray(table, noise);
 
                 if (same_agent) {
                     recvCostTables.get(uId).put(vId, table/*.clone()*/);
@@ -161,35 +162,11 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
                 converged = false;
             }
 
-            if (getAgentView().getVariableType(agtVarIdxMap.get(vId)) == Variable.DECISION_VAR) {
-                System.out.println("Agent " + getName() + "(" + getCurrentCycle() + ") var_" + vId + " val: " + val);
-            }
+//            if (getAgentView().getVariableType(agtVarIdxMap.get(vId)) == Variable.DECISION_VAR) {
+//                System.out.println("Agent " + getName() + "(" + getCurrentCycle() + ") var_" + vId + " val: " + val);
+//            }
         }
 
-//        for (Long vId : varNeighbors.keySet()) {
-//            HashMap<Long, double[]> v_tables = recvCostTables.get(vId);
-//            double w0 = 0, w1 = 0;
-//            boolean converged = true;
-//            for (Pair<Long, ComAgent> p : varNeighbors.get(vId)) {
-//                Long uId = p.getFirst();
-//                w0 += v_tables.get(uId)[0];
-//                w1 += v_tables.get(uId)[1];
-//            }
-//            w1 += weights.get(vId);
-//            if (Constants.isInf(w0) || Constants.isInf(w1)) {
-//                converged = false;
-//            }
-//            if (getAgentView().getVariableType(agtVarIdxMap.get(vId)) == Variable.DECISION_VAR) {
-//                getAgentActions().setVariableValue(agtVarIdxMap.get(vId), w0 > w1 ? 1 : 0);
-//                System.out.println("Agent " + getName() + " var: v_" + vId + " on Stop -- select value: "
-//                        + getAgentView().getVariableValue(agtVarIdxMap.get(vId)));
-//
-//            } else {
-//                getAgentActions().setVariableValue(agtVarIdxMap.get(vId), -1);
-////                System.out.println("[Agent " + getName() + " var: v_" + vId + " on Stop -- select value: "
-////                        + getAgentView().getVariableValue(agtVarIdxMap.get(vId)) + "]") ;
-//            }
-//        }
         super.onStop();
     }
 

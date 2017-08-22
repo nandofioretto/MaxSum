@@ -37,12 +37,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.regex.Pattern;
-
-import static java.lang.System.exit;
 
 /**
  * Created by ffiorett on 7/7/15
@@ -227,14 +223,14 @@ public class DCOPInstanceFactory {
             int k = Integer.parseInt(tokens[2]);
             int c = Integer.parseInt(tokens[3]);
             long ub = Integer.parseInt(tokens[4]);
-            System.out.println("read: " + n + " " + " " + k + " " + c + " " + ub);
+            //System.out.println("read: " + n + " " + " " + k + " " + c + " " + ub);
 
             // Second line (problem variables)
             tokens = br.readLine().split(" ");
             assert (tokens.length == n);
             for (int i = 0; i < n; i++) {
-                String agtName = "agt_" + Integer.toString(i);
-                String varName = "v_" + Integer.toString(i);
+                String agtName = "a" + Integer.toString(i);
+                String varName = "v" + Integer.toString(i);
 
                 // Create and store Agent in DCOP instance
                 AgentState agt = new AgentState(agtName, i);
@@ -253,7 +249,7 @@ public class DCOPInstanceFactory {
             String line;
             while ((line = br.readLine()) != null) {
                 tokens = line.split(" ");
-                String name = "con_" + cIdx++;
+                String name = "c" + cIdx++;
                 int j = 0;
                 // Retrieve scope:
                 ArrayList<Variable> scope = new ArrayList<Variable>();
@@ -351,7 +347,7 @@ public class DCOPInstanceFactory {
             assert (tokens.length == 4);
             int n = Integer.parseInt(tokens[2]);
             int e = Integer.parseInt(tokens[3]);
-            System.out.println("read: " + n + " variables and " + e + " edges.");
+            //System.out.println("read: " + n + " variables and " + e + " edges.");
 
             // Parse Variables
             for (int i = 0; i < n; i++) {
@@ -360,9 +356,9 @@ public class DCOPInstanceFactory {
                 int id = Integer.parseInt(tokens[1]);
                 double cost = Double.parseDouble(tokens[2]);
 
-                String varName = "v_" + Integer.toString(id);
+                String varName = "v" + Integer.toString(id);
                 // todo: Associate mutliple (auxliary) variables to one agent.
-                String agtName = "agt_" + Integer.toString(id);
+                String agtName = "a" + Integer.toString(id);
 
                 // Create and store Agent in DCOP instance
                 AgentState agt = new AgentState(agtName, id);
@@ -377,7 +373,7 @@ public class DCOPInstanceFactory {
                 // Create Constraint
                 ArrayList<Variable> scope = new ArrayList<Variable>();
                 scope.add(variable);
-                String cname = "con_" + cIdx++;
+                String cname = "c" + cIdx++;
                 Constraint constraint = ConstraintFactory.getConstraint(cname, scope, 0, "soft");
                 constraint.addValue(new Tuple(new int[]{0}), 0, optType);
                 constraint.addValue(new Tuple(new int[]{1}), cost, optType);
@@ -397,7 +393,7 @@ public class DCOPInstanceFactory {
                 ArrayList<Variable> scope = new ArrayList<Variable>();
                 scope.add(v1);
                 scope.add(v2);
-                String cname = "con_" + cIdx++;
+                String cname = "c" + cIdx++;
                 Constraint constraint = ConstraintFactory.getConstraint(cname, scope, 0, "soft");
                 constraint.addValue(new Tuple(new int[]{0,0}), Constants.infinity, optType);
                 constraint.addValue(new Tuple(new int[]{0,1}), 0, optType);
@@ -490,22 +486,20 @@ public class DCOPInstanceFactory {
                 assert (scope.size() < 2);
 
                 if (scope.size() == 1) {
-                    Double val = 0.0;
-                    val = ((Double) jvals.get(0));// < -999.0 ? Constants.infinity : (Double) jvals.get(0);
-                    constraint.addValue(new Tuple(new int[]{0}), val, optType);
-                    val = ((Double) jvals.get(1)) < -999.0 ? Constants.infinity : (Double) jvals.get(1);
-                    constraint.addValue(new Tuple(new int[]{1}), val, optType);
+                    Double val1 = ((Double) jvals.get(0)) <= -999.0 ? Constants.infinity : (Double) jvals.get(0);
+                    constraint.addValue(new Tuple(new int[]{0}), val1, optType);
+                    Double val2 = ((Double) jvals.get(1)) < -999.0 ? Constants.infinity : (Double) jvals.get(1);
+                    constraint.addValue(new Tuple(new int[]{1}), val2, optType);
                 }
                 else if (scope.size() == 2) {
-                    Double val = 0.0;
-                    val = ((Double) jvals.get(0)) < -999.0 ? Constants.infinity : (Double) jvals.get(0);
-                    constraint.addValue(new Tuple(new int[]{0, 0}), val, optType);
-                    val = ((Double) jvals.get(1)) < -999.0 ? Constants.infinity : (Double) jvals.get(1);
-                    constraint.addValue(new Tuple(new int[]{0, 1}), val, optType);
-                    val = ((Double) jvals.get(2)) < -999.0 ? Constants.infinity : (Double) jvals.get(2);
-                    constraint.addValue(new Tuple(new int[]{1, 0}), val, optType);
-                    val = ((Double) jvals.get(3)) < -999.0 ? Constants.infinity : (Double) jvals.get(3);
-                    constraint.addValue(new Tuple(new int[]{1, 1}), val, optType);
+                    Double val1 = ((Double) jvals.get(0)) < -999.0 ? Constants.infinity : (Double) jvals.get(0);
+                    constraint.addValue(new Tuple(new int[]{0, 0}), val1, optType);
+                    Double val2 = ((Double) jvals.get(1)) < -999.0 ? Constants.infinity : (Double) jvals.get(1);
+                    constraint.addValue(new Tuple(new int[]{0, 1}), val2, optType);
+                    Double val3 = ((Double) jvals.get(2)) < -999.0 ? Constants.infinity : (Double) jvals.get(2);
+                    constraint.addValue(new Tuple(new int[]{1, 0}), val3, optType);
+                    Double val4 = ((Double) jvals.get(3)) < -999.0 ? Constants.infinity : (Double) jvals.get(3);
+                    constraint.addValue(new Tuple(new int[]{1, 1}), val4, optType);
                 }
 
                 instance.addConstraint(constraint);

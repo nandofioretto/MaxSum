@@ -22,7 +22,11 @@
 
 package communication;
 
+import kernel.AgentView;
+import kernel.Variable;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -36,6 +40,7 @@ public class AgentStatistics {
     private List<Long> nanoTimeIter;
     private List<Integer[]> solutionBoundsIter;
     private List<Double> solutionCostIter;
+    private HashMap<String, List<Integer>> solutionValue;
 
     public AgentStatistics() {
         this.stopWatch = new StopWatch();
@@ -44,6 +49,7 @@ public class AgentStatistics {
         nanoTimeIter = new ArrayList<>();
         solutionBoundsIter = new ArrayList<>();
         solutionCostIter = new ArrayList<>();
+        solutionValue = new HashMap<>();
     }
 
     public StopWatch getStopWatch() {
@@ -65,6 +71,36 @@ public class AgentStatistics {
         stopWatch.resume();
     }
 
+    public void updateIterationStats(AgentView agt) {
+        stopWatch.suspend();
+        sentMessagesIter.add(sentMessages);
+        nanoTimeIter.add(stopWatch.getNanoTime());
+        // Save solution
+        for (int i = 0; i < agt.getNbVariables(); i++) {
+            if (agt.getVariableType(i) == Variable.DECISION_VAR) {
+                String vname = agt.getVariableName(i);
+                int val = agt.getVariableValue(i);
+                if (!solutionValue.containsKey(vname)) {
+                    solutionValue.put(vname, new ArrayList<>());
+                }
+                solutionValue.get(vname).add(val);
+            }
+        }
+        stopWatch.resume();
+    }
+
+    public HashMap<String, List<Integer>> getSolutionValue() {
+        return solutionValue;
+    }
+
+    public void setSolutionCostIter(double cost) {
+        solutionCostIter.add(cost);
+    }
+
+    public List<Double> getSolutionCostIter() {
+        return solutionCostIter;
+    }
+
     public void updateIterationBounds(int LB, int UB) {
         solutionBoundsIter.add(new Integer[]{LB, UB});
     }
@@ -74,7 +110,7 @@ public class AgentStatistics {
     }
 
     public int size() {
-        return solutionBoundsIter.size();
+        return solutionValue.size();
     }
 
     public int getSentMessages() {

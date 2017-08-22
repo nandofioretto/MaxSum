@@ -33,7 +33,7 @@ def generate(nagts, dsize, p1, p2, cost_range=(0, 10), max_arity=2, def_cost = 0
                           'scope': [str(x) for x in scope], 'values': []}
         for assignments in itertools.product(*([[0, 1], ] * arity)):
             val = {'tuple': []}
-            val['tuple'].append(list(assignments))
+            val['tuple'] = list(assignments)
             if int_cost:
                 val['cost'] = random.randint(*cost_range)
             else:
@@ -56,7 +56,7 @@ def main(argv):
     out_file = ''
     name = ''
     def rise_exception():
-        print('main.py -a -d -p -r -c -o <outputfile>')
+        print('Input Error. Usage:\nmain.py -a -d -p -r -c -n -o <outputfile>')
         sys.exit(2)
     try:
         opts, args = getopt.getopt(argv, "a:d:p:r:c:n:o:h",
@@ -95,6 +95,11 @@ if __name__ == '__main__':
                                       cost_range=(0,maxcost),
                                       max_arity=maxarity, def_cost=0)
 
+    if not dcop.sanity_check(vars, cons):
+        print("sanity check failed!")
+        exit(-1)
+
+    print('Creating DCOP instance' + name)
     dcop.create_xml_instance(name, agts, vars, doms, cons, outfile+'.xml')
     dcop.create_wcsp_instance(name, agts, vars, doms, cons, outfile+'.wcsp')
     dcop.create_json_instance(name, agts, vars, doms, cons, outfile+'.json')

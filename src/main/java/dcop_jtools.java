@@ -23,19 +23,22 @@
 import communication.DCOPagent;
 import communication.Spawner;
 import kernel.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by ffiorett on 7/7/15.
  */
-public class    dcop_jtools {
+public class dcop_jtools {
 
     public static void main(String argv[]) {
-        String repairPhase = "TDBR";
-        String destroyPhase = "RAND";
         String agentType = "CCG";
         List<Object> algParams = new ArrayList<>();
         int nbIterations = 5;
@@ -47,6 +50,7 @@ public class    dcop_jtools {
             return;
         }
         file = argv[0];
+        String fileout_stats = "";
         for (int i = 1; i < argv.length; i++) {
             if (argv[i].equals("-a") || argv[i].equals("--agent")) {
                 agentType = argv[i+1];
@@ -54,14 +58,11 @@ public class    dcop_jtools {
             if (argv[i].equals("-i") || argv[i].equals("--iterations")) {
                 nbIterations = Integer.parseInt(argv[i+1]);
             }
-            if (argv[i].equals("-r") || argv[i].equals("--repair")) {
-                repairPhase = argv[i+1];
-            }
-            if (argv[i].equals("-d") || argv[i].equals("--destroy")) {
-                destroyPhase = argv[i+1];
-            }
             if (argv[i].equals("-t") || argv[i].equals("--timeout")) {
                 timeoutMs = Long.parseLong(argv[i+1]);
+            }
+            if (argv[i].equals("-o")) {
+                fileout_stats = argv[i+1];
             }
         }
         algParams.add(agentType);
@@ -74,6 +75,7 @@ public class    dcop_jtools {
         spawner.spawn(algParams);
 
         // Summary Output
+        printSummary(spawner.getSpawnedAgents(), fileout_stats);
 //        System.out.println(getSummary(spawner.getSpawnedAgents(), nbIterations));
     }
 
@@ -85,6 +87,55 @@ public class    dcop_jtools {
                 "  --destroy (-d) [RAND(default), MEETINGS]. The DLNS destroy phase.\n" +
                 "  --iterations (-i) (default=500). The number of iterations of DLNS.\n" +
                 "  --timeout (-t) (default=no timeout (0)). The simulated time maximal execution time.\n";
+    }
+
+    public static void printSummary(Collection<DCOPagent> agents, String fileout) {
+        JSONObject jsonObject = new JSONObject();
+        JSONObject jsonVars = new JSONObject();
+        int maxIter = 0;
+
+        for (DCOPagent agt : agents) {
+            HashMap<String, List<Integer>> agtValueList = agt.getAgentStatistics().getSolutionValue();
+            for (String vname : agtValueList.keySet()) {
+                jsonVars.put(vname, agtValueList.get(vname));
+                maxIter = Math.max(maxIter, agtValueList.get(vname).size());
+            }
+        }
+        jsonObject.put("values", jsonVars);
+        jsonObject.put("iterations", maxIter);
+
+        JSONArray jsonNetLoad = new JSONArray();
+        JSONArray jsonSimTime = new JSONArray();
+        long maxTime = 0;
+        int netLoad = 0;
+
+        for (int iter = 0; iter < maxIter; iter++) {
+            int agtMsgs = 0;
+            for (DCOPagent agt : agents) {
+                //if (iter >= agt.getAgentStatistics().size()) continue;
+                maxTime = Math.max(maxTime, agt.getAgentStatistics().getMilliTime(iter));
+                int msgNow = agt.getAgentStatistics().getSentMessages(iter);
+                int msgPrev = iter == 0 ? 0 : agt.getAgentStatistics().getSentMessages(iter - 1);
+                agtMsgs = Math.max(agtMsgs, (msgNow - msgPrev));
+                netLoad += (msgNow - msgPrev);
+            }
+            jsonSimTime.add(maxTime);
+            jsonNetLoad.add(netLoad);
+        }
+        jsonObject.put("simTime", jsonSimTime);
+        jsonObject.put("netLoad", jsonNetLoad);
+
+        if (!fileout.isEmpty()) {
+            try (FileWriter file = new FileWriter(fileout)) {
+                file.write(jsonObject.toJSONString());
+                file.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println(jsonObject);
+        }
+
     }
 
     public static String getSummary(Collection<DCOPagent> agents, int nbIterations) {

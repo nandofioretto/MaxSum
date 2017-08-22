@@ -60,8 +60,6 @@ public abstract class DCOPagent extends ComAgent {
             algorithmState = DCOPalgorithmState.RUNNING;
             // Starts statistics collection
             getAgentStatistics().getStopWatch().start();
-
-            System.out.println(getName() + " Sending onStart");
             onStart();
         }
         if (message instanceof Message.EndSignal) {

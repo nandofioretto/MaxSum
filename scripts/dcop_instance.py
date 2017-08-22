@@ -33,35 +33,36 @@ def create_xml_instance(name, agts, vars, doms, cons, fileout=''):
         for i, t in enumerate(c_values):
             s += str(t['cost']) + ':'
             s += ' '.join(str(x) for x in t['tuple'])
-            if i <= len(t):
+            if i < len(c_values) -1 :
                 s += ' |'
         return s
 
     root = ET.Element('instance')
-    presentation = ET.SubElement(root, 'presentation',
-                                 name=name,
-                                 maxConstraintArity= str(max([cons[cid]['arity'] for cid in cons])),
-                                 maximize="false",
-                                 format="XCSP 2.1_FRODO")
-    xml_agts = ET.SubElement(presentation, 'agents', nbAgents=str(len(agts)))
+    ET.SubElement(root, 'presentation',
+                name=name,
+                maxConstraintArity= str(max([cons[cid]['arity'] for cid in cons])),
+                maximize="false",
+                format="XCSP 2.1_FRODO")
+
+    xml_agts = ET.SubElement(root, 'agents', nbAgents=str(len(agts)))
     for aname in agts:
         ET.SubElement(xml_agts, 'agent', name='a'+aname)
 
-    xml_vars = ET.SubElement(presentation, 'variables', nbVariables=str(len(vars)))
+    xml_vars = ET.SubElement(root, 'variables', nbVariables=str(len(vars)))
     for vname in vars:
         ET.SubElement(xml_vars, 'variable',
                       name='v'+vname,
                       domain='d'+vars[vname]['dom'],
                       agent='a'+vars[vname]['agt'])
 
-    xml_doms = ET.SubElement(presentation, 'domains', nbDomains=str(len(doms)))
+    xml_doms = ET.SubElement(root, 'domains', nbDomains=str(len(doms)))
     for dname in doms:
         ET.SubElement(xml_doms, 'domain', name='d'+dname, nbValues=str(len(doms[dname]))).text \
             = str(doms[dname][0]) + '..' + str(doms[dname][-1])
         # = ' '.join(str(x) for x in doms[dname])
 
-    xml_rels = ET.SubElement(presentation, 'relations', nbRelations=str(len(cons)))
-    xml_cons = ET.SubElement(presentation, 'constraints', nbConstraints=str(len(cons)))
+    xml_rels = ET.SubElement(root, 'relations', nbRelations=str(len(cons)))
+    xml_cons = ET.SubElement(root, 'constraints', nbConstraints=str(len(cons)))
 
     for cname in cons:
         ET.SubElement(xml_rels, 'relation', name='r'+cname, arity=str(cons[cname]['arity']),
@@ -126,7 +127,10 @@ def create_wcsp_instance(name, agts, vars, doms, cons, fileout=''):
              str(c['def_cost']) + ' ' + \
              str(len(c['values'])) + '\n'
         for v in c['values']:
-            s += ' '.join(str(vid) for vid in v['tuple']) + ' ' + str(v['cost']) + '\n'
+            for vid in [x for x in v['tuple']]:
+                s+= str(vid) + ' '
+            s += str(v['cost']) + '\n'
+            #s += ' '.join(str(vid) for vid in v['tuple']) + ' ' + str(v['cost']) + '\n'
 
     if fileout:
         with open(fileout, "w") as f:
@@ -179,6 +183,19 @@ def create_json_instance(name, agts, vars, doms, cons, fileout=''):
         print(json.dumps(instance, indent=2))
 
 
+def sanity_check(vars, cons):
+    """ Check all variables participate in some constraint """
+    v_con = []
+    for c in cons:
+        for x in cons[c]['scope']:
+            if x not in v_con:
+               v_con.append(x)
+    for v in vars:
+        if v not in v_con:
+            return False
+    return True
+
+
 if __name__ == '__main__':
     agts = {'1': None}
     vars = {'1': {'dom': '1', 'agt': '1'},
@@ -187,6 +204,7 @@ if __name__ == '__main__':
     cons = {'1': {'arity': 2, 'def_cost': 0, 'scope': ['1', '2'],
                    'values': [{'tuple': [0, 0], 'cost': 1}, {'tuple': [0, 1], 'cost': 2},
                               {'tuple': [1, 0], 'cost': 5}, {'tuple': [1, 1], 'cost': 3}]}}
+
 
     create_xml_instance("test", agts, vars, doms, cons)
     create_wcsp_instance("test", agts, vars, doms, cons)
