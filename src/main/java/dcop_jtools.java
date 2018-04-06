@@ -70,6 +70,10 @@ public class dcop_jtools {
         algParams.add(timeoutMs);
 
         DCOPInstance dcopInstance = DCOPInstanceFactory.importDCOPInstance(file);
+        System.out.println("Read DCOP instance. N_agents=" + dcopInstance.getDCOPAgents().size()
+                + " N_vars=" + dcopInstance.getDCOPVariables().size()
+                + " N_cons=" + dcopInstance.getDCOPConstraints().size()
+                + "\nStarting algorithm... ");
 
         Spawner spawner = new Spawner(dcopInstance);
         spawner.spawn(algParams);

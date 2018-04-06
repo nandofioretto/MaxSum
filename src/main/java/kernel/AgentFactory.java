@@ -1,6 +1,5 @@
 package kernel;
 
-import agent.BinaryCCG.BinaryCCGAgent;
 import agent.BinaryCCG.BinaryCCGAgentMVA;
 import agent.MaxSum.MaxSumAgent;
 import communication.ComAgent;

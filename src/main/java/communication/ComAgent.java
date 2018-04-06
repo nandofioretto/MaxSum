@@ -32,7 +32,7 @@ import java.util.concurrent.BlockingQueue;
  * Created by ffiorett on 7/17/15.
  * This is an abstract class, which describes a basic "communicating agent", that is, an
  * agent which is able to communicate over the network with other agents.
- * Each DCOP agent (or AKKA actor) should extend from this class or one of its subclasses,
+ * Each DCOP agent should extend from this class or one of its subclasses,
  * as it contains the messageStatistics.
  */
 public abstract class ComAgent extends Thread { //implements Runnable {

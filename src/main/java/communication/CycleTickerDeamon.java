@@ -34,7 +34,8 @@ public class CycleTickerDeamon /*extends ComAgent*/ {
         if (agentsTerminatedCurrentCycle.cardinality() == nbAgents)
         {
             // compute cost
-            //System.out.println("Solution Cost at iter: " + currentCycle + " : " + Constants.printValue(getProblemCost()));
+            //if (currentCycle % 50 == 0)
+                System.out.println("Cycle: " + currentCycle);
             //DCOPinfo.leaderAgent.getAgentStatistics().setSolutionCostIter(getProblemCost());
             currentCycle ++;
             agentsTerminatedCurrentCycle.clear();

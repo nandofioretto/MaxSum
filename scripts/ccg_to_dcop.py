@@ -1,7 +1,8 @@
 import numpy as np
 import commons as cm
 import sys, getopt, os
-
+import itertools
+import dcop_instance as dcopgen
 
 def read_ccg(fname):
     with open(fname) as f:
@@ -230,26 +231,6 @@ def make_dcop(wcsp):
                         return a
         return None
 
-    # Assign each aux variable u to the agent which is managing the decision variable v
-    # for v in wcsp['variables']:
-    #     if not is_decision_var(v):
-    #         C = get_constraints(v)
-    #         min_id = 999999; min_vname = None
-    #
-    #         for c in C:
-    #             for u in get_scope(c):
-    #                 if is_decision_var(u) and get_vid(u) < min_id:
-    #                     min_id = get_vid(u); min_vname = u
-    #
-    #         if min_vname is None or wcsp['variables'][min_vname]['agent'] is None:
-    #             for c in C:
-    #                 min_vname = find_var(c, v)
-    #                 if min_vname is not None:
-    #                     wcsp['variables'][v]['agent'] = wcsp['variables'][min_vname]['agent']
-    #                     break
-    #         assert(min_vname is not None and wcsp['variables'][min_vname]['agent'] is not None)
-
-
     wcsp['agents'] = {}
     aid = 0
     for v in wcsp['variables']:
@@ -293,6 +274,35 @@ def main(argv):
     return in_file, out_file
 
 
+def convert_dcop_instance(dcop):
+    agts = {}
+    vars = {}
+    doms = {'1': [0, 1]}
+    cons = {}
+
+    for a in dcop['agents']:
+        aid = str(dcop['agents'][a]['id'])
+        agts[aid] = None
+
+    for v in dcop['variables']:
+        vid = str(dcop['variables'][v]['id'])
+        a = dcop['variables'][v]['agent']
+        aid = str(dcop['agents'][a]['id'])
+        vars[vid] = {'dom': '1', 'agt': aid}
+
+    for c in dcop['constraints']:
+        #cid = str(dcop['constraints'][c]['id'])
+        scope = dcop['constraints'][c]['scope']
+        arity = len(scope)
+        vals = dcop['constraints'][c]['vals']
+        costs = []
+        for i, assignments in enumerate(itertools.product(*([[0, 1], ] * arity))):
+            costs.append({'tuple': assignments, 'cost': vals[i] if vals[i] >= 0 else 999999 })
+        cons[c] = {'arity': arity, 'def_cost': 999999, 'scope': [str(dcop['variables'][v]['id']) for v in scope],
+                   'values': costs}
+
+    return agts, vars, doms, cons
+
 if __name__ == '__main__':
     fname, outfile = main(sys.argv[1:])
 
@@ -310,4 +320,10 @@ if __name__ == '__main__':
     else:
         dcop = make_dcop(wcsp)
         print('saving dcop: agents=', len(dcop['agents']), ' variables=', len(dcop['variables']), ' constraints=', len(dcop['constraints']))
-        cm.save_json_file(outfile, dcop)
+        cm.save_json_file(outfile + ".json", dcop)
+        agts, vars, doms, cons = convert_dcop_instance(dcop)
+
+        dcopgen.create_xml_instance("ccg_dcop", agts, vars, doms, cons, outfile + "_dcop.xml")
+        dcopgen.create_wcsp_instance("ccg_dcop", agts, vars, doms, cons, outfile + "_dcop.wcsp")
+        dcopgen.create_json_instance("ccg_dcop", agts, vars, doms, cons, outfile + "_dcop.json")
+

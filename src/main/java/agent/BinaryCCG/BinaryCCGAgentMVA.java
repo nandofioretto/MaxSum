@@ -16,6 +16,7 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
     private double convergenceDelta = 0.001;
     private int nbRecvMsgs;
     private int nbVarsNeighbor;
+    private Random rand = new Random();
 
     // Cost received by each neighbor by projecting out y if this variable is x [prev cycle]
     // key: variable ID; value: vector of size Dom of this variable
@@ -35,7 +36,7 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
     private HashMap<Long, Integer> agtVarIdxMap;
 
     // A vector of noisy values to allow faster convergence
-    public double[] noise;
+    public HashMap<Long, double[]> noise;
 
     AgentState agentState;
 
@@ -63,9 +64,13 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
             agtVarIdxMap.put(v.getID(), i);
             i++;
         }
-        this.noise = new  double[2];
-        for (i = 0; i <noise.length; i++) {
-            this.noise[i] = Math.random();
+        this.noise = new HashMap<>();
+        for (Variable v : agentState.getVariables()) {
+            double[] v_noise = new double[2];
+            for (i = 0; i <v_noise.length; i++) {
+                v_noise[i] = rand.nextInt(20);//Math.random();
+            }
+            noise.put(v.getID(), v_noise);
         }
         this.agentState = agentState;
     }
@@ -119,7 +124,7 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
         }
 
         for (int i = 0; i < getAgentView().getNbVariables(); i++) {
-            getAgentActions().setVariableValue(i, 0);
+            getAgentActions().setVariableValue(i,  rand.nextInt(1));
         }
         // start cycling
         super.onStart();
@@ -134,12 +139,9 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
                 Boolean same_agent = (p.getSecond() == null);
                 // todo: make this faster by not constructing the table if sender = recev agent
                 double[] table = getCostTableSumExcluding(vId, uId);
-                //Commons.rmValue(table, Commons.getMin(table));
-                Commons.rmValue(table, Commons.getAverage(table));
-                for (int i = 0; i <noise.length; i++) {
-                    this.noise[i] = Math.random();
-                }
-                Commons.addArray(table, noise);
+                Commons.rmValue(table, Commons.getMin(table));
+                //Commons.rmValue(table, Commons.getAverage(table));
+                Commons.addArray(table, noise.get(vId));
 
                 if (same_agent) {
                     recvCostTables.get(uId).put(vId, table/*.clone()*/);
@@ -178,7 +180,7 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
             long vId = msg.getRecverVarId();
             long uId = msg.getSenderVarId();
             recvCostTables.get(vId).put(uId, msg.getTable());
-            // System.out.println("var_" + vId + "(" + getCurrentCycle() + ") recv msg: " + Arrays.toString(recvCostTables.get(vId).get(uId)) + " from var_" + uId);
+            //System.out.println("var_" + vId + "(" + getCurrentCycle() + ") recv msg: " + Arrays.toString(recvCostTables.get(vId).get(uId)) + " from var_" + uId);
             //System.out.println(getName() + "[v_" + vId + "]"+"(" + getCurrentCycle() + ")  # msg recv: " + "[v_"+ uId + "]" + message.toString() + (nbRecvMsgs+1) + " / " + nbVarsNeighbor);
             incrRecvMsgs();
         }
@@ -186,7 +188,7 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
 
     private void incrRecvMsgs() {
         nbRecvMsgs++;
-        if (nbRecvMsgs == nbVarsNeighbor) {
+        if (nbRecvMsgs >= nbVarsNeighbor) {
             //setAgtState(STOPPED);
             terminateCycle();
         }
@@ -196,7 +198,9 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
     protected void onCycleStart() {
         for (Long vId : varNeighbors.keySet()) {
             int val = selectBestValue(vId);
-            getAgentActions().setVariableValue(agtVarIdxMap.get(vId), val);
+            if (Math.random() > 0.5)
+                getAgentActions().setVariableValue(agtVarIdxMap.get(vId), val);
+
             //System.out.println("Agent " + getName() + "(" + getCurrentCycle() + ") var_" + vId + " val: " + val);
         }
     }
@@ -258,6 +262,10 @@ public class BinaryCCGAgentMVA extends SynchronousAgent {
     private int selectBestValue(long vId) {
         double[] table = getCostTableSum(vId, -1);
         table[1] += weights.get(vId);
+
+        // Add noise to speed up convergence
+        Commons.addArray(table, noise.get(vId));
+
         return Commons.getArgMin(table);
     }
 
