@@ -1,0 +1,120 @@
+Grids_18 nodes:  1600
+Grids_19 nodes:  1600
+Grids_20 nodes:  6400
+Grids_21 nodes:  1600
+Grids_22 nodes:  1600
+Grids_23 nodes:  1600
+Grids_24 nodes:  1600
+Grids_25 nodes:  1600
+Grids_26 nodes:  400
+Grids_27 nodes:  1600
+Grids_28 nodes:  400
+Grids_29 nodes:  400
+Grids_30 nodes:  400
+ImageAlignment_11: Domain size must be 2 - skipping computations
+ImageAlignment_12: Domain size must be 2 - skipping computations
+ImageAlignment_13: Domain size must be 2 - skipping computations
+ImageAlignment_14: Domain size must be 2 - skipping computations
+ImageAlignment_15: Domain size must be 2 - skipping computations
+ObjectDetection_11: Domain size must be 2 - skipping computations
+ObjectDetection_12: Domain size must be 2 - skipping computations
+ObjectDetection_13: Domain size must be 2 - skipping computations
+ObjectDetection_14: Domain size must be 2 - skipping computations
+ObjectDetection_15: Domain size must be 2 - skipping computations
+ObjectDetection_16: Domain size must be 2 - skipping computations
+ObjectDetection_17: Domain size must be 2 - skipping computations
+ObjectDetection_18: Domain size must be 2 - skipping computations
+Promedas_11 nodes:  2133
+Promedas_12 nodes:  1766
+Promedas_13: Graph is not connected - skipping computations
+Promedas_14 nodes:  1863
+Promedas_15 nodes:  2052
+Promedas_16: Graph is not connected - skipping computations
+Promedas_17: Graph is not connected - skipping computations
+Promedas_18: Graph is not connected - skipping computations
+Promedas_19: Graph is not connected - skipping computations
+Promedas_20: Graph is not connected - skipping computations
+Promedas_21 nodes:  1702
+Promedas_22 nodes:  1664
+Promedas_23 nodes:  1700
+Promedas_24 nodes:  1426
+Promedas_25: Graph is not connected - skipping computations
+Promedas_26: Graph is not connected - skipping computations
+Promedas_27 nodes:  1374
+Promedas_28: Graph is not connected - skipping computations
+Promedas_29: Graph is not connected - skipping computations
+Promedas_30 nodes:  1171
+Promedas_31 nodes:  1277
+Promedas_32: Graph is not connected - skipping computations
+Promedas_33 nodes:  1174
+Promedas_34 nodes:  1083
+Promedas_35: Graph is not connected - skipping computations
+Promedas_36 nodes:  1054
+Promedas_37 nodes:  1154
+Promedas_38 nodes:  1086
+Promedas_39 nodes:  1356
+Promedas_40 nodes:  1203
+Promedas_41 nodes:  943
+Promedas_42 nodes:  915
+Promedas_43: Graph is not connected - skipping computations
+Promedas_44: Graph is not connected - skipping computations
+Promedas_45 nodes:  750
+Promedas_46: Graph is not connected - skipping computations
+Promedas_47: Graph is not connected - skipping computations
+Promedas_48 nodes:  855
+Promedas_49 nodes:  770
+Promedas_50 nodes:  938
+Promedas_51 nodes:  859
+Promedas_52: Graph is not connected - skipping computations
+Promedas_53 nodes:  748
+Promedas_54 nodes:  1163
+Promedas_55 nodes:  782
+Promedas_56 nodes:  752
+Promedas_57: Graph is not connected - skipping computations
+Promedas_58: Graph is not connected - skipping computations
+Promedas_59 nodes:  794
+Promedas_60 nodes:  1076
+Promedas_61 nodes:  668
+Promedas_62 nodes:  639
+Promedas_63 nodes:  685
+Promedas_64: Graph is not connected - skipping computations
+Promedas_65 nodes:  841
+Promedas_66 nodes:  725
+Promedas_67: Graph is not connected - skipping computations
+Promedas_68: Graph is not connected - skipping computations
+Promedas_69: Graph is not connected - skipping computations
+Promedas_70 nodes:  534
+Promedas_71 nodes:  613
+ProteinFolding_11 nodes:  400
+ProteinFolding_12: Domain size must be 2 - skipping computations
+ProteinFolding_13: Domain size must be 2 - skipping computations
+ProteinFolding_14: Domain size must be 2 - skipping computations
+ProteinFolding_15: Domain size must be 2 - skipping computations
+ProteinFolding_16: Domain size must be 2 - skipping computations
+ProteinFolding_17: Domain size must be 2 - skipping computations
+ProteinFolding_18: Domain size must be 2 - skipping computations
+ProteinFolding_19: Domain size must be 2 - skipping computations
+ProteinFolding_20: Domain size must be 2 - skipping computations
+ProteinFolding_21: Domain size must be 2 - skipping computations
+ProteinFolding_22: Domain size must be 2 - skipping computations
+ProteinFolding_23: Domain size must be 2 - skipping computations
+ProteinFolding_24: Domain size must be 2 - skipping computations
+ProteinFolding_25: Domain size must be 2 - skipping computations
+Segmentation_11: Domain size must be 2 - skipping computations
+Segmentation_12: Graph is not connected - skipping computations
+Segmentation_13: Graph is not connected - skipping computations
+Segmentation_14: Graph is not connected - skipping computations
+Segmentation_15: Domain size must be 2 - skipping computations
+Segmentation_16: Graph is not connected - skipping computations
+Segmentation_17: Domain size must be 2 - skipping computations
+Segmentation_18: Graph is not connected - skipping computations
+Segmentation_19: Graph is not connected - skipping computations
+Segmentation_20: Domain size must be 2 - skipping computations
+wcsp_11: Domain size must be 2 - skipping computations
+wcsp_12: Domain size must be 2 - skipping computations
+wcsp_13: Domain size must be 2 - skipping computations
+wcsp_14: Domain size must be 2 - skipping computations
+wcsp_15: Domain size must be 2 - skipping computations
+wcsp_16: Domain size must be 2 - skipping computations
+wcsp_17: Domain size must be 2 - skipping computations
+wcsp_18: Domain size must be 2 - skipping computations

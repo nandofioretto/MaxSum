@@ -1,0 +1,169 @@
+2bitadd_11.cnf: Graph is not connected - skipping computations
+2bitcomp_5.cnf: Graph is not connected - skipping computations
+2bitmax_6.cnf: Graph is not connected - skipping computations
+Alchemy_11 nodes:  440
+BN_69: Domain size must be 2 - skipping computations
+BN_70: Domain size must be 2 - skipping computations
+BN_71: Domain size must be 2 - skipping computations
+BN_72: Domain size must be 2 - skipping computations
+BN_73: Domain size must be 2 - skipping computations
+BN_74: Domain size must be 2 - skipping computations
+BN_75: Domain size must be 2 - skipping computations
+BN_76: Domain size must be 2 - skipping computations
+c1908.isc.cnf nodes:  751
+c432.isc.cnf nodes:  196
+c880.isc.cnf: Graph is not connected - skipping computations
+CSP_11: Domain size must be 2 - skipping computations
+CSP_12: Domain size must be 2 - skipping computations
+CSP_13: Domain size must be 2 - skipping computations
+DBN_11 nodes:  40
+DBN_12 nodes:  42
+DBN_13 nodes:  44
+DBN_14 nodes:  40
+DBN_15 nodes:  42
+DBN_16 nodes:  44
+grid10x10.f10 nodes:  100
+Grids_11 nodes:  100
+Grids_12 nodes:  100
+Grids_13 nodes:  100
+Grids_14 nodes:  100
+Grids_15 nodes:  400
+Grids_16 nodes:  400
+Grids_17 nodes:  400
+Grids_18 nodes:  400
+linkage_11: Domain size must be 2 - skipping computations
+linkage_12: Domain size must be 2 - skipping computations
+linkage_13: Domain size must be 2 - skipping computations
+linkage_14: Domain size must be 2 - skipping computations
+linkage_15: Domain size must be 2 - skipping computations
+linkage_16: Domain size must be 2 - skipping computations
+linkage_17: Domain size must be 2 - skipping computations
+linkage_18: Domain size must be 2 - skipping computations
+linkage_19: Domain size must be 2 - skipping computations
+linkage_20: Domain size must be 2 - skipping computations
+linkage_21: Domain size must be 2 - skipping computations
+linkage_22: Domain size must be 2 - skipping computations
+linkage_23: Domain size must be 2 - skipping computations
+linkage_24: Domain size must be 2 - skipping computations
+linkage_25: Domain size must be 2 - skipping computations
+linkage_26: Domain size must be 2 - skipping computations
+linkage_27: Domain size must be 2 - skipping computations
+log-1.cnf nodes:  939
+log-2.cnf: Graph is not connected - skipping computations
+log-3.cnf: Graph is not connected - skipping computations
+log-4.cnf: Graph is not connected - skipping computations
+log-5.cnf: Graph is not connected - skipping computations
+logistics.a.cnf nodes:  828
+logistics.b.cnf: Graph is not connected - skipping computations
+logistics.c.cnf nodes:  1141
+ObjectDetection_11: Domain size must be 2 - skipping computations
+ObjectDetection_12: Domain size must be 2 - skipping computations
+ObjectDetection_13: Domain size must be 2 - skipping computations
+ObjectDetection_14: Domain size must be 2 - skipping computations
+ObjectDetection_15: Domain size must be 2 - skipping computations
+ObjectDetection_16: Domain size must be 2 - skipping computations
+ObjectDetection_17: Domain size must be 2 - skipping computations
+ObjectDetection_18: Domain size must be 2 - skipping computations
+ObjectDetection_19: Domain size must be 2 - skipping computations
+ObjectDetection_20: Domain size must be 2 - skipping computations
+ObjectDetection_21: Domain size must be 2 - skipping computations
+ObjectDetection_22: Domain size must be 2 - skipping computations
+ObjectDetection_23: Domain size must be 2 - skipping computations
+ObjectDetection_24: Domain size must be 2 - skipping computations
+ObjectDetection_25: Domain size must be 2 - skipping computations
+ObjectDetection_26: Domain size must be 2 - skipping computations
+ObjectDetection_27: Domain size must be 2 - skipping computations
+ObjectDetection_28: Domain size must be 2 - skipping computations
+ObjectDetection_29: Domain size must be 2 - skipping computations
+ObjectDetection_30: Domain size must be 2 - skipping computations
+ObjectDetection_31: Domain size must be 2 - skipping computations
+ObjectDetection_32: Domain size must be 2 - skipping computations
+ObjectDetection_33: Domain size must be 2 - skipping computations
+ObjectDetection_34: Domain size must be 2 - skipping computations
+ObjectDetection_35: Domain size must be 2 - skipping computations
+ObjectDetection_36: Domain size must be 2 - skipping computations
+ObjectDetection_37: Domain size must be 2 - skipping computations
+ObjectDetection_38: Domain size must be 2 - skipping computations
+ObjectDetection_39: Domain size must be 2 - skipping computations
+ObjectDetection_40: Domain size must be 2 - skipping computations
+ObjectDetection_41: Domain size must be 2 - skipping computations
+ObjectDetection_42: Domain size must be 2 - skipping computations
+ObjectDetection_43: Domain size must be 2 - skipping computations
+ObjectDetection_44: Domain size must be 2 - skipping computations
+ObjectDetection_45: Domain size must be 2 - skipping computations
+ObjectDetection_46: Domain size must be 2 - skipping computations
+ObjectDetection_47: Domain size must be 2 - skipping computations
+ObjectDetection_48: Domain size must be 2 - skipping computations
+ObjectDetection_49: Domain size must be 2 - skipping computations
+ObjectDetection_50: Domain size must be 2 - skipping computations
+ObjectDetection_51: Domain size must be 2 - skipping computations
+ObjectDetection_52: Domain size must be 2 - skipping computations
+ObjectDetection_53: Domain size must be 2 - skipping computations
+ObjectDetection_54: Domain size must be 2 - skipping computations
+ObjectDetection_55: Domain size must be 2 - skipping computations
+ObjectDetection_56: Domain size must be 2 - skipping computations
+ObjectDetection_57: Domain size must be 2 - skipping computations
+ObjectDetection_58: Domain size must be 2 - skipping computations
+ObjectDetection_59: Domain size must be 2 - skipping computations
+ObjectDetection_60: Domain size must be 2 - skipping computations
+ObjectDetection_61: Domain size must be 2 - skipping computations
+ObjectDetection_62: Domain size must be 2 - skipping computations
+ObjectDetection_63: Domain size must be 2 - skipping computations
+ObjectDetection_64: Domain size must be 2 - skipping computations
+ObjectDetection_65: Domain size must be 2 - skipping computations
+ObjectDetection_66: Domain size must be 2 - skipping computations
+ObjectDetection_67: Domain size must be 2 - skipping computations
+ObjectDetection_68: Domain size must be 2 - skipping computations
+ObjectDetection_69: Domain size must be 2 - skipping computations
+ObjectDetection_70: Domain size must be 2 - skipping computations
+ObjectDetection_71: Domain size must be 2 - skipping computations
+ObjectDetection_72: Domain size must be 2 - skipping computations
+ObjectDetection_73: Domain size must be 2 - skipping computations
+ObjectDetection_74: Domain size must be 2 - skipping computations
+ObjectDetection_75: Domain size must be 2 - skipping computations
+Pedigree_11: Domain size must be 2 - skipping computations
+Pedigree_12: Domain size must be 2 - skipping computations
+Pedigree_13: Domain size must be 2 - skipping computations
+prob001.pddl.cnf: Graph is not connected - skipping computations
+prob002.pddl.cnf: Graph is not connected - skipping computations
+prob003.pddl.cnf: Graph is not connected - skipping computations
+prob004.pddl.cnf: Graph is not connected - skipping computations
+prob005.pddl.cnf: Graph is not connected - skipping computations
+prob012.pddl.cnf: Graph is not connected - skipping computations
+Promedus_11 nodes:  461
+Promedus_12 nodes:  534
+Promedus_13 nodes:  894
+Promedus_14: Graph is not connected - skipping computations
+Promedus_15: Graph is not connected - skipping computations
+Promedus_16: Graph is not connected - skipping computations
+Promedus_17 nodes:  916
+Promedus_18 nodes:  374
+Promedus_19 nodes:  624
+Promedus_20 nodes:  546
+Promedus_21: Graph is not connected - skipping computations
+Promedus_22 nodes:  400
+Promedus_23: Graph is not connected - skipping computations
+Promedus_24: Graph is not connected - skipping computations
+Promedus_25: Graph is not connected - skipping computations
+Promedus_26: Graph is not connected - skipping computations
+Promedus_27: Graph is not connected - skipping computations
+Promedus_28 nodes:  463
+Promedus_29: Graph is not connected - skipping computations
+Promedus_30: Graph is not connected - skipping computations
+Promedus_31 nodes:  466
+Promedus_32 nodes:  511
+Promedus_33 nodes:  378
+Promedus_34 nodes:  415
+Promedus_35 nodes:  467
+Promedus_36 nodes:  467
+Promedus_37 nodes:  1039
+Promedus_38 nodes:  668
+ra.cnf nodes:  1236
+rb.cnf: Graph is not connected - skipping computations
+rc.cnf: Graph is not connected - skipping computations
+Segmentation_11: Graph is not connected - skipping computations
+Segmentation_12: Graph is not connected - skipping computations
+Segmentation_13: Graph is not connected - skipping computations
+Segmentation_14: Graph is not connected - skipping computations
+Segmentation_15: Graph is not connected - skipping computations
+Segmentation_16: Graph is not connected - skipping computations
