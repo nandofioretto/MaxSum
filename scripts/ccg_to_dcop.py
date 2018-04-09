@@ -325,5 +325,6 @@ if __name__ == '__main__':
 
         dcopgen.create_xml_instance("ccg_dcop", agts, vars, doms, cons, outfile + "_dcop.xml")
         dcopgen.create_wcsp_instance("ccg_dcop", agts, vars, doms, cons, outfile + "_dcop.wcsp")
-        dcopgen.create_json_instance("ccg_dcop", agts, vars, doms, cons, outfile + "_dcop.json")
+        #dcopgen.create_json_instance("ccg_dcop", agts, vars, doms, cons,
+        # outfile + "_dcop.json")
 

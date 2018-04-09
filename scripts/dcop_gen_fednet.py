@@ -49,7 +49,7 @@ def construct_federated_graph(n, Gsf, seed=123):
                 G.add_edge(_u, _v)
     return G
 
-def generate(G : nx.Graph, dsize = 2, cost_range=(0, 10), def_cost = 0, int_cost=True, outfile='') :
+def generate(G : nx.Graph, dsize = 2, cost_range=(0, 10), def_cost = 0) :
     agts = {}
     vars = {}
     doms = {'0': list(range(0, dsize))}
@@ -65,15 +65,23 @@ def generate(G : nx.Graph, dsize = 2, cost_range=(0, 10), def_cost = 0, int_cost
     cid = 0
     for e in G.edges():
         arity = len(e)
-        cons[str(cid)] = {'arity': arity, 'def_cost': def_cost, 'scope': [str(x) for x in e], 'values': []}
+        cons[str(cid)] = {'arity': arity, 'def_cost': def_cost, 'scope': [
+            str(x) for x in e], 'values': []}
 
         u, v = e[0], e[1]
         cons[str(cid)]['values'].append({'tuple': [0,0], 'cost': 0})
         cons[str(cid)]['values'].append({'tuple': [0,1], 'cost': 0})
         cons[str(cid)]['values'].append({'tuple': [1,0], 'cost': 0})
-        cons[str(cid)]['values'].append({'tuple': [1,1], 'cost': cost_b[u] + cost_b[v]})
+        cons[str(cid)]['values'].append({'tuple': [1,1], 'cost': cost_b[u] +
+                                                                 cost_b[v]})
         cid += 1
 
+    for n in G.nodes():
+        cons[str(cid)] = {'arity': 1, 'def_cost': def_cost, 'scope':
+            [str(n)], 'values': []}
+        cons[str(cid)]['values'].append({'tuple': [0], 'cost': cost_s[n]})
+        cons[str(cid)]['values'].append({'tuple': [1], 'cost': 0})
+        cid += 1
 
     return agts, vars, doms, cons
 

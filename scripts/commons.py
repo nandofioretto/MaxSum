@@ -13,7 +13,7 @@ def makedir(path):
     return res
 
 
-def load_json_file(json_file: str) -> object:
+def load_json_file(json_file):
     """ Loads a json file into a dictionary
     :rtype: dict
     """
@@ -22,7 +22,7 @@ def load_json_file(json_file: str) -> object:
     return data
 
 
-def save_json_path_file(path: str, filename: str, data: dict):
+def save_json_path_file(path, filename, data):
     """ Write a dictionary as a json file """
     makedir(path)
     if not path.endswith('/'):
@@ -32,7 +32,7 @@ def save_json_path_file(path: str, filename: str, data: dict):
         json.dump(data, outfile, indent=2)
 
 
-def save_json_file(pathfile: str, data: dict):
+def save_json_file(pathfile, data):
     """ Write a dictionary as a json file """
     path, filename = os.path.split(pathfile)
     save_json_path_file(path, filename, data)
