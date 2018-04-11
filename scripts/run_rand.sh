@@ -11,6 +11,16 @@ scripts_path=${dcop_path}"scripts/"
 # Create instance
 #######################
 
+# Twitter
+if [ "$exp" == "tweet" ]; then
+    for n in 100 500 1000; do # 100 500 1000; do
+        for i in {0..9}; do
+            echo "running Twitter $n $i"
+            ${scripts_path}/exe_ccg_tweet.sh $n $i > $data_path/"out/tweeter/out_${n}_${i}.out"
+        done
+    done
+fi
+
 # Grid
 if [ "$exp" == "grid" ]; then
     for n in 5 10 15 20 25; do

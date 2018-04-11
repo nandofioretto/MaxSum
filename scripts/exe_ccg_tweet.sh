@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-prefix=$1
-size=$2
-rep=$3
+size=$1
+rep=$2
 
 # Paths
 dcop_path="/home/fioretto/Repos/MaxSum/"
@@ -17,7 +16,7 @@ pipeline_path=${scripts_path}"code/"
 ccg_solver=${pipeline_path}"wcsp-damping"
 
 data_path=${dcop_path}"scripts/data/"
-file_name="tweet_graph"
+file_name="tweet_graph_"${size}"_"${rep}
 
 #######################
 # Convert WCSP to CCG
