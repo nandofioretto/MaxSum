@@ -8,7 +8,7 @@ dcop_path="/home/fioretto/Repos/MaxSum/"
 scripts_path=${dcop_path}"scripts/"
 
 # Exe
-ccg_maker=${scripts_path}"wcsp"
+ccg_maker=${scripts_path}"code/wcsp"
 dcop_gen=${scripts_path}"dcop_gen_rand.py"
 dcop_gen_sf=${scripts_path}"dcop_gen_scalefree.py"
 dcop_gen_grid=${scripts_path}"dcop_gen_grid.py"
@@ -16,10 +16,10 @@ dcop_gen_grid=${scripts_path}"dcop_gen_grid.py"
 ccg_to_dcop=${scripts_path}"ccg_to_dcop.py"
 dcop_stats=${scripts_path}"postprocess_ccg.py"
 pipeline_path=${scripts_path}"code/"
-ccg_solver=${pipeline_path}"wcsp-dumping"
+ccg_solver=${pipeline_path}"wcsp-damping"
 
 
-data_path=${dcop_path}"data/$prefix/"
+data_path=${scripts_path}"data/$prefix/"
 file_name=${prefix}_${size}_${rep}
 
 # taskset 0x1 java -jar ${dcop_path}ccg_dcop_jar/ccg_dcop.jar ${data_path}${file}"_ccg.json" -a CCG -i ${ITERS} -o ${data_path}${file}"_stats.json"
@@ -39,12 +39,12 @@ file_name=${prefix}_${size}_${rep}
 #######################
 # Convert WCSP to CCG
 #######################
-echo "Converting WCSP to CCG"
-start_time=$(date +%s.%N)
-    $ccg_maker -K ${data_path}${file_name}".wcsp" -c ${data_path}${file_name}".ccg" > /dev/null 2>&1
-    out_val=$(python $ccg_to_dcop -i ${data_path}${file_name}".ccg" -o ${data_path}${file_name}"_ccg")
-    dur=$(echo "$(date +%s.%N) - $start_time" | bc)
-printf "GGC computation time: %.4f seconds\n" $dur
+#echo "Converting WCSP to CCG"
+#start_time=$(date +%s.%N)
+#    $ccg_maker -K ${data_path}${file_name}".wcsp" -c ${data_path}${file_name}".ccg" > /dev/null 2>&1
+#    out_val=$(python $ccg_to_dcop -i ${data_path}${file_name}".ccg" -o ${data_path}${file_name}"_ccg")
+#    dur=$(echo "$(date +%s.%N) - $start_time" | bc)
+#printf "GGC computation time: %.4f seconds\n" $dur
 
 #######################
 # Solve CCG-DCOP
@@ -72,17 +72,17 @@ start_time=$(date +%s.%N)
     dur=$(echo "$(date +%s.%N) - $start_time" | bc)
 printf "%.2f seconds\n" $dur
 
-# echo "wcsp with BP on CCG problem + Kernelization "
-# start_time=$(date +%s.%N)
-#     $ccg_solver -m m -t 600 ${data_path}${file_name}.wcsp
-#     dur=$(echo "$(date +%s.%N) - $start_time" | bc)
-# printf "%.2f seconds\n" $dur
+ echo "wcsp with BP on CCG problem + Kernelization "
+ start_time=$(date +%s.%N)
+     $ccg_solver -m m -t 600 ${data_path}${file_name}.wcsp
+     dur=$(echo "$(date +%s.%N) - $start_time" | bc)
+ printf "%.2f seconds\n" $dur
 
-# echo "wcsp with BP on CCG problem  (No KERNELIZATION) "
-# start_time=$(date +%s.%N)
-#     $ccg_solver -m m -k -t 600 ${data_path}${file_name}.wcsp
-#     dur=$(echo "$(date +%s.%N) - $start_time" | bc)
-# printf "%.2f seconds\n" $dur
+ echo "wcsp with BP on CCG problem  (No KERNELIZATION) "
+ start_time=$(date +%s.%N)
+     $ccg_solver -m m -k -t 600 ${data_path}${file_name}.wcsp
+     dur=$(echo "$(date +%s.%N) - $start_time" | bc)
+ printf "%.2f seconds\n" $dur
 
 echo "DCOP on CCG with Kernelization: "
 start_time=$(date +%s.%N)
@@ -106,11 +106,10 @@ printf "%.2f seconds\n" $dur
 #######################
 # Solve MaxSum
 #######################
-# echo "MaxSum (FRODO) on original graph "
-
+# echo "MaxSum (FRODO)"
 # start_time=$(date +%s.%N)
-#     taskset 0x1 ${pipeline_path}maxSumPipeline.sh ${data_path}${file_name}
-#     dur=$(echo "$(date +%s.%N) - $start_time" | bc)
+#  taskset 0x1 ${pipeline_path}maxSumPipeline.sh ${data_path}${file_name}
+#  dur=$(echo "$(date +%s.%N) - $start_time" | bc)
 # printf "%.2f seconds\n" $dur
 
 #echo "MaxSum (FRODO) on CCG "

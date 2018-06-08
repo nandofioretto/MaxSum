@@ -72,7 +72,7 @@ def main(argv):
 
     for opt, arg in opts:
         if opt in ('-h', '--help'):
-            print('main.py -i <inputfile> -o <outputfile>')w
+            print('main.py -i <inputfile> -o <outputfile>')
             sys.exit()
         elif opt in ('-a', '--agts'):
             agts = int(arg)
@@ -94,7 +94,7 @@ def main(argv):
 if __name__ == '__main__':
     nagts, dsize, p1, maxarity, maxcost, name, outfile = main(sys.argv[1:])
 
-    agts, vars, doms, cons = generate(nagts=nagts, dsize=dsize, p1=p1, p2=0.99,
+    agts, vars, doms, cons = generate(nagts=nagts, dsize=dsize, p1=p1, p2=1.0,
                                       cost_range=(0,maxcost),
                                       max_arity=maxarity, def_cost=0)
 

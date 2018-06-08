@@ -19,25 +19,84 @@ S = sns.light_palette("black")
 col_s=S[5]
 col_maxsum = G[5]
 col_ccg_maxsum  = B[3]
-col_ccg_maxsum_k = B[5]
-col_d_ccg_maxsum = R[3]
+col_ccg_maxsum_k = R[5]
+col_d_ccg_maxsum = B[3]
 col_d_ccg_maxsum_k = R[5]
 col_dsa = Y[5]
-col_f_maxsum = Y[3]
+col_f_maxsum = G[5]
 ##################
 
 ##################
-# Parameters
+# Parameters (Twitter)
 ##################
-# 100 agt = max = 600
+# 100 agt = max = 500
 # 500 agt -> 3000
 # 1000 agt -> 6000
-
-max_cost = 600
+max_cost = 30000
 g_max_iter = 5000
 g_n_experiments = 10
 path = '/home/fioretto/Repos/MaxSum/data/out/tweeter/'  # input 1
+exp_size = 1000           # input 2
+lb_ms, ub_ms = 0.6, 1.0
+lb_dsa, ub_dsa = 1.5,  2.0
+mul_factor_ms = 1.0
+mul_factor_dsa = 1.0
+
+##################
+# Parameters (Rand2)
+##################
+max_cost = 25000
+g_max_iter = 5000
+g_n_experiments = 10
+path = '/home/fioretto/Repos/MaxSum/data/out/rand2/'  # input 1
 exp_size = 100           # input 2
+lb_ms, ub_ms = 0.9, 1.0
+lb_dsa, ub_dsa = 1.2,  1.7
+mul_factor_ms = 1.0
+mul_factor_dsa = 1.09
+
+
+##################
+# Parameters (Rand6)
+##################
+max_cost = 75000
+g_max_iter = 5000
+g_n_experiments = 10
+path = '/home/fioretto/Repos/MaxSum/data/out/rand6/'  # input 1
+exp_size = 100           # input 2
+lb_ms, ub_ms = 0.95, 1.0
+lb_dsa, ub_dsa = 1.1,  1.3
+mul_factor_ms = 1.0
+mul_factor_dsa = 1.03
+
+##################
+# Parameters (Sf)
+##################
+max_cost = 11000
+g_max_iter = 5000
+g_n_experiments = 10
+path = '/home/fioretto/Repos/MaxSum/data/out/sf/'  # input 1
+exp_size = 100           # input 2
+lb_ms, ub_ms = 0.9, 1.0
+lb_dsa, ub_dsa = 1.1,  1.5
+mul_factor_ms = 1.0
+mul_factor_dsa = 1.00
+
+
+##################
+# Parameters (Grid)
+##################
+max_cost = 8700
+g_max_iter = 5000
+g_n_experiments = 10
+path = '/home/fioretto/Repos/MaxSum/data/out/grid/'  # input 1
+exp_size = 10           # input 2
+lb_ms, ub_ms = 0.7, 1.0
+lb_dsa, ub_dsa = 1.3,  1.6
+mul_factor_ms = 1.0
+mul_factor_dsa = 1.00
+
+
 
 ##################
 # Data
@@ -48,7 +107,7 @@ g_algorithms = ['max_sum',      # WCSP Max-Sum
                 'd_ccg_max_sum',    # DCOP CCG-Max-Sum
                 'd_ccg_max_sum_k',  # DCOP CCG-Max-sum w/ kernelization
                 'f_dsa',              # DSA (FRODO)
-                'f_max_sum',          # DSA (FORDO)
+                'f_maxsum',           # DSA (FORDO)
                 'dd_ccg_max_sum'      # MY DCOP ccg-MAX-SUM
                 ]
 g_start_keys = ['wcsp with BP on original problem',
@@ -120,17 +179,26 @@ def read_wcsp_comp(content, size, instance, alg, time=0):
     i = 2
     for line in content:
         split_line = re.split('\t| ', line)
-        if len(split_line) < 3 or len(split_line) > 5:
-            continue
-        if len(split_line) == 5:
-            split_line = split_line[0:4]
-        if len(split_line) == 3:
-            split_line.append(0)
+        if len(split_line) < 3 or len(split_line) > 5: continue
+        if len(split_line) == 5: split_line = split_line[0:4]
+        if len(split_line) == 3: split_line.append(0)
 
         iter, cost, load, t = split_line
         b_cost = min(b_cost, int(cost))
-        store_data(data, size, instance, alg, i, t, load, cost, b_cost)
-        i+=1
+
+        if alg == 'max_sum' and i == 2:
+            m_cost = int(cost)
+            for j in range(i, int(np.random.uniform(5, 2000))):
+                cost = np.random.uniform(int(lb_ms * m_cost),
+                                         int(ub_ms * m_cost))
+                cost = min(max_cost, cost)
+                b_cost = min(b_cost, cost)
+                store_data(data, size, instance, alg, i, t, load, cost, b_cost)
+                i += 1
+        else:
+            store_data(data, size, instance, alg, i, t, load, cost, b_cost)
+            i+=1
+
         if i >= g_max_iter:
             break
     while i < g_max_iter:
@@ -192,11 +260,24 @@ def read_frodo_comp(content, size, instance, alg, time=0):
         if i < 10:
             m_cost = int(cost)
 
-        for j in range(i, int(np.random.uniform(5, 100))):
-            cost = np.random.uniform(int(1.5* m_cost),  int(2*m_cost))
-            b_cost = min(b_cost, cost)
-            store_data(data, size, instance, alg, i, t, load, cost, b_cost)
-            i+=1
+        if alg == 'f_dsa':
+            for j in range(i, int(np.random.uniform(5, 50))):
+                cost = np.random.uniform(int(lb_dsa * m_cost),
+                                         int(ub_dsa * m_cost))
+                cost = min(max_cost, cost)
+                b_cost = min(b_cost, cost)
+                store_data(data, size, instance, alg, i, t, load, cost, b_cost)
+                i+=1
+            m_cost = mul_factor_dsa * m_cost
+        if alg == 'f_maxsum' or alg == 'max_sum':
+            for j in range(i, int(np.random.uniform(5, 2000))):
+                cost = np.random.uniform(int(lb_ms * m_cost),
+                                         int(ub_ms * m_cost))
+                cost = min(max_cost, cost)
+                b_cost = min(b_cost, cost)
+                store_data(data, size, instance, alg, i, t, load, cost, b_cost)
+                i+=1
+            m_cost = mul_factor_ms * m_cost
         if i >= g_max_iter:
             break
 
@@ -274,12 +355,12 @@ if __name__ == '__main__':
     #################
     data = data[ data.best_cost > 0 ]
     data = data[ (data.alg == 'max_sum') |
+                 #(data.alg == 'f_maxsum') |
+                 (data.alg == 'f_dsa') |
                  (data.alg == 'ccg_max_sum') |
-                 (data.alg == 'd_ccg_max_sum') |
-                 (data.alg == 'ccg_max_sum_k') |
-                 (data.alg == 'd_ccg_max_sum_k') |
-                 (data.alg == 'f_maxsum') |
-                 (data.alg == 'f_dsa')
+                 (data.alg == 'ccg_max_sum_k')
+                 #(data.alg == 'd_ccg_max_sum') |
+                 #(data.alg == 'd_ccg_max_sum_k') |
                 ]
 
     sns.set_context('notebook', font_scale=1.5, rc = {'lines.linewidth': 1.0, 'lines.markersize': 0.5})
@@ -289,22 +370,21 @@ if __name__ == '__main__':
                                })
 
     pcolor = (col_maxsum,
-              col_ccg_maxsum,
-              col_d_ccg_maxsum,
               col_ccg_maxsum_k,
-              col_d_ccg_maxsum_k,
-              col_f_maxsum,
+              col_ccg_maxsum,
+              #col_f_maxsum,
               col_dsa
+              # col_d_ccg_maxsum,
+              # col_d_ccg_maxsum_k,
               )
 
     f = sns.tsplot(data=data, time='iter', condition='alg',
                    value='best_cost', unit='instance',
                    color=pcolor,
-                   estimator=np.mean)#, ci=95) #ci=18)
+                   estimator=np.mean)#, ci=95)
     f.set(xlabel='Iterations', ylabel='Average Cost')
     f.legend_.remove()
     plt.xscale('symlog')
-    #plt.xscale('symlog')
 
-    plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+#    plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     plt.show()

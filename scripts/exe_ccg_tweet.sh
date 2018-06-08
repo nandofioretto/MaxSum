@@ -76,11 +76,11 @@ start_time=$(date +%s.%N)
 	dur=$(echo "$(date +%s.%N) - $start_time" | bc)
 printf "%.2f seconds\n" $dur
 
-echo "wcsp with LP: "
-start_time=$(date +%s.%N)
-	$ccg_solver -m l ${data_path}${file_name}.wcsp | egrep "value|best"
-	dur=$(echo "$(date +%s.%N) - $start_time" | bc)
-printf "%.2f seconds\n" $dur
+#echo "wcsp with LP: "
+#start_time=$(date +%s.%N)
+#	$ccg_solver -m l ${data_path}${file_name}.wcsp | egrep "value|best"
+#	dur=$(echo "$(date +%s.%N) - $start_time" | bc)
+#printf "%.2f seconds\n" $dur
 
 #######################
 # Solve MaxSum
